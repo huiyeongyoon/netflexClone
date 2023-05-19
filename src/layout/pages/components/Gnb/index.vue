@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <style lang="scss" scoped>
   a {
     font-weight: 500;
@@ -57,51 +56,10 @@
           color: #fff;
           margin: 0 15px 0 0;
         }
-=======
-<template lang="pug">
-.globalNav
-  .logoBox
-    img(src="@/assets/images/logo-eng-b@3x.png") 
-  .optionBox
-    span KR
-    mdicon(name="help-circle-outline" size="30")
-    mdicon(name="account-circle" size="30")
-</template>
-
-<script></script>
-<style lang="scss" scoped>
-  .globalNav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    background-color: #fff;
-    height: 65px;
-    width: 100%;
-    z-index: 10000;
-    .logoBox {
-      display: flex;
-      align-items: center;
-      height: inherit;
-      padding: 0 0 0 30px;
-      img {
-        width: 130px;
-        height: 37px;
-      }
-    }
-    .optionBox {
-      span {
-        margin: 0 7px;
-        font-size: 20px;
-        font-weight: bold;
-        color: #909399;
->>>>>>> fa0b73bc7be1d990081570065eef96f8eadbd8d5
       }
     }
   }
 </style>
-<<<<<<< HEAD
 
 <template lang="pug">
   header
@@ -134,5 +92,3 @@
     },
   }
 </script>
-=======
->>>>>>> fa0b73bc7be1d990081570065eef96f8eadbd8d5

@@ -10,27 +10,11 @@ export const constantRoutes = _.concat(
   {
     path: "/",
     component: Layout,
-<<<<<<< HEAD
     redirect: "/",
     children: [
       {
         path: "/",
         component: () => import("@/views/pages"),
-=======
-    redirect: "/dashboard",
-    children: [
-      {
-        path: "/dashboard",
-        component: () => import("@/views/pages/dashboard"),
-      },
-      // {
-      //   path: "/userManagement",
-      //   component: () => import("@/views/pages/userManagement"),
-      // },
-      {
-        path: "/newUser",
-        component: () => import("@/views/pages/newUser"),
->>>>>>> fa0b73bc7be1d990081570065eef96f8eadbd8d5
       },
     ],
   },
