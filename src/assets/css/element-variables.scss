@@ -1,0 +1,127 @@
+/**
+* I think element-ui's default theme color is too light for long-term use.
+* So I modified the default color and you can modify it to your liking.
+**/
+
+/* theme color */
+$--color-primary: #007acc;
+$--color-success: #00cf53;
+$--color-warning: #ffba00;
+$--color-danger: #e35b0a;
+$--color-info: #909399;
+$--color-info2: #606266;
+// $--color-info: #1E1E1E;
+
+$--button-font-weight: 400;
+
+// $--color-text-regular: #1f2d3d;
+
+$--border-color-light: #dfe4ed;
+$--border-color-lighter: #e6ebf5;
+
+$--table-border: 1px solid #dfe6ec;
+
+/* icon font path, required */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+@import '~element-ui/packages/theme-chalk/src/index';
+
+// the :export directive is the magic sauce for webpack
+// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
+:export {
+  theme: $--color-primary;
+}
+
+.el-radio__input.is-checked + .el-radio__label {
+  color: #303133;
+}
+.el-radio__input.is-checked .el-radio__inner {
+  border-color: #303133;
+  background: #303133;
+}
+
+.el-checkbox__input.is-checked + .el-checkbox__label {
+  color: #303133;
+}
+.el-checkbox__input.is-checked .el-checkbox__inner {
+  border-color: #303133;
+  background: #303133;
+}
+
+.el-button--primary.is-plain,
+.el-button--success.is-plain,
+.el-button--info.is-plain,
+.el-button--warning.is-plain,
+.el-button--danger.is-plain {
+  border: 2px solid;
+  border-radius: 6px;
+  background-color: #fff;
+  padding: 9px 20px;
+  font-weight: bold;
+}
+
+.el-button.mdicon {
+  padding: 8px 20px 6px 20px;
+}
+
+.txt-primary {
+  color: $--color-primary;
+}
+.txt-success {
+  color: $--color-success;
+}
+.txt-warning {
+  color: $--color-warning;
+}
+.txt-danger {
+  color: $--color-danger;
+}
+.txt-info {
+  color: $--color-info;
+}
+.txt-info2 {
+  color: $--color-info2;
+}
+.txt-gray {
+  color: #303133;
+}
+
+[class*='box-status'] {
+  display: inline-block;
+  min-width: 60px;
+  height: 26px;
+  padding: 0 5px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 24px;
+  box-sizing: border-box;
+  &.box-status {
+    &-primary {
+      color: $--color-primary;
+    }
+    &-info {
+      color: $--color-info;
+    }
+    &-danger {
+      color: $--color-danger;
+    }
+    &-dormant {
+      color: #c0c4cc;
+    }
+    &-out {
+      color: #303133;
+    }
+  }
+  .mdi + span {
+    margin-left: 3px;
+  }
+}
+
+.el-button--info2 {
+  color: #fff;
+  background-color: $--color-info2;
+  border-color: $--color-info2;
+}
