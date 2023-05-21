@@ -35,6 +35,7 @@
     "vue-lodash": "^2.1.2",
     "vue-material-design-icons": "^5.2.0",
     "vue-moment": "^4.1.0",
+    "vue-renderless-carousel": "^1.3.1",
     "vue-router": "^3.5.2",
     "vuedraggable": "^2.24.3",
     "vuex": "^3.6.2",

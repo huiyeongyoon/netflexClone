@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <style lang="scss" scoped>
   a {
     font-weight: 500;
@@ -49,6 +48,12 @@
       }
     }
     .userInfoInfoArea {
+      position: relative;
+      .icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 5px;
+      }
       ul {
         display: flex;
         align-items: center;
@@ -56,52 +61,52 @@
           list-style: none;
           color: #fff;
           margin: 0 15px 0 0;
+          a {
+            position: relative;
+            display: flex;
+            align-items: center;
+          }
         }
-=======
-<template lang="pug">
-.globalNav
-  .logoBox
-    img(src="@/assets/images/logo-eng-b@3x.png") 
-  .optionBox
-    span KR
-    mdicon(name="help-circle-outline" size="30")
-    mdicon(name="account-circle" size="30")
-</template>
-
-<script></script>
-<style lang="scss" scoped>
-  .globalNav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    background-color: #fff;
-    height: 65px;
-    width: 100%;
-    z-index: 10000;
-    .logoBox {
-      display: flex;
-      align-items: center;
-      height: inherit;
-      padding: 0 0 0 30px;
-      img {
-        width: 130px;
-        height: 37px;
-      }
-    }
-    .optionBox {
-      span {
-        margin: 0 7px;
-        font-size: 20px;
-        font-weight: bold;
-        color: #909399;
->>>>>>> fa0b73bc7be1d990081570065eef96f8eadbd8d5
       }
     }
   }
+  .card {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 62px;
+    left: -50px;
+    width: 210px;
+    padding: 15px 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    font-size: 13px;
+    .box {
+      opacity: 1;
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      .icon {
+        margin-right: 10px;
+      }
+      .mdi {
+        margin-right: 10px;
+      }
+      span {
+        color: #fff;
+      }
+    }
+    .box:nth-last-child(2) {
+      margin: 0;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #fff;
+    }
+    .box:last-child {
+      padding-top: 10px;
+      margin-left: 38px;
+      margin-bottom: 10px;
+    }
+  }
 </style>
-<<<<<<< HEAD
 
 <template lang="pug">
   header
@@ -122,17 +127,37 @@
           a(href="javascript:;") 키즈
         li 
           a(href="javascript:;") #[mdicon(name="bell-outline" size="24")]
-        li 
-          a(href="javascript:;") 프로필사진  #[mdicon(name="menu-down" size="24") ]
+        li(@mouseover='profileDetail = true' @mouseleave='profileDetail = false')
+          a(href="javascript:;") #[img.icon(src="@/assets/images/profile.jpg")]  #[mdicon(name="menu-down" size="24") ]
+      .card(v-show='profileDetail')
+        .box
+          img.icon(src="@/assets/images/profile.jpg")
+          span 게스트1
+        .box
+          img.icon(src="@/assets/images/profile.jpg")
+          span 게스트2
+        .box
+          mdicon(name="PencilCircleOutline" size="28")
+          span 프로필 관리
+        .box
+          mdicon(name="FaceMan" size="28")
+          span 프로필 이전
+        .box
+          mdicon(name="AccountOutline" size="28")
+          span 계정
+        .box
+          mdicon(name="ChatQuestionOutline" size="28")
+          span 고객센터
+        .box
+          span 넷플릭스에서 로그아웃
 </template>
 <script>
   export default {
     data() {
       return {
         categories: ["홈", "시리즈", "NEW!요즘 대세 콘텐츠", "내가 찜한 콘텐츠", "언어별로 찾아보기"],
+        profileDetail: false,
       }
     },
   }
 </script>
-=======
->>>>>>> fa0b73bc7be1d990081570065eef96f8eadbd8d5
