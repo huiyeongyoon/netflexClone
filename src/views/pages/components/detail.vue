@@ -1,10 +1,8 @@
-<style lang="scss">
+<style lang="scss" scoped>
   .el-dialog {
-    width: 95%;
-    min-height: 80%;
+    width: 50%;
     margin-top: 10vh;
     background-color: #141414;
-
     .el-dialog__header {
       padding: 0;
       .el-dialog__close {

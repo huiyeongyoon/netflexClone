@@ -1,15 +1,6 @@
 <style lang="scss" scoped>
   .main {
     height: 100%;
-    .focus-wrapper {
-      position: relative;
-      clip: rect(1px, 1px, 1px, 1px) !important;
-      height: 1px !important;
-      overflow: hidden !important;
-      position: absolute !important;
-      white-space: nowrap !important;
-      width: 1px !important;
-    }
     .imageArea {
       position: relative;
       .backgroundImage {
@@ -65,6 +56,7 @@
       }
       .box {
         display: flex;
+        align-items: center;
         position: absolute;
         bottom: 17%;
         right: 0px;
@@ -88,18 +80,15 @@
         }
       }
     }
-    .listArea {
+    .listArea,
+    .topListArea {
       .title {
-        padding: 10px 0 10px 10px;
-      }
-      ul {
-        display: flex;
-        li {
-          margin: 0 5px;
-          border: 3px solid purple;
-          width: 300px;
-          height: 200px;
-        }
+        color: #e5e5e5;
+        display: inline-block;
+        font-size: 1.4vw;
+        font-weight: 500;
+        min-width: 6em;
+        text-decoration: none;
       }
     }
   }
@@ -107,7 +96,6 @@
 
 <template lang="pug">
 .main
-  .focus-wrapper
   .imageArea
     img.backgroundImage(src="@/assets/images/backgroundImage.png")
     .movieInfo
@@ -120,27 +108,16 @@
       mdicon(name="Replay" size="25")  
       .videoOption
         span.txt 18
+  .topListArea
+    h3.title 오늘 대한민국의 TOP10 시리즈
+    Carouscel-Component(:datas='form2')
   .listArea
     h3.title 드라마
-      Carouscel-Component(:datas='form')
+    Carouscel-Component(:datas='form')
+  .listArea
+    h3.title 지금 뜨는 콘텐츠
+    Carouscel-Component(:datas='form')
   Detail(:visible="visible" :selected="selected")
-
-
-  //- .listArea
-  //-   h3.title 드라마
-  //-   ul
-  //-     li 영화 리스트
-  //-     li 영화 리스트
-  //-     li 영화 리스트
-  //- .listArea
-  //-   h3.title 드라마
-  //-   ul
-  //-     li 영화 리스트
-  //-     li 영화 리스트
-  //-     li 영화 리스트
-  
-  
-
 </template>
 
 <script>
@@ -157,7 +134,7 @@
         form: [
           {
             title: "피지컬100",
-            ranking: 1,
+            ranking: 12,
             sugesstion: "82%",
             season: 1,
             stroy: 12,
@@ -170,7 +147,7 @@
           },
           {
             title: "나쁜엄마",
-            ranking: 2,
+            ranking: 22,
             sugesstion: "82%",
             season: 1,
             stroy: 12,
@@ -183,7 +160,7 @@
           },
           {
             title: "김씨네편의점",
-            ranking: 3,
+            ranking: 33,
             sugesstion: "82%",
             season: 1,
             stroy: 12,
@@ -196,7 +173,7 @@
           },
           {
             title: "지옥락",
-            ranking: 4,
+            ranking: 41,
             sugesstion: "82%",
             season: 1,
             stroy: 12,
@@ -209,7 +186,7 @@
           },
           {
             title: "피지컬100",
-            ranking: 1,
+            ranking: 12,
             sugesstion: "82%",
             season: 1,
             stroy: 12,
@@ -222,7 +199,7 @@
           },
           {
             title: "나쁜엄마",
-            ranking: 9,
+            ranking: 94,
             sugesstion: "82%",
             season: 1,
             stroy: 12,
@@ -235,7 +212,7 @@
           },
           {
             title: "김씨네편의점",
-            ranking: 3,
+            ranking: 23,
             sugesstion: "82%",
             season: 1,
             stroy: 12,
@@ -248,7 +225,7 @@
           },
           {
             title: "지옥락",
-            ranking: 4,
+            ranking: 14,
             sugesstion: "82%",
             season: 1,
             stroy: 12,
@@ -261,7 +238,7 @@
           },
           {
             title: "피지컬100",
-            ranking: 1,
+            ranking: 12,
             sugesstion: "82%",
             season: 1,
             stroy: 12,
@@ -274,7 +251,7 @@
           },
           {
             title: "나쁜엄마",
-            ranking: 2,
+            ranking: 23,
             sugesstion: "82%",
             season: 1,
             stroy: 12,
@@ -287,7 +264,7 @@
           },
           {
             title: "김씨네편의점",
-            ranking: 3,
+            ranking: 43,
             sugesstion: "82%",
             season: 1,
             stroy: 12,
@@ -300,7 +277,7 @@
           },
           {
             title: "지옥락",
-            ranking: 4,
+            ranking: 42,
             sugesstion: "82%",
             season: 1,
             stroy: 12,
@@ -313,7 +290,7 @@
           },
           {
             title: "피지컬100",
-            ranking: 1,
+            ranking: 81,
             sugesstion: "82%",
             season: 1,
             stroy: 12,
@@ -326,7 +303,7 @@
           },
           {
             title: "나쁜엄마",
-            ranking: 2,
+            ranking: 62,
             sugesstion: "82%",
             season: 1,
             stroy: 12,
@@ -339,7 +316,7 @@
           },
           {
             title: "김씨네편의점",
-            ranking: 3,
+            ranking: 37,
             sugesstion: "82%",
             season: 1,
             stroy: 12,
@@ -352,7 +329,7 @@
           },
           {
             title: "지옥락",
-            ranking: 4,
+            ranking: 47,
             sugesstion: "82%",
             season: 1,
             stroy: 12,
@@ -361,6 +338,218 @@
             filmRating: 15,
             kind: "힐링",
             image: require("@/assets/images/4.png"),
+            random: 1,
+          },
+        ],
+        form2: [
+          {
+            title: "나쁜엄마",
+            ranking: 1,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/top1.png"),
+            rankingImage: require("@/assets/images/ranking.png"),
+            random: 1,
+          },
+          {
+            title: "택배기사",
+            ranking: 1,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/top2.png"),
+            rankingImage: require("@/assets/images/ranking.png"),
+            random: 1,
+          },
+          {
+            title: "차정숙",
+            ranking: 1,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/top3.png"),
+            rankingImage: require("@/assets/images/ranking.png"),
+            random: 1,
+          },
+          {
+            title: "구미호뎐",
+            ranking: 1,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/top4.png"),
+            rankingImage: require("@/assets/images/ranking.png"),
+            random: 1,
+          },
+          {
+            title: "차정숙",
+            ranking: 1,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/top3.png"),
+            rankingImage: require("@/assets/images/ranking.png"),
+            random: 1,
+          },
+          {
+            title: "구미호뎐",
+            ranking: 1,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/top4.png"),
+            rankingImage: require("@/assets/images/ranking.png"),
+            random: 1,
+          },
+          {
+            title: "차정숙",
+            ranking: 1,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/top3.png"),
+            rankingImage: require("@/assets/images/ranking.png"),
+            random: 1,
+          },
+          {
+            title: "구미호뎐",
+            ranking: 1,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/top4.png"),
+            rankingImage: require("@/assets/images/ranking.png"),
+            random: 1,
+          },
+          {
+            title: "차정숙",
+            ranking: 1,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/top3.png"),
+            rankingImage: require("@/assets/images/ranking.png"),
+            random: 1,
+          },
+          {
+            title: "구미호뎐",
+            ranking: 1,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/top4.png"),
+            rankingImage: require("@/assets/images/ranking.png"),
+            random: 1,
+          },
+          {
+            title: "차정숙",
+            ranking: 1,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/top3.png"),
+            rankingImage: require("@/assets/images/ranking.png"),
+            random: 1,
+          },
+          {
+            title: "구미호뎐",
+            ranking: 1,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/top4.png"),
+            rankingImage: require("@/assets/images/ranking.png"),
+            random: 1,
+          },
+          {
+            title: "차정숙",
+            ranking: 1,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/top3.png"),
+            rankingImage: require("@/assets/images/ranking.png"),
+            random: 1,
+          },
+          {
+            title: "구미호뎐",
+            ranking: 1,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/top4.png"),
+            rankingImage: require("@/assets/images/ranking.png"),
+            random: 1,
+          },
+          {
+            title: "종이달",
+            ranking: 1,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/top5.png"),
+            rankingImage: require("@/assets/images/ranking.png"),
             random: 1,
           },
         ],

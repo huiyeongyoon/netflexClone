@@ -19,17 +19,18 @@
     position: fixed;
     display: flex;
     align-items: center;
+    z-index: 100000;
     justify-content: space-between;
     height: 68px;
     width: calc(100% - 120px);
     padding: 0 60px;
     background-color: #141414;
-    .headerMainArea {
+    .mainArea {
       display: flex;
       align-items: center;
       height: 68px;
-      .logoBox {
-        margin: 5px 25px 0 0;
+      .lgoBox {
+        margin: 5px 20px 0 0;
         img {
           width: 98.5px;
           height: 35px;
@@ -47,20 +48,86 @@
         }
       }
     }
-    .userInfoInfoArea {
+    .userInfoArea {
       position: relative;
       .icon {
         width: 28px;
         height: 28px;
         border-radius: 5px;
       }
-      ul {
+      > ul {
         display: flex;
         align-items: center;
-        li {
+        > li {
           list-style: none;
           color: #fff;
           margin: 0 15px 0 0;
+          &.hoverAlrat {
+            .card {
+              display: none;
+              position: absolute;
+              top: 8px;
+              left: -316px;
+              padding-top: 52px;
+              // background-color: red;
+              ul {
+                width: 400px;
+                min-height: 100px;
+                padding: 10px;
+                background-color: rgba(0, 0, 0, 0.6);
+                font-size: 13px;
+              }
+              li {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100px;
+              }
+            }
+          }
+          &.hoverAlrat:hover {
+            .card {
+              display: block;
+            }
+          }
+          &.hiverProfileIngo {
+            .card {
+              display: none;
+              position: absolute;
+              top: 28px;
+              left: -20px;
+              padding: 15px 10px;
+              padding-top: 30px;
+              // background-color: red;
+              ul {
+                width: 200px;
+                padding: 10px;
+                background-color: rgba(0, 0, 0, 0.6);
+                font-size: 13px;
+              }
+              li {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+                img,
+                .mdi {
+                  margin-right: 15px;
+                }
+                span {
+                  color: #fff;
+                }
+              }
+              .borderLine {
+                border-top: 1px solid hsla(0, 0%, 100%, 0.25);
+                padding: 20px 0 0 0;
+              }
+            }
+          }
+          &.hiverProfileIngo:hover {
+            .card {
+              display: block;
+            }
+          }
           a {
             position: relative;
             display: flex;
@@ -70,94 +137,76 @@
       }
     }
   }
-  .card {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 62px;
-    left: -50px;
-    width: 210px;
-    padding: 15px 10px;
-    background-color: rgba(0, 0, 0, 0.6);
-    font-size: 13px;
-    .box {
-      opacity: 1;
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-      .icon {
-        margin-right: 10px;
-      }
-      .mdi {
-        margin-right: 10px;
-      }
-      span {
-        color: #fff;
-      }
-    }
-    .box:nth-last-child(2) {
-      margin: 0;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #fff;
-    }
-    .box:last-child {
-      padding-top: 10px;
-      margin-left: 38px;
-      margin-bottom: 10px;
-    }
-  }
 </style>
 
 <template lang="pug">
   header
-    .headerMainArea
-      .logoBox
+    .mainArea
+      .lgoBox
         h1
           a(href="/")
             img(src="@/assets/images/logo.png")
       .categoryInfoArea
         ul
-          li(v-for="category in categories") 
-            a(href="javascript:;") {{ category }}
-    .userInfoInfoArea
+          li
+            a(href="javascript:;") 홈
+          li
+            a(href="javascript:;") 시리즈
+          li
+            a(href="javascript:;") NEW!요즘 대세 콘텐츠
+          li
+            a(href="javascript:;") 내가 찜한 콘텐츠
+          li
+            a(href="javascript:;") 언어별로 찾아보기
+    .userInfoArea
       ul
-        li 
-          a(href="javascript:;") #[mdicon(name="magnify" size="24")]
-        li 
+        li
+          a(href="javascript:;") #[mdicon(name="magnify" size="28")]
+        li
           a(href="javascript:;") 키즈
-        li 
-          a(href="javascript:;") #[mdicon(name="bell-outline" size="24")]
-        li(@mouseover='profileDetail = true' @mouseleave='profileDetail = false')
+        li.hoverAlrat
+          a(href="javascript:;") #[mdicon(name="bell-outline" size="28")]
+          .card
+            ul
+              li
+                a
+                  span 최근알림 메시지가 없습니다.
+        li.hiverProfileIngo
           a(href="javascript:;") #[img.icon(src="@/assets/images/profile.jpg")]  #[mdicon(name="menu-down" size="24") ]
-      .card(v-show='profileDetail')
-        .box
-          img.icon(src="@/assets/images/profile.jpg")
-          span 게스트1
-        .box
-          img.icon(src="@/assets/images/profile.jpg")
-          span 게스트2
-        .box
-          mdicon(name="PencilCircleOutline" size="28")
-          span 프로필 관리
-        .box
-          mdicon(name="FaceMan" size="28")
-          span 프로필 이전
-        .box
-          mdicon(name="AccountOutline" size="28")
-          span 계정
-        .box
-          mdicon(name="ChatQuestionOutline" size="28")
-          span 고객센터
-        .box
-          span 넷플릭스에서 로그아웃
+          .card
+            ul
+              li
+                a(href="javascript:;")
+                  img.icon(src="@/assets/images/profile.jpg")
+                  span 게스트1
+              li
+                a(href="javascript:;")
+                  img.icon(src="@/assets/images/profile.jpg")
+                  span 게스트2
+              li
+                a(href="javascript:;")
+                  mdicon(name="PencilCircleOutline" size="28")
+                  span 프로필 관리
+              li
+                a(href="javascript:;")
+                  mdicon(name="FaceMan" size="28")
+                  span 프로필 이전
+              li
+                a(href="javascript:;")
+                  mdicon(name="AccountOutline" size="28")
+                  span 계정
+              li
+                a(href="javascript:;")
+                  mdicon(name="ChatQuestionOutline" size="28")
+                  span 고객센터
+              li.borderLine
+                a(href="javascript:;")
+                  span 넷플릭스에서 로그아웃
 </template>
 <script>
   export default {
     data() {
-      return {
-        categories: ["홈", "시리즈", "NEW!요즘 대세 콘텐츠", "내가 찜한 콘텐츠", "언어별로 찾아보기"],
-        profileDetail: false,
-      }
+      return {}
     },
   }
 </script>

@@ -3,10 +3,10 @@ https://codepen.io/RadDog25/pen/eYNMawe
   $vue-white: #fff;
 
   .card-carousel-wrapper {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
     margin: 20px 0 40px;
   }
 
@@ -22,7 +22,8 @@ https://codepen.io/RadDog25/pen/eYNMawe
   .card-carousel-cards {
     display: flex;
     .card-carousel--card {
-      margin: 0 10px;
+      position: relative;
+      margin: 0 7px 0 0;
       box-shadow: 0 4px 15px 0 rgba(40, 44, 53, 0.06), 0 2px 2px 0 rgba(40, 44, 53, 0.08);
       border-radius: 4px;
       z-index: 3;
@@ -32,13 +33,27 @@ https://codepen.io/RadDog25/pen/eYNMawe
           transform: translateX(-25%);
         }
       }
+      .top10ListNumber {
+        position: absolute;
+        left: 60px;
+        height: 240px;
+        z-index: -1;
+      }
+      .top10List {
+        position: absolute;
+        right: 30px;
+        height: 240px;
+        width: 170px;
+        z-index: 1;
+      }
       .zoom {
+        height: 240px;
+        width: 341px;
         position: relative;
         display: block;
         flex: 1 1 0px;
         transition: transform 500ms;
       }
-
       img {
         vertical-align: bottom;
         border-top-left-radius: 4px;
@@ -55,6 +70,7 @@ https://codepen.io/RadDog25/pen/eYNMawe
     .card-carousel {
       &--nav__left,
       &--nav__right {
+        z-index: 100;
         display: inline-block;
         width: 15px;
         height: 15px;
@@ -104,7 +120,9 @@ https://codepen.io/RadDog25/pen/eYNMawe
       .card-carousel-cards(:style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}")
         .card-carousel--card(v-for="item in datas")
           a.zoom(href="javascript:") 
-            img(:src='item.image')
+            img.top10ListNumber(v-if="item.ranking <= 10" :src='item.rankingImage')
+            img.top10List(v-if="item.ranking <= 10" :src='item.image')
+            img(v-else :src='item.image')
   .card-carousel--nav__right(
     @click="moveCarousel(1)"
     :disabled="atEndOfList"
@@ -137,7 +155,6 @@ https://codepen.io/RadDog25/pen/eYNMawe
     },
     methods: {
       moveCarousel(direction) {
-        // Find a more elegant way to express the :style. consider using props to make it truly generic
         if (direction === 1 && !this.atEndOfList) {
           this.currentOffset -= this.paginationFactor
         } else if (direction === -1 && !this.atHeadOfList) {
