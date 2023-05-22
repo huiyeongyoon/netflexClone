@@ -1,8 +1,16 @@
 <style lang="scss" scoped>
   .main {
     height: 100%;
+    .focus-wrapper {
+      position: relative;
+      clip: rect(1px, 1px, 1px, 1px) !important;
+      height: 1px !important;
+      overflow: hidden !important;
+      position: absolute !important;
+      white-space: nowrap !important;
+      width: 1px !important;
+    }
     .imageArea {
-      z-index: -100;
       position: relative;
       .backgroundImage {
         margin-top: 68px;
@@ -28,24 +36,42 @@
           margin: 0 0 30px 0;
         }
         .playButton {
+          display: inline-flex;
+          align-items: center;
           height: 42px;
-          padding: 0 2rem 0 2.4rem;
+          width: 120px;
           color: black;
+          font-size: 16px;
           border: none;
         }
         .detailButton {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
           height: 42px;
-          padding: 0 2rem 0 2.4rem;
+          width: 160px;
           background-color: rgba(109, 109, 110, 0.4);
           color: #fff;
           border: none;
+          font-size: 16px;
+          .mdi {
+            span {
+              display: flex;
+              align-items: center;
+            }
+            margin-right: 9px;
+          }
         }
       }
       .box {
+        display: flex;
         position: absolute;
         bottom: 17%;
         right: 0px;
         color: #fff;
+        .mdi {
+          margin-right: 20px;
+        }
         .videoOption {
           display: flex;
           align-items: center;
@@ -81,37 +107,277 @@
 
 <template lang="pug">
 .main
+  .focus-wrapper
   .imageArea
     img.backgroundImage(src="@/assets/images/backgroundImage.png")
     .movieInfo
       h2.title 블랙미러
       p.rankingTxt 시리즈 순위
       p.txt Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-      el-button.playButton 재생
-      el-button.detailButton 상세정보 (상세 페이지)
+      el-button.playButton #[mdicon(name="play" size="35")] 재생
+      el-button.detailButton(@click="showDetail") #[mdicon(name="AlertCircleOutline" size="28")] 상세정보
     .box
+      mdicon(name="Replay" size="25")  
       .videoOption
         span.txt 18
   .listArea
     h3.title 드라마
-    ul
-      li 영화 리스트
-      li 영화 리스트
-      li 영화 리스트
-  .listArea
-    h3.title 드라마
-    ul
-      li 영화 리스트
-      li 영화 리스트
-      li 영화 리스트
-  .listArea
-    h3.title 드라마
-    ul
-      li 영화 리스트
-      li 영화 리스트
-      li 영화 리스트
+      Carouscel-Component(:datas='form')
+  Detail(:visible="visible" :selected="selected")
+
+
+  //- .listArea
+  //-   h3.title 드라마
+  //-   ul
+  //-     li 영화 리스트
+  //-     li 영화 리스트
+  //-     li 영화 리스트
+  //- .listArea
+  //-   h3.title 드라마
+  //-   ul
+  //-     li 영화 리스트
+  //-     li 영화 리스트
+  //-     li 영화 리스트
+  
+  
+
 </template>
 
 <script>
-  export default {}
+  import CarouscelComponent from "@/components/CarouscelComponent"
+  import Detail from "./components/detail"
+  export default {
+    components: {
+      CarouscelComponent,
+      Detail,
+    },
+    data() {
+      return {
+        visible: false,
+        form: [
+          {
+            title: "피지컬100",
+            ranking: 1,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/1.png"),
+            random: 1,
+          },
+          {
+            title: "나쁜엄마",
+            ranking: 2,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/2.png"),
+            random: 2,
+          },
+          {
+            title: "김씨네편의점",
+            ranking: 3,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/3.png"),
+            random: 4,
+          },
+          {
+            title: "지옥락",
+            ranking: 4,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/4.png"),
+            random: 6,
+          },
+          {
+            title: "피지컬100",
+            ranking: 1,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/1.png"),
+            random: 6,
+          },
+          {
+            title: "나쁜엄마",
+            ranking: 9,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/2.png"),
+            random: 8,
+          },
+          {
+            title: "김씨네편의점",
+            ranking: 3,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/3.png"),
+            random: 3,
+          },
+          {
+            title: "지옥락",
+            ranking: 4,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/4.png"),
+            random: 1,
+          },
+          {
+            title: "피지컬100",
+            ranking: 1,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/1.png"),
+            random: 9,
+          },
+          {
+            title: "나쁜엄마",
+            ranking: 2,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/2.png"),
+            random: 7,
+          },
+          {
+            title: "김씨네편의점",
+            ranking: 3,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/3.png"),
+            random: 1,
+          },
+          {
+            title: "지옥락",
+            ranking: 4,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/4.png"),
+            random: 7,
+          },
+          {
+            title: "피지컬100",
+            ranking: 1,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/1.png"),
+            random: 8,
+          },
+          {
+            title: "나쁜엄마",
+            ranking: 2,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/2.png"),
+            random: 6,
+          },
+          {
+            title: "김씨네편의점",
+            ranking: 3,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/3.png"),
+            random: 6,
+          },
+          {
+            title: "지옥락",
+            ranking: 4,
+            sugesstion: "82%",
+            season: 1,
+            stroy: 12,
+            favorite: 300,
+            like: 200,
+            filmRating: 15,
+            kind: "힐링",
+            image: require("@/assets/images/4.png"),
+            random: 1,
+          },
+        ],
+        selected: {},
+      }
+    },
+    methods: {
+      showDetail() {
+        this.visible = true
+        let random = Math.floor(Math.random() * (10 - 0) + 1)
+        this.form.forEach(item => {
+          if (item.random === random) {
+            this.selected = item
+          }
+        })
+        console.log(this.selected)
+      },
+    },
+  }
 </script>
