@@ -24,7 +24,7 @@
       position: relative;
       .mainImage {
         width: 100%;
-        min-height: 60vh;
+        min-height: 40vh;
         background-size: cover;
       }
       .overImageBox {
