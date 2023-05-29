@@ -113,9 +113,6 @@
       }
     }
   }
-
-  @media (max-width: 1080px) {
-  }
 </style>
 <template lang="pug">
 .CarouscelContainer

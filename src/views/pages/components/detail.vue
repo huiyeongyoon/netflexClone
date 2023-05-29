@@ -1,12 +1,17 @@
 <style lang="scss">
   .el-dialog {
-    width: 85% !important;
+    width: 55% !important;
     background-color: #141414;
     .el-dialog__header {
       display: none !important;
     }
     .el-dialog__body {
       padding: 0;
+    }
+  }
+  @media (max-width: 1800px) {
+    .el-dialog {
+      width: 85% !important;
     }
   }
 </style>
@@ -24,7 +29,7 @@
       position: relative;
       .mainImage {
         width: 100%;
-        min-height: 40vh;
+        min-height: 55vh !important;
         background-size: cover;
       }
       .overImageBox {
@@ -135,6 +140,13 @@
         min-height: 120px;
         background-size: cover;
       }
+    }
+  }
+  @media (max-width: 1800px) {
+    .mainImage {
+      width: 100%;
+      min-height: 35vh !important;
+      background-size: cover;
     }
   }
 </style>
