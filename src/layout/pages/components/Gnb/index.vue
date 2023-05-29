@@ -22,18 +22,18 @@
     z-index: 100000;
     justify-content: space-between;
     height: 68px;
-    width: calc(100% - 120px);
-    padding: 0 60px;
+    width: calc(100% - 80px);
+    padding: 0 2.5rem;
     background-color: #141414;
     .mainArea {
       display: flex;
       align-items: center;
       height: 68px;
+      color: #e5e5e5;
       .lgoBox {
         margin: 5px 20px 0 0;
         img {
           width: 98.5px;
-          height: 35px;
         }
       }
       .categoryInfoArea {
@@ -42,26 +42,22 @@
           align-items: center;
           li {
             list-style: none;
-            margin: 0 0 0 20px;
-            color: #fff;
+            margin-left: 1rem;
+            font-size: 0.8rem;
           }
         }
       }
     }
     .userInfoArea {
       position: relative;
-      .icon {
-        width: 28px;
-        height: 28px;
-        border-radius: 5px;
-      }
+
       > ul {
         display: flex;
         align-items: center;
         > li {
           list-style: none;
           color: #fff;
-          margin: 0 15px 0 0;
+          margin-left: 0.8rem;
           &.hoverAlrat {
             .card {
               display: none;
@@ -69,13 +65,11 @@
               top: 8px;
               left: -316px;
               padding-top: 52px;
-              // background-color: red;
               ul {
                 width: 400px;
                 min-height: 100px;
                 padding: 10px;
                 background-color: rgba(0, 0, 0, 0.6);
-                font-size: 13px;
               }
               li {
                 display: flex;
@@ -90,7 +84,15 @@
               display: block;
             }
           }
-          &.hiverProfileIngo {
+          &.hoverProfileInfo {
+            .icon {
+              width: 2rem;
+              height: 2rem;
+              border-radius: 4px;
+            }
+            .mdi {
+              margin-left: 3px;
+            }
             .card {
               display: none;
               position: absolute;
@@ -98,23 +100,22 @@
               left: -20px;
               padding: 15px 10px;
               padding-top: 30px;
-              // background-color: red;
               ul {
                 width: 200px;
                 padding: 10px;
                 background-color: rgba(0, 0, 0, 0.6);
                 font-size: 13px;
-              }
-              li {
-                display: flex;
-                align-items: center;
-                margin-bottom: 10px;
-                img,
-                .mdi {
-                  margin-right: 15px;
-                }
-                span {
-                  color: #fff;
+                li {
+                  display: flex;
+                  align-items: center;
+                  margin-bottom: 10px;
+                  img,
+                  .mdi {
+                    margin-right: 15px;
+                  }
+                  span {
+                    color: #fff;
+                  }
                 }
               }
               .borderLine {
@@ -123,7 +124,7 @@
               }
             }
           }
-          &.hiverProfileIngo:hover {
+          &.hoverProfileInfo:hover {
             .card {
               display: block;
             }
@@ -171,7 +172,7 @@
               li
                 a
                   span 최근알림 메시지가 없습니다.
-        li.hiverProfileIngo
+        li.hoverProfileInfo
           a(href="javascript:;") #[img.icon(src="@/assets/images/profile.jpg")]  #[mdicon(name="menu-down" size="24") ]
           .card
             ul
