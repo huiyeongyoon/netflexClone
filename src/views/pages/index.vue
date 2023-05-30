@@ -67,7 +67,6 @@
         bottom: 33.9%;
         right: 0px;
         color: #fff;
-
         .mdi {
           margin: 0 35px 20px 0;
           border: 1px solid #fff;
