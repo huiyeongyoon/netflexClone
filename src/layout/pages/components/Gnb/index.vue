@@ -17,122 +17,150 @@
   }
   header {
     position: fixed;
-    display: flex;
-    align-items: center;
     z-index: 100000;
-    justify-content: space-between;
     height: 68px;
     width: calc(100% - 80px);
-    padding: 0 2.5rem;
-    background-color: #141414;
+    padding: 15px 2.5rem;
+    &:after {
+      clear: both;
+      content: "";
+      display: block;
+    }
     .mainArea {
-      display: flex;
-      align-items: center;
+      width: 100%;
       height: 68px;
       color: #e5e5e5;
-      .lgoBox {
-        margin: 5px 20px 0 0;
-        img {
-          width: 98.5px;
-        }
+      &:after {
+        clear: both;
+        content: "";
+        display: block;
       }
-      .categoryInfoArea {
+      .gnbBox {
+        margin: 3px 23px 0px 15px;
+        float: left;
+        &:after {
+          clear: both;
+          content: "";
+          display: block;
+        }
+        h1 {
+          float: left;
+        }
+        .logoImage {
+          width: 99.5px;
+        }
         ul {
-          display: flex;
-          align-items: center;
+          float: left;
+          margin-left: 35px;
+          &:after {
+            clear: both;
+            content: "";
+            display: block;
+          }
           li {
+            float: left;
             list-style: none;
-            margin-left: 1rem;
-            font-size: 0.8rem;
+            padding: 5px 10px;
           }
         }
       }
-    }
-    .userInfoArea {
-      position: relative;
-
-      > ul {
-        display: flex;
-        align-items: center;
-        > li {
-          list-style: none;
-          color: #fff;
-          margin-left: 0.8rem;
-          &.hoverAlrat {
-            .card {
-              display: none;
-              position: absolute;
-              top: 8px;
-              left: -316px;
-              padding-top: 52px;
-              ul {
-                width: 400px;
-                min-height: 100px;
-                padding: 10px;
-                background-color: rgba(0, 0, 0, 0.6);
-              }
-              li {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100px;
-              }
-            }
-          }
-          &.hoverAlrat:hover {
-            .card {
-              display: block;
-            }
-          }
-          &.hoverProfileInfo {
-            .icon {
-              width: 2rem;
-              height: 2rem;
-              border-radius: 4px;
-            }
-            .mdi {
-              margin-left: 3px;
-            }
-            .card {
-              display: none;
-              position: absolute;
-              top: 28px;
-              left: -20px;
-              padding: 15px 10px;
-              padding-top: 30px;
-              ul {
-                width: 200px;
-                padding: 10px;
-                background-color: rgba(0, 0, 0, 0.6);
-                font-size: 13px;
+      .utilBox {
+        float: right;
+        position: relative;
+        > ul {
+          > li {
+            display: inline-block;
+            vertical-align: middle;
+            list-style: none;
+            color: #fff;
+            padding: 2px 10px 0 10px;
+            &.hoverAlrat {
+              .card {
+                display: none;
+                position: absolute;
+                top: 10px;
+                left: -272px;
+                padding: 35px 10px;
+                .alartMenuDown {
+                  position: absolute;
+                  top: 17px;
+                  right: 13px;
+                }
+                ul {
+                  border-top: 2px solid #fff;
+                  width: 400px;
+                  min-height: 100px;
+                  background-color: rgba(0, 0, 0, 0.6);
+                  text-align: center;
+                }
                 li {
-                  display: flex;
-                  align-items: center;
-                  margin-bottom: 10px;
-                  img,
-                  .mdi {
-                    margin-right: 15px;
-                  }
-                  span {
-                    color: #fff;
+                  display: inline-block;
+                  p {
+                    padding: 20px;
                   }
                 }
               }
-              .borderLine {
-                border-top: 1px solid hsla(0, 0%, 100%, 0.25);
-                padding: 20px 0 0 0;
+            }
+            &.hoverAlrat:hover {
+              .card {
+                display: block;
               }
             }
-          }
-          &.hoverProfileInfo:hover {
-            .card {
-              display: block;
+            &.hoverProfileInfo {
+              .icon {
+                width: 32px;
+                height: 32px;
+                border-radius: 4px;
+              }
+              .mdi {
+                margin-left: 3px;
+                svg {
+                  vertical-align: top;
+                }
+              }
+              .card {
+                display: none;
+                position: absolute;
+                top: 20px;
+                left: -27px;
+                padding: 15px 10px;
+                padding-top: 30px;
+                .profileMenuDown {
+                  position: absolute;
+                  top: 10px;
+                  right: 30px;
+                }
+                ul {
+                  width: 200px;
+                  padding: 10px;
+                  background-color: rgba(0, 0, 0, 0.6);
+                  font-size: 13px;
+                  li {
+                    align-items: center;
+                    margin-bottom: 10px;
+                    img,
+                    .mdi {
+                      margin-right: 15px;
+                    }
+                    span {
+                      color: #fff;
+                    }
+                  }
+                }
+                .borderLine {
+                  border-top: 1px solid hsla(0, 0%, 100%, 0.25);
+                  padding: 20px 0 0 0;
+                }
+              }
             }
-          }
-          a {
-            position: relative;
-            display: flex;
-            align-items: center;
+            &.hoverProfileInfo:hover {
+              .card {
+                display: block;
+              }
+            }
+            a {
+              position: relative;
+            }
           }
         }
       }
@@ -143,66 +171,69 @@
 <template lang="pug">
   header
     .mainArea
-      .lgoBox
+      .gnbBox
         h1
           a(href="/")
-            img(src="@/assets/images/logo.png")
-      .categoryInfoArea
+            img.logoImage(src="@/assets/images/logo.png")
         ul
           li
             a(href="javascript:;") 홈
           li
             a(href="javascript:;") 시리즈
           li
+            a(href="javascript:;") 영화
+          li
             a(href="javascript:;") NEW!요즘 대세 콘텐츠
           li
             a(href="javascript:;") 내가 찜한 콘텐츠
           li
             a(href="javascript:;") 언어별로 찾아보기
-    .userInfoArea
-      ul
-        li
-          a(href="javascript:;") #[mdicon(name="magnify" size="28")]
-        li
-          a(href="javascript:;") 키즈
-        li.hoverAlrat
-          a(href="javascript:;") #[mdicon(name="bell-outline" size="28")]
-          .card
-            ul
-              li
-                a
-                  span 최근알림 메시지가 없습니다.
-        li.hoverProfileInfo
-          a(href="javascript:;") #[img.icon(src="@/assets/images/profile.jpg")]  #[mdicon(name="menu-down" size="24") ]
-          .card
-            ul
-              li
-                a(href="javascript:;")
-                  img.icon(src="@/assets/images/profile.jpg")
-                  span 게스트1
-              li
-                a(href="javascript:;")
-                  img.icon(src="@/assets/images/profile.jpg")
-                  span 게스트2
-              li
-                a(href="javascript:;")
-                  mdicon(name="PencilCircleOutline" size="28")
-                  span 프로필 관리
-              li
-                a(href="javascript:;")
-                  mdicon(name="FaceMan" size="28")
-                  span 프로필 이전
-              li
-                a(href="javascript:;")
-                  mdicon(name="AccountOutline" size="28")
-                  span 계정
-              li
-                a(href="javascript:;")
-                  mdicon(name="ChatQuestionOutline" size="28")
-                  span 고객센터
-              li.borderLine
-                a(href="javascript:;")
-                  span 넷플릭스에서 로그아웃
+      .utilBox
+        ul
+          li
+            a(href="javascript:;") #[mdicon(name="magnify" size="30")]
+          li
+            a(href="javascript:;") 키즈
+          li.hoverAlrat
+            a(href="javascript:;") #[mdicon(name="bell-outline" size="24")]
+            .card
+              mdicon.alartMenuDown(name="menu-up" size="30")
+              ul
+                li
+                  a
+                    p 최근알림 메시지가 없습니다.
+          li.hoverProfileInfo
+            a(href="javascript:;") #[img.icon(src="@/assets/images/profile.jpg")]  #[mdicon(name="menu-down" size="30") ]
+            .card
+              mdicon.profileMenuDown(name="menu-up" size="30")
+              ul
+                li
+                  a(href="javascript:;")
+                    img.icon(src="@/assets/images/profile.jpg")
+                    span 게스트1
+                li
+                  a(href="javascript:;")
+                    img.icon(src="@/assets/images/profile.jpg")
+                    span 게스트2
+                li
+                  a(href="javascript:;")
+                    mdicon(name="PencilCircleOutline" size="28")
+                    span 프로필 관리
+                li
+                  a(href="javascript:;")
+                    mdicon(name="FaceMan" size="28")
+                    span 프로필 이전
+                li
+                  a(href="javascript:;")
+                    mdicon(name="AccountOutline" size="28")
+                    span 계정
+                li
+                  a(href="javascript:;")
+                    mdicon(name="ChatQuestionOutline" size="28")
+                    span 고객센터
+                li.borderLine
+                  a(href="javascript:;")
+                    span 넷플릭스에서 로그아웃
 </template>
 <script>
   export default {

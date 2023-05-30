@@ -1,7 +1,7 @@
 <style lang="scss" scoped>
   footer {
-    margin: 100px 40px 30px 40px;
-    padding: 0 80px;
+    margin: 70px 915px 10px 915px;
+    padding: 0 130px;
     .iconArea {
       margin-bottom: 20px;
       .mdi {
@@ -10,14 +10,12 @@
       }
     }
     .linkArea {
-      display: flex;
-      flex-direction: column;
       .rowBox {
-        display: flex;
-        justify-content: space-between;
+        line-height: 20px;
         .txtLink {
+          display: inline-block;
+          width: 25%;
           font-size: 0.8rem;
-          flex-basis: 25%;
           text-decoration: none;
           color: grey;
           margin-bottom: 1rem;
@@ -26,10 +24,10 @@
           text-decoration: underline;
         }
         .border {
+          margin: 50px 0;
           font-size: 0.8rem;
           text-decoration: none;
           color: grey;
-          margin-top: 1rem;
           margin-bottom: 1.5rem;
           border: 1px solid grey;
           padding: 0.4rem;
@@ -37,6 +35,9 @@
         .border:hover {
           text-decoration: none;
         }
+      }
+      .borderSize {
+        margin: 30px 0;
       }
     }
     .txt {
@@ -73,7 +74,7 @@ footer
       a.txtLink(href="javascript:;") 쿠키 설정
       a.txtLink(href="javascript:;") 회사 정보
       a.txtLink(href="javascript:;") 문의하기
-    .rowBox 
+    .rowBox.borderSize 
       a.border(href="javascript:;") 서비스 코드
     p.txt 넷플릭스서비시스코리아 유한회사 통신판매업신고번호: 제2018-서울종로-0426호 전화번호: 080-001-9587
     p.txt 대표: 레지널드 숀 톰프슨

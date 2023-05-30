@@ -203,9 +203,6 @@ el-dialog(:visible='visible' width='30%')
         default: () => {},
       },
     },
-    mounted() {
-      console.log(this.movieData)
-    },
     data() {
       return {}
     },

@@ -1,7 +1,8 @@
 
 1. arrow 센터안됨
-Access to XMLHttpRequest at 'http://192.168.0.4:4001/sockjs-node/info?t=1685267000799' from origin 'http://localhost:4001' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 
-2. img 크기조정
+2. header 픽스 스크롤링후 백그라운드 생기게
 
-3. 흰색 엑티브 시키기
+4.흰색 엑티브 시키기 (어거지로 함)
+
+5. 이미지 확대시 글자넣기
