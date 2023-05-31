@@ -1,32 +1,30 @@
 import request from "@/utils/request"
 
-const API_KEY = "78a4d0373f1d5e9db6addc349a02b5ba"
-
-export function movieInfo(data) {
+export function trendingAllWeek(params) {
   return request({
-    url: `/trending/all/week?api_key=${API_KEY}&language=ko-KO`,
+    url: `/trending/all/week`,
     method: "get",
-    data,
+    params,
   })
 }
-export function top(data) {
+export function MovieTopRated(params) {
   return request({
-    url: `/movie/top_rated?api_key=${API_KEY}&language=ko-KO`,
+    url: `/movie/top_rated?`,
     method: "get",
-    data,
+    params,
   })
 }
-export function popular(data) {
+export function MoviePopular(params) {
   return request({
-    url: `/movie/popular?api_key=${API_KEY}&language=ko-KO`,
+    url: `/movie/popular?`,
     method: "get",
-    data,
+    params,
   })
 }
-export function upcoming(data) {
+export function movieUpcoming(params) {
   return request({
-    url: `/movie/popular?api_key=${API_KEY}&language=ko-KO`,
+    url: `/movie/upcoming?`,
     method: "get",
-    data,
+    params,
   })
 }

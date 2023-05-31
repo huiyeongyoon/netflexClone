@@ -136,14 +136,27 @@
                   background-color: rgba(0, 0, 0, 0.6);
                   font-size: 13px;
                   li {
-                    align-items: center;
+                    position: relative;
                     margin-bottom: 10px;
-                    img,
-                    .mdi {
-                      margin-right: 15px;
-                    }
-                    span {
-                      color: #fff;
+                    a {
+                      img {
+                        margin-right: 15px;
+                      }
+                      .mdi {
+                        position: relative;
+                        bottom: 5px;
+                        margin-right: 15px;
+                      }
+                      .imgTxt {
+                        position: relative;
+                        bottom: 8px;
+                        color: #fff;
+                      }
+                      .mdiTxt {
+                        position: relative;
+                        top: 3px;
+                        color: #fff;
+                      }
                     }
                   }
                 }
@@ -210,23 +223,23 @@
                 li
                   a(href="javascript:;")
                     img.icon(src="@/assets/images/profile.jpg")
-                    span 게스트1
+                    span.imgTxt 게스트1
                 li
                   a(href="javascript:;")
                     img.icon(src="@/assets/images/profile.jpg")
-                    span 게스트2
+                    span.imgTxt 게스트2
                 li
                   a(href="javascript:;")
                     mdicon(name="PencilCircleOutline" size="28")
-                    span 프로필 관리
+                    span.mdiTxt 프로필 관리
                 li
                   a(href="javascript:;")
                     mdicon(name="FaceMan" size="28")
-                    span 프로필 이전
+                    span.mdiTxt 프로필 이전
                 li
                   a(href="javascript:;")
                     mdicon(name="AccountOutline" size="28")
-                    span 계정
+                    span.mdiTxt 계정
                 li
                   a(href="javascript:;")
                     mdicon(name="ChatQuestionOutline" size="28")

@@ -129,13 +129,13 @@
     .arrow.leftArrow(@click="moveRow('left')") &#8249;
     .arrow.rightArrow(@click="moveRow('right')") &#8250;
     .imgContainer(:style="move")
-      .detailBox(v-for="(item, index) in movieData.results" )
+      .detailBox(v-for="(item, index) in movieData.results")
         img(src="@/assets/images/t.png"
-            :class="{large: size === 'large', small: size === 'small'}" 
-            :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})`}"
+          :class="{large: size === 'large', small: size === 'small'}" 
+          :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})`}"
         )
-        .detail
-          p.txt 안녕11111111111111111111
+        //- .detail
+        //-   p.txt 안녕11111111111111111111
 
 </template>
 

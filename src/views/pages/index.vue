@@ -13,8 +13,8 @@
       }
       .movieInfo {
         position: absolute;
-        top: 25%;
-        left: 50px;
+        bottom: 30%;
+        left: 60px;
         color: #fff;
         &after {
           display: block;
@@ -37,8 +37,6 @@
         }
         .playButton {
           height: 56px;
-          padding-left: 2rem;
-          padding-right: 2.4rem;
           font-size: 1.5rem;
           color: black;
           border: none;
@@ -46,6 +44,11 @@
           &:hover {
             background-color: #dcdcdc;
             transition: all 0.2s;
+          }
+          span {
+            vertical-align: middle;
+            position: relative;
+            top: -10px;
           }
         }
         .detailButton {
@@ -60,6 +63,9 @@
             background-color: rgba(66, 66, 66, 0.4);
             transition: all 0.2s;
           }
+          span {
+            vertical-align: middle;
+          }
         }
       }
       .filmRating {
@@ -68,10 +74,10 @@
         right: 0px;
         color: #fff;
         .mdi {
-          margin: 0 35px 20px 0;
+          margin: 0 30px 20px 0;
           border: 1px solid #fff;
           border-radius: 50%;
-          padding: 6px;
+          padding: 8px 8px 11px 8px;
         }
         .videoOption {
           display: inline-block;
@@ -96,13 +102,17 @@
 <template lang="pug">
 .main
   .imageArea
-    img.backgroundImage(src="@/assets/images/t.png" :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${randomMovieInfo.backdrop_path} )` }")
+    img.backgroundImage(v-if="randomMovieInfo.backdrop_path !== undefined" src="@/assets/images/t.png" :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/original${randomMovieInfo.backdrop_path})`}")
     .movieInfo
       h2.title(v-if="randomMovieInfo.name !== undefined") {{ randomMovieInfo.name  }}
       h2.title(v-if="randomMovieInfo.title !== undefined") {{ randomMovieInfo.title }}
       p.description {{ randomMovieInfo.overview }}
-      el-button.playButton #[mdicon(name="play" size="48")] 재생
-      el-button.detailButton(@click="showDetail" v-click-outside="close") #[mdicon(name="AlertCircleOutline" size="36")] 상세정보
+      el-button.playButton 
+        mdicon(name="play" size="58")
+        span 재생
+      el-button.detailButton(@click="showDetail") 
+        mdicon(name="AlertCircleOutline" size="36")
+        span 상세정보
     .filmRating
       mdicon(name="Replay" size="34")  
       .videoOption
@@ -120,15 +130,11 @@
 </template>
 
 <script>
-  import vClickOutside from "v-click-outside"
   import InlineSvg from "vue-inline-svg"
-  import { movieInfo, top, popular, upcoming } from "@/api"
+  import { trendingAllWeek, MovieTopRated, MoviePopular, movieUpcoming } from "@/api"
   import Carouscel from "@/components/Carouscel"
   import Detail from "./components/detail"
   export default {
-    directives: {
-      clickOutside: vClickOutside.directive,
-    },
     components: {
       InlineSvg,
       Carouscel,
@@ -141,36 +147,44 @@
         top: {},
         popular: {},
         upcoming: {},
-        form: [],
+        form: {
+          language: "ko-KO",
+          api_key: process.env.VUE_APP_API_KEY,
+        },
       }
     },
     mounted() {
-      movieInfo().then(res => {
-        const { data } = res
-        this.randomMovieInfo = data.results[Math.floor(Math.random() * data.results.length - 1)]
-      })
-      top().then(res => {
-        const { data } = res
-        this.top = data
-      })
-      popular().then(res => {
-        const { data } = res
-        this.popular = data
-      })
-      upcoming().then(res => {
-        const { data } = res
-        this.upcoming = data
-      })
+      // async trendingAllWeek({ api_key: "78a4d0373f1d5e9db6addc349a02b5ba", language: this.language })
+      // await this.randomMovieInfo = data.results[Math.floor(Math.random() * data.results.length)]
+
+      // const { data } = await trendingAllWeek(this.form)
+      // this.randomMovieInfo = data.results[Math.floor(Math.random() * data.results.length)]
+      this.fetchList()
     },
     methods: {
+      fetchList() {
+        trendingAllWeek(this.form).then(res => {
+          const { data } = res
+          this.randomMovieInfo = data.results[Math.floor(Math.random() * data.results.length)]
+        })
+
+        MovieTopRated(this.form).then(res => {
+          const { data } = res
+          this.top = data
+        })
+
+        MoviePopular(this.form).then(res => {
+          const { data } = res
+          this.popular = data
+        })
+
+        movieUpcoming(this.form).then(res => {
+          const { data } = res
+          this.upcoming = data
+        })
+      },
       showDetail() {
         this.visible = true
-        // let random = Math.floor(Math.random() * (10 - 0) + 1)
-        // this.form.forEach(item => {
-        //   if (item.random === random) {
-        //     this.selected = item
-        //   }
-        // })
       },
       close() {
         this.visible = false
