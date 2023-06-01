@@ -1,8 +1,12 @@
 <style lang="scss" scoped>
+  .hovered {
+    z-index: 1000;
+  }
   .CarouscelContainer:first-child {
     margin-top: -380px;
   }
   .CarouscelContainer {
+    position: relative;
     margin: 92px 0;
     .title {
       position: relative;
@@ -11,10 +15,7 @@
       padding-left: 60px;
       margin-bottom: 10px;
     }
-    .active {
-      background-color: #fff;
-      opacity: 1;
-    }
+
     .barContainer {
       margin-right: 60px;
       height: 20px;
@@ -27,12 +28,17 @@
         height: 0.2rem;
         margin-bottom: 10px;
       }
+      .active {
+        background-color: #fff;
+        opacity: 1;
+      }
     }
     &:after {
       content: "";
       display: block;
       clear: both;
     }
+
     > .row {
       padding: 0 60px;
       position: relative;
@@ -82,9 +88,9 @@
           margin: 0.25rem;
           width: 481.15px;
           height: 272px;
-          border-radius: 5px;
           .box {
             position: absolute;
+            border-radius: 10px;
             background-color: #3d3d3dc4;
           }
           img {
@@ -96,6 +102,7 @@
             height: 272px !important;
           }
           .detail {
+            width: 100%;
             display: none;
             .row {
               margin: 20px 0;
@@ -162,12 +169,14 @@
           &:hover {
             z-index: 1;
             .box {
+              border-radius: 10px;
               transition: 0.5s;
+              top: -70px;
               // width: 700px;
               // height: 400px;
               // left: 50%;
               // top: 50%;
-              transform: translate(0%, 0%);
+              overflow: hidden;
               transform: scale(1.45);
               .detail {
                 padding: 15px 0;
@@ -181,17 +190,18 @@
   }
 </style>
 <template lang="pug">
-.CarouscelContainer
+.CarouscelContainer(:class="{ 'hovered': isHovered }")
   h2.title {{ title }}
   .barContainer
-    .bar(v-for="(item, index) in movieData.results" v-if="index % 6 === 0" :class="{active : index % 6 === 0 && index === move.selected }")
+    .bar(v-for="(item, index) in movieData.results" v-if="index % 6 === 0" :class="{ active : index % 6 === 0 && index === move.selected }")
   .row
     .arrow.leftArrow(@click="moveRow('left')") &#8249;
     .arrow.rightArrow(@click="moveRow('right')") &#8250;
     .imgContainer(:style="move")
       .detailBox(v-for="(item, index) in movieData.results")
         .box
-          img(src="@/assets/images/t.png"
+          img(@mouseover="selectedHover"
+            src="@/assets/images/t.png"
             :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})`}"
           )
           .detail
@@ -246,6 +256,7 @@
     },
     data() {
       return {
+        isHovered: false,
         move: {
           number: 0,
           transform: "translateX(0%)",
@@ -254,26 +265,30 @@
       }
     },
     methods: {
+      selectedHover() {
+        this.isHovered = true
+      },
       moveRow(direction) {
         if (direction === "left") {
-          this.move.number += 103
+          this.move.number += 25
           this.move.transform = `translateX(${this.move.number}%)`
           this.move.selected += 6
           if (this.move.number > 0) {
-            this.move.number = Number(Math.floor(this.movieData.results.length / 6) * -103)
+            this.move.number = Number(Math.floor(this.movieData.results.length / 6) * -25)
             this.move.transform = `translateX(${this.move.number}%)`
             this.move.selected = 0
           }
         } else if (direction === "right") {
-          this.move.number -= 103
+          this.move.number -= 25
           this.move.transform = `translateX(${this.move.number}%)`
           this.move.selected -= 6
-          if (this.move.number < Number(Math.floor(this.movieData.results.length / 6) * -103)) {
+          if (this.move.number < Number(Math.floor(this.movieData.results.length / 6) * -25)) {
             this.move.number = 0
             this.move.transform = `translateX(${this.move.number}%)`
             this.move.selected = 18
           }
         }
+        console.log(this.move.selected)
       },
     },
   }

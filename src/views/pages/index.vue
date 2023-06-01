@@ -96,6 +96,10 @@
         }
       }
     }
+    .listArea {
+      position: relative;
+      z-index: 1;
+    }
   }
 </style>
 
@@ -122,7 +126,7 @@
           height="68"
           fill="black"
         ) 
-  .topListArea
+  .listArea
     Carouscel(:title="'지금 뜨는 콘텐츠'" :size="'small'" :movieData="popular")
     //- CarouscelTop(:title="'오늘 대한민국의 TOP 10 시리즈'" :size="'large'" :movieData="top")
     Carouscel(:title="'해외 시리즈'" :size="'small'" :movieData="upcoming" )
