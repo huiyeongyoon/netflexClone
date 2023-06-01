@@ -1,7 +1,7 @@
 <style lang="scss" scoped>
   footer {
-    margin: 70px 915px 10px 915px;
-    padding: 0 130px;
+    margin: 2% 30% 0.5% 30%;
+    padding: 0 120px;
     .iconArea {
       margin-bottom: 20px;
       .mdi {
@@ -11,7 +11,7 @@
     }
     .linkArea {
       .rowBox {
-        line-height: 20px;
+        line-height: 18px;
         .txtLink {
           display: inline-block;
           width: 25%;
@@ -37,11 +37,11 @@
         }
       }
       .borderSize {
-        margin: 30px 0;
+        margin: 25px 0;
       }
     }
     .txt {
-      margin-bottom: 6px;
+      line-height: 20px;
       font-size: 12px;
       color: grey;
     }

@@ -123,8 +123,8 @@
           fill="black"
         ) 
   .topListArea
-    Carouscel(:title="'오늘 대한민국의 TOP 10 시리즈'" :size="'large'" :movieData="top")
     Carouscel(:title="'지금 뜨는 콘텐츠'" :size="'small'" :movieData="popular")
+    //- CarouscelTop(:title="'오늘 대한민국의 TOP 10 시리즈'" :size="'large'" :movieData="top")
     Carouscel(:title="'해외 시리즈'" :size="'small'" :movieData="upcoming" )
   Detail(:visible="visible" :data="randomMovieInfo" :movieData="popular" @close="close")
 </template>
@@ -133,18 +133,20 @@
   import InlineSvg from "vue-inline-svg"
   import { trendingAllWeek, MovieTopRated, MoviePopular, movieUpcoming } from "@/api"
   import Carouscel from "@/components/Carouscel"
+  import CarouscelTop from "@/components/CarouscelTop"
   import Detail from "./components/detail"
   export default {
     components: {
       InlineSvg,
       Carouscel,
+      CarouscelTop,
       Detail,
     },
     data() {
       return {
         visible: false,
         randomMovieInfo: {},
-        top: {},
+        top: [],
         popular: {},
         upcoming: {},
         form: {
@@ -170,7 +172,7 @@
 
         MovieTopRated(this.form).then(res => {
           const { data } = res
-          this.top = data
+          this.top = data.results.slice(10)
         })
 
         MoviePopular(this.form).then(res => {

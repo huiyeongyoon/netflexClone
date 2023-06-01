@@ -3,10 +3,18 @@
     margin-top: -380px;
   }
   .CarouscelContainer {
+    margin: 92px 0;
     .title {
       position: relative;
+      color: #fff;
+      font-size: 2.5rem;
+      padding-left: 60px;
+      margin-bottom: 10px;
     }
-    margin: 92.16px 0;
+    .active {
+      background-color: #fff;
+      opacity: 1;
+    }
     .barContainer {
       margin-right: 60px;
       height: 20px;
@@ -25,17 +33,7 @@
       display: block;
       clear: both;
     }
-    .title {
-      color: #fff;
-      font-size: 2.5rem;
-      padding-left: 60px;
-      margin-bottom: 10px;
-    }
-    .active {
-      background-color: #fff;
-      opacity: 1;
-    }
-    .row {
+    > .row {
       padding: 0 60px;
       position: relative;
       z-index: 100;
@@ -75,47 +73,109 @@
         z-index: 50;
       }
       .imgContainer {
+        //489.15px 개당
+        width: 9783px;
         overflow-x: visible;
-        &:after {
-          display: block;
-          content: "";
-          clear: both;
-        }
         .detailBox {
-          float: left;
+          display: inline-block;
+          position: relative;
           margin: 0.25rem;
+          width: 481.15px;
+          height: 272px;
+          border-radius: 5px;
+          .box {
+            position: absolute;
+            background-color: #3d3d3dc4;
+          }
           img {
-            width: 481.15px;
+            width: 100%;
             position: relative;
             border-radius: 10px;
-          }
-          img:hover {
-            z-index: 101;
-            transform: scale(1.5);
+            transform: translateX(calc(0 * -100%));
+            background-size: 100% 100%;
+            height: 272px !important;
           }
           .detail {
-            .txt {
-              display: none;
-              color: white;
-              position: absolute;
-              background: black;
+            display: none;
+            .row {
+              margin: 20px 0;
+              &:after {
+                content: "";
+                display: block;
+                clear: both;
+              }
+              .playButton {
+                margin-left: 8px;
+                border-radius: 50%;
+                color: #141414c4;
+                padding: 0;
+              }
+              .bordering {
+                margin-left: 8px;
+                vertical-align: middle;
+                border: 1px solid #fff;
+                color: #fff;
+                background-color: #2f2f2f;
+                border-radius: 50%;
+                padding: 8px;
+              }
+              .arrowBottom {
+                float: right;
+                margin-right: 8px;
+              }
+              .white {
+                display: inline-block;
+                font-size: 0.8rem;
+                margin-right: 15px;
+                color: #fff;
+              }
+              .circle {
+                content: "";
+                padding: 5px;
+                background-color: hsla(0, 0%, 100%, 0.4);
+                border-radius: 50%;
+              }
+              .age {
+                border: 1px solid hsla(0, 0%, 100%, 0.4);
+                border-radius: 3px;
+                color: hsla(0, 0%, 100%, 0.9);
+                font-size: 0.8em;
+                white-space: nowrap;
+                padding: 0 0.2rem;
+              }
+              .hd {
+                border: 1px solid hsla(0, 0%, 100%, 0.4);
+                border-radius: 3px;
+                color: hsla(0, 0%, 100%, 0.9);
+                font-size: 0.4em;
+                white-space: nowrap;
+                padding: 0 0.2rem;
+              }
+              .txt {
+                color: grey;
+              }
+              .green {
+                color: #46d369;
+              }
+            }
+          }
+          &:hover {
+            z-index: 1;
+            .box {
+              transition: 0.5s;
+              // width: 700px;
+              // height: 400px;
+              // left: 50%;
+              // top: 50%;
+              transform: translate(0%, 0%);
+              transform: scale(1.45);
+              .detail {
+                padding: 15px 0;
+                display: inline-block;
+              }
             }
           }
         }
-      }
-    }
-    .rowLarge {
-      .large {
-        transform: translateX(calc(0 * -100%));
-        background-size: 100% 100%;
-        height: 352px !important;
-      }
-    }
-    .rowSmall {
-      .small {
-        transform: translateX(calc(0 * -100%));
-        background-size: 100% 100%;
-        height: 272px !important;
       }
     }
   }
@@ -125,17 +185,48 @@
   h2.title {{ title }}
   .barContainer
     .bar(v-for="(item, index) in movieData.results" v-if="index % 6 === 0" :class="{active : index % 6 === 0 && index === move.selected }")
-  .row(:class="{rowLarge: size === 'large', rowSmall: size === 'small'}")
+  .row
     .arrow.leftArrow(@click="moveRow('left')") &#8249;
     .arrow.rightArrow(@click="moveRow('right')") &#8250;
     .imgContainer(:style="move")
       .detailBox(v-for="(item, index) in movieData.results")
-        img(src="@/assets/images/t.png"
-          :class="{large: size === 'large', small: size === 'small'}" 
-          :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})`}"
-        )
-        //- .detail
-        //-   p.txt 안녕11111111111111111111
+        .box
+          img(src="@/assets/images/t.png"
+            :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})`}"
+          )
+          .detail
+            .row
+              el-button.playButton
+                mdicon(name="play" size="30") 
+              inline-svg.bordering(
+                :src="require('@/assets/images/plus.svg')"
+                width="14" 
+                height="14"
+                fill="black"
+              ) 
+              inline-svg.bordering(
+                :src="require('@/assets/images/like.svg')"
+                width="14" 
+                height="14"
+                fill="black"
+              )
+              inline-svg.bordering.arrowBottom(
+                :src="require('@/assets/images/arrowbottom.svg')"
+                width="14" 
+                height="14"
+                fill="black"
+              )
+            .row
+              span.white.txt.green 95% 일치 
+              span.white.txt.age 19+
+              span.white.txt(style="color: grey") 2023 에피소드 
+              span.white.txt.hd HD
+            .row
+              span.white 폭력적인
+              span.white.circle 
+              span.white 흥미진진
+              span.white.circle
+              span.white 판타지 애니메이션
 
 </template>
 

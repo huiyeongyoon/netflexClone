@@ -4,6 +4,9 @@
     width: 1570px !important;
     background-color: #141414;
     padding-bottom: 20px;
+    border-radius: 10px !important;
+    overflow: hidden;
+    margin-bottom: 0;
     .el-dialog__header {
       display: none !important;
     }
@@ -13,31 +16,56 @@
   }
 </style>
 <style lang="scss" scoped>
+  h3 {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 20px;
+  }
   .el-dialog__wrapper {
     z-index: 100000 !important;
     .el-dialog {
       border-radius: 10px !important;
-      .dialogHeader {
-        .iconBox {
-          z-index: 10000;
-          position: absolute;
-          top: 15px;
-          right: 15px;
-          svg {
-            color: #fff;
-            background-color: #181818;
-            border-radius: 50%;
-            padding: 8px;
-          }
-        }
-        .content {
+      .dialog {
+        .imageBox {
           position: relative;
+          &after {
+            content: "";
+            display: block;
+            clear: both;
+          }
+          .closeIcon {
+            z-index: 10000;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            svg {
+              color: #fff;
+              background-color: #181818;
+              border-radius: 50%;
+              padding: 8px;
+            }
+          }
           .mainImage {
             width: 100%;
             min-height: 850px !important;
             background-size: cover;
           }
-          .overImageBox {
+          .bordering {
+            margin: 5px;
+            vertical-align: middle;
+            border: 2px solid hsla(0, 0%, 100%, 0.5);
+            color: #fff;
+            background-color: #181818;
+            border-radius: 50%;
+            padding: 8px;
+            &:hover {
+              border: 2px solid #fff;
+            }
+          }
+          .gra {
+            background-image: linear-gradient(0deg, #181818, transparent 50%);
+          }
+          .left {
             position: absolute;
             bottom: 6%;
             left: 50px;
@@ -67,21 +95,18 @@
                 top: -15px;
               }
             }
-            .bordering {
-              margin: 5px;
-              vertical-align: middle;
-              border: 2px solid #fff;
-              color: #fff;
-              background-color: #181818;
-              border-radius: 50%;
-              padding: 8px;
-            }
+          }
+          .right {
+            position: absolute;
+            bottom: 8%;
+            right: 50px;
+            float: right;
           }
         }
         .movieInfoBox {
           font-size: 1.1rem;
           padding: 60px 48px;
-          .movieInfo {
+          .row {
             &:after {
               display: block;
               content: "";
@@ -94,7 +119,7 @@
             .left {
               float: left;
               .green {
-                color: rgb(0, 212, 0);
+                color: #46d369;
                 font-weight: 500;
                 padding-left: 5px;
               }
@@ -118,24 +143,21 @@
               }
             }
             .right {
-              width: 35%;
+              width: 30%;
               float: right;
+              font-size: 0.9rem;
               span {
-                line-height: 50px;
+                line-height: 40px;
                 vertical-align: top;
               }
             }
           }
           .box {
-            margin-bottom: 30px;
+            margin-top: 5px;
             &:after {
               display: block;
               content: "";
               clear: both;
-            }
-            .txt {
-              color: #fff;
-              padding: 0 10px;
             }
             .left {
               float: left;
@@ -155,15 +177,10 @@
         }
         .sereisInfoBox {
           padding: 40px;
-          h3 {
-            font-size: 1.8rem;
-            color: #fff;
-            margin-bottom: 20px;
-          }
           .box {
             .row {
               min-height: 140px;
-              border-bottom: 1px solid rgb(83, 83, 83);
+              border-bottom: 2px solid rgb(83, 83, 83);
               display: table;
               width: 100%;
               .row:after {
@@ -171,6 +188,9 @@
                 content: "";
                 clear: both;
               }
+            }
+            .selected {
+              background-color: #2f2f2f;
             }
             h4 {
               display: table-cell;
@@ -193,27 +213,34 @@
               background-size: cover;
             }
             .box {
-              width: 100%;
               display: table-cell;
               vertical-align: middle;
               min-height: 140px;
+              width: 100%;
               :after {
                 content: "";
                 display: block;
                 clear: both;
               }
+              span {
+                display: inline-block;
+                height: 150px;
+                vertical-align: top;
+              }
               .time {
+                width: 15%;
+                vertical-align: top;
                 color: #fff;
                 font-size: 16px;
                 float: right;
               }
               .serise {
-                margin: 10px;
+                height: 100%;
+                margin: 0 10px 10px 10px;
                 font-size: 1rem;
                 color: #fff;
               }
               .description {
-                margin: 10px;
                 line-height: 22px;
                 font-size: 0.9rem;
                 color: grey;
@@ -221,19 +248,27 @@
             }
           }
         }
-        .MovieListBox {
+        .extendAreaBox {
+          text-align: center;
+          .arrowBottom {
+            vertical-align: middle;
+            border: 2px solid #fff;
+            color: #fff;
+            border-radius: 50%;
+            padding: 5px;
+            opacity: 0.7;
+          }
+        }
+        .movieListBox {
+          float: left;
           padding: 16px 48px;
           color: #d2d2d2;
-          border-bottom: 1px solid rgb(83, 83, 83);
+          margin-bottom: -20px;
+          border-bottom: 2px solid rgb(83, 83, 83);
           &:after {
             content: "";
             display: block;
             clear: both;
-          }
-          h3 {
-            font-size: 1.8rem;
-            color: #fff;
-            margin-bottom: 20px;
           }
           .card {
             width: 470px;
@@ -241,6 +276,15 @@
             background-color: #2f2f2f;
             float: left;
             margin: 10px;
+            .episode {
+              position: relative;
+              top: 3%;
+              right: 5%;
+              height: 0;
+              text-align: right;
+              color: #fff;
+              font-size: 16px;
+            }
             &:after {
               content: "";
               display: block;
@@ -285,6 +329,34 @@
               font-size: 14px;
             }
           }
+          .otherOption {
+            background: none;
+            height: 320px;
+            p {
+              padding: 1rem;
+              color: #fff;
+              font-size: 1em;
+              font-weight: 500;
+            }
+          }
+        }
+        .hide {
+          max-height: 1200px;
+          overflow: hidden;
+        }
+        .bottomBox {
+          padding: 0 60px;
+          .row {
+            margin: 10px 0;
+            svg {
+              position: relative;
+              top: 10px;
+            }
+            .txt {
+              color: #fff;
+              padding: 10px;
+            }
+          }
         }
       }
     }
@@ -293,17 +365,18 @@
 
 <template lang="pug">
 el-dialog(:visible='visible' @close="close")
-  .dialogHeader
-    .iconBox(@click='close')
-       inline-svg(
-          :src="require('@/assets/images/x.svg')"
-          width="20" 
-          height="20"
-          fill="black"
-        ) 
-    .content
+  .dialog
+    .imageBox
+      .closeIcon(@click='close')
+        inline-svg(
+            :src="require('@/assets/images/x.svg')"
+            width="20" 
+            height="20"
+            fill="black"
+          ) 
       img.mainImage(src="@/assets/images/t.png"  :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${data.backdrop_path})` }") 
-      .overImageBox
+      .gra
+      .left
         h2 {{ data.title || data.name}}
         el-button.playButton
           mdicon(name="play" size="52") 
@@ -320,8 +393,15 @@ el-dialog(:visible='visible' @close="close")
           height="20"
           fill="black"
         ) 
+      .right
+        inline-svg.bordering(
+          :src="require('@/assets/images/speaker.svg')"
+          width="20" 
+          height="20"
+          fill="black"
+        ) 
     .movieInfoBox
-      .movieInfo
+      .row
         .left
           span.txt.green {{ data.vote_average }}% 일치 
           span.txt(style="color: grey") 2023 에피소드 
@@ -373,20 +453,21 @@ el-dialog(:visible='visible' @close="close")
               span 장르:
               span.txt 애니메이션
       .descriptionBox
-        span.txt(style="width: 50%") {{ data.overview }}
+        span.txt(style="width: 62%") {{ data.overview }}
     .sereisInfoBox
       h3 회차
       .box
-        .row(v-for="(item, index) in movieData.results")
+        .row(v-for="(item, index) in movieData.results" :class="{ selected: index === 0 }")
           h4 {{ index+1}} 
-          img.seriseImage(src="@/assets/images/t.png"  :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${item.backdrop_path})` }")
+          img.seriseImage(src="@/assets/images/t.png" :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${item.backdrop_path})` }")
           .box
-            p.time 22분
-            p.serise {{ item.title || item.name }}
+            span.time 22분
+            span.serise {{ item.title || item.name }}
             p.description {{ item.overview }}
-    .MovieListBox
+    .movieListBox.hide
       h3 함께 시청된 콘텐츠
       .card(v-for="(item, index) in movieData.results")
+        p.episode 에피소드 10
         img(src="@/assets/images/t.png"  :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${item.backdrop_path})` }") 
         inline-svg.bordering(
             :src="require('@/assets/images/plus.svg')"
@@ -403,7 +484,37 @@ el-dialog(:visible='visible' @close="close")
           )
           span 2019
           p {{ item.overview }}
-   
+    .extendAreaBox
+      inline-svg.arrowBottom(
+        :src="require('@/assets/images/arrowbottom.svg')"
+        width="25" 
+        height="25"
+        fill="black"
+      )
+    .movieListBox(style="border-bottom: none")
+      h3 예고편 및 다른 영상
+      .card.otherOption(v-for="(item, index) in movieData.results")
+        img(src="@/assets/images/t.png"  :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${item.backdrop_path})` }") 
+        p 시즌1 예고편 최후통첩: 쿼어러브
+    .bottomBox
+      .row
+        span 출연:
+        span.txt 이시가미 시즈카, 우에무라 유토
+      .row
+        span 장르:
+        span.txt 애니메이션
+      .row
+        span 시리즈 특징:
+        span.txt 도발적인, 거부할 수 없는 이끌림
+      .row(style="margin-top:-10px;")
+        span 관람등급:
+        inline-svg(
+          :src="require('@/assets/images/age.svg')"
+          width="25" 
+          height="25"
+          fill="black"
+        )
+        span.txt 청소년관람 불가
 </template>
 
 <script>
@@ -431,7 +542,6 @@ el-dialog(:visible='visible' @close="close")
     },
     methods: {
       close() {
-        console.log("close")
         this.$emit("close")
       },
     },
