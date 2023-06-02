@@ -4,7 +4,7 @@
     width: 1570px !important;
     background-color: #141414;
     padding-bottom: 20px;
-    border-radius: 10px !important;
+    border-radius: 5px !important;
     overflow: hidden;
     margin-bottom: 0;
     .el-dialog__header {
@@ -22,9 +22,9 @@
     margin-bottom: 20px;
   }
   .el-dialog__wrapper {
-    z-index: 100000 !important;
+    z-index: 10000 !important;
     .el-dialog {
-      border-radius: 10px !important;
+      border-radius: 5px !important;
       .dialog {
         .imageBox {
           position: relative;
@@ -55,15 +55,12 @@
             vertical-align: middle;
             border: 2px solid hsla(0, 0%, 100%, 0.5);
             color: #fff;
-            background-color: #181818;
+            background-color: #2f2f2f;
             border-radius: 50%;
             padding: 8px;
             &:hover {
               border: 2px solid #fff;
             }
-          }
-          .gra {
-            background-image: linear-gradient(0deg, #181818, transparent 50%);
           }
           .left {
             position: absolute;
@@ -147,7 +144,7 @@
               float: right;
               font-size: 0.9rem;
               span {
-                line-height: 40px;
+                line-height: 30px;
                 vertical-align: top;
               }
             }
@@ -168,6 +165,7 @@
           }
         }
         .descriptionBox {
+          margin-top: 20px;
           .txt {
             display: inline-block;
             color: #fff;
@@ -178,23 +176,25 @@
         .sereisInfoBox {
           padding: 40px;
           .box {
+            display: table;
             .row {
-              min-height: 140px;
-              border-bottom: 2px solid rgb(83, 83, 83);
-              display: table;
-              width: 100%;
-              .row:after {
-                display: table;
-                content: "";
-                clear: both;
+              display: table-inline;
+              border-bottom: 1px solid #404040;
+              &.selected {
+                border-radius: 5px;
+                background-color: #2f2f2f;
+                border-bottom: none;
               }
-            }
-            .selected {
-              background-color: #2f2f2f;
+              &:last-child {
+                border-bottom: 2px solid #404040;
+              }
+              > * {
+                height: 180px;
+                vertical-align: middle;
+              }
             }
             h4 {
               display: table-cell;
-              vertical-align: middle;
               font-size: 1.6rem;
               color: #fff;
               min-width: 60px;
@@ -203,46 +203,60 @@
               min-height: 140px;
             }
             .seriseImage {
+              position: relative;
               display: table-cell;
-              vertical-align: middle;
-              float: left;
               box-sizing: border-box;
-              margin: 16px;
-              width: 266px;
-              min-height: 156px;
-              background-size: cover;
+              padding: 16px;
+              .thumb {
+                display: block;
+                width: 266px;
+                height: 156px;
+                background-size: cover;
+                border-radius: 5px;
+              }
+              .playButton {
+                display: none;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                color: #fff;
+                border: 1px solid #fff;
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+              }
+              &:hover {
+                .playButton {
+                  display: block;
+                }
+              }
             }
-            .box {
+            .seriseInfo {
               display: table-cell;
               vertical-align: middle;
-              min-height: 140px;
+              padding-right: 100px;
               width: 100%;
-              :after {
-                content: "";
-                display: block;
-                clear: both;
-              }
-              span {
-                display: inline-block;
-                height: 150px;
-                vertical-align: top;
-              }
-              .time {
-                width: 15%;
-                vertical-align: top;
+              .info {
+                overflow: hidden;
+                margin-bottom: 10px;
                 color: #fff;
+                .serise {
+                  float: left;
+                }
+                .time {
+                  float: right;
+                }
+              }
+
+              .time {
+                text-align: right;
                 font-size: 16px;
-                float: right;
               }
               .serise {
-                height: 100%;
-                margin: 0 10px 10px 10px;
                 font-size: 1rem;
-                color: #fff;
               }
               .description {
-                line-height: 22px;
-                font-size: 0.9rem;
+                line-height: 1.4;
+                font-size: 14px;
                 color: grey;
               }
             }
@@ -265,6 +279,7 @@
           color: #d2d2d2;
           margin-bottom: -20px;
           border-bottom: 2px solid rgb(83, 83, 83);
+
           &:after {
             content: "";
             display: block;
@@ -276,6 +291,25 @@
             background-color: #2f2f2f;
             float: left;
             margin: 10px;
+            border-radius: 5px;
+            .sumnail {
+              position: relative;
+              .playButton {
+                display: none;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                color: #fff;
+                border: 1px solid #fff;
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+              }
+              &:hover {
+                .playButton {
+                  display: block;
+                }
+              }
+            }
             .episode {
               position: relative;
               top: 3%;
@@ -291,6 +325,7 @@
               clear: both;
             }
             img {
+              border-radius: 5px;
               background-size: cover;
               width: 100%;
               height: 270px;
@@ -351,6 +386,7 @@
             svg {
               position: relative;
               top: 10px;
+              padding-left: 10px;
             }
             .txt {
               color: #fff;
@@ -375,7 +411,6 @@ el-dialog(:visible='visible' @close="close")
             fill="black"
           ) 
       img.mainImage(src="@/assets/images/t.png"  :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${data.backdrop_path})` }") 
-      .gra
       .left
         h2 {{ data.title || data.name}}
         el-button.playButton
@@ -459,16 +494,21 @@ el-dialog(:visible='visible' @close="close")
       .box
         .row(v-for="(item, index) in movieData.results" :class="{ selected: index === 0 }")
           h4 {{ index+1}} 
-          img.seriseImage(src="@/assets/images/t.png" :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${item.backdrop_path})` }")
-          .box
-            span.time 22분
-            span.serise {{ item.title || item.name }}
+          .seriseImage
+            span(class="thumb" :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${item.backdrop_path})`}") 
+            a.playButton #[mdicon(name="play" size="42") ]
+          .seriseInfo
+            p.info
+              span.serise {{ item.title || item.name }}
+              span.time 22분
             p.description {{ item.overview }}
     .movieListBox.hide
       h3 함께 시청된 콘텐츠
       .card(v-for="(item, index) in movieData.results")
-        p.episode 에피소드 10
-        img(src="@/assets/images/t.png"  :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${item.backdrop_path})` }") 
+        p.episode 에피소드 10개
+        .sumnail
+          img(src="@/assets/images/t.png"  :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${item.backdrop_path})` }") 
+          a.playButton #[mdicon(name="play" size="42") ]
         inline-svg.bordering(
             :src="require('@/assets/images/plus.svg')"
             width="24" 
@@ -494,8 +534,10 @@ el-dialog(:visible='visible' @close="close")
     .movieListBox(style="border-bottom: none")
       h3 예고편 및 다른 영상
       .card.otherOption(v-for="(item, index) in movieData.results")
-        img(src="@/assets/images/t.png"  :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${item.backdrop_path})` }") 
-        p 시즌1 예고편 최후통첩: 쿼어러브
+       .sumnail
+          img(src="@/assets/images/t.png"  :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${item.backdrop_path})` }") 
+          a.playButton #[mdicon(name="play" size="42") ]
+          p 시즌1 예고편 최후통첩: 쿼어러브
     .bottomBox
       .row
         span 출연:

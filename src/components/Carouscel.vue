@@ -11,11 +11,11 @@
     .title {
       position: relative;
       color: #fff;
-      font-size: 2.5rem;
       padding-left: 60px;
-      margin-bottom: 10px;
+      font-size: 1.4vw;
+      line-height: 1.25vw;
+      vertical-align: bottom;
     }
-
     .barContainer {
       margin-right: 60px;
       height: 20px;
@@ -38,33 +38,31 @@
       display: block;
       clear: both;
     }
-
     > .row {
       padding: 0 60px;
       position: relative;
       z-index: 100;
       &:hover {
         .arrow {
+          height: 100%;
           font-size: 5rem;
           color: #fff;
           border: none;
-          width: 38px;
+          width: 56px;
+          border-radius: 5px;
           height: 100%;
           z-index: 100;
           margin: 0;
           padding: 0;
           cursor: pointer;
           transition: font-size 150ms ease-in-out;
-          &:hover {
-            font-size: 6rem;
-          }
+          line-height: 240px;
         }
       }
       .leftArrow {
         position: absolute;
         left: 0;
         top: 0;
-        height: 100%;
         background-color: black;
         opacity: 0.4;
         z-index: 50;
@@ -73,13 +71,11 @@
         position: absolute;
         right: 0;
         top: 0;
-        height: 100%;
         background-color: black;
         opacity: 0.4;
         z-index: 50;
       }
       .imgContainer {
-        //489.15px 개당
         width: 9783px;
         overflow-x: visible;
         .detailBox {
@@ -90,39 +86,40 @@
           height: 272px;
           .box {
             position: absolute;
-            border-radius: 10px;
-            background-color: #3d3d3dc4;
-          }
-          img {
-            width: 100%;
-            position: relative;
-            border-radius: 10px;
-            transform: translateX(calc(0 * -100%));
-            background-size: 100% 100%;
-            height: 272px !important;
+            background-color: #222222;
+            border-radius: 5px;
+            overflow: hidden;
+            img {
+              width: 100%;
+              position: relative;
+              transform: translateX(calc(0 * -100%));
+              background-size: 100% 100%;
+              height: 272px;
+            }
           }
           .detail {
             width: 100%;
             display: none;
             .row {
-              margin: 20px 0;
+              padding: 0 15px;
+              margin-bottom: 20px;
               &:after {
                 content: "";
                 display: block;
                 clear: both;
               }
               .playButton {
-                margin-left: 8px;
+                margin: 15px 8px 0 10px;
                 border-radius: 50%;
-                color: #141414c4;
+                color: black;
                 padding: 0;
               }
               .bordering {
-                margin-left: 8px;
-                vertical-align: middle;
+                margin: 15px 8px 0 0;
+                vertical-align: top;
                 border: 1px solid #fff;
                 color: #fff;
-                background-color: #2f2f2f;
+                background-color: #222222;
                 border-radius: 50%;
                 padding: 8px;
               }
@@ -132,13 +129,13 @@
               }
               .white {
                 display: inline-block;
-                font-size: 0.8rem;
+                font-size: 1rem;
                 margin-right: 15px;
                 color: #fff;
               }
               .circle {
                 content: "";
-                padding: 5px;
+                padding: 3px;
                 background-color: hsla(0, 0%, 100%, 0.4);
                 border-radius: 50%;
               }
@@ -167,19 +164,19 @@
             }
           }
           &:hover {
-            z-index: 1;
+            z-index: 109;
             .box {
-              border-radius: 10px;
-              transition: 0.5s;
-              top: -70px;
-              // width: 700px;
-              // height: 400px;
-              // left: 50%;
-              // top: 50%;
+              border-radius: 5px;
+              top: 50%;
+              left: 50%;
+              width: 725px;
+              height: 628px;
               overflow: hidden;
-              transform: scale(1.45);
+              transform: translate(-50%, -58%);
+              img {
+                height: 470px;
+              }
               .detail {
-                padding: 15px 0;
                 display: inline-block;
               }
             }
@@ -197,7 +194,7 @@
   .row
     .arrow.leftArrow(@click="moveRow('left')") &#8249;
     .arrow.rightArrow(@click="moveRow('right')") &#8250;
-    .imgContainer(:style="move")
+    .imgContainer(:style="`transform: translateX(${move.number}%)`")
       .detailBox(v-for="(item, index) in movieData.results")
         .box
           img(@mouseover="selectedHover"
@@ -205,25 +202,25 @@
             :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})`}"
           )
           .detail
-            .row
+            .row(style="margin-bottom:10px")
               el-button.playButton
-                mdicon(name="play" size="30") 
+                mdicon(name="play" size="38") 
               inline-svg.bordering(
                 :src="require('@/assets/images/plus.svg')"
-                width="14" 
-                height="14"
+                width="24" 
+                height="24"
                 fill="black"
               ) 
               inline-svg.bordering(
                 :src="require('@/assets/images/like.svg')"
-                width="14" 
-                height="14"
+                width="24" 
+                height="24"
                 fill="black"
               )
               inline-svg.bordering.arrowBottom(
                 :src="require('@/assets/images/arrowbottom.svg')"
-                width="14" 
-                height="14"
+                width="24" 
+                height="24"
                 fill="black"
               )
             .row
@@ -259,9 +256,9 @@
         isHovered: false,
         move: {
           number: 0,
-          transform: "translateX(0%)",
           selected: 18,
         },
+        transform: 0,
       }
     },
     methods: {
@@ -271,24 +268,19 @@
       moveRow(direction) {
         if (direction === "left") {
           this.move.number += 25
-          this.move.transform = `translateX(${this.move.number}%)`
           this.move.selected += 6
           if (this.move.number > 0) {
             this.move.number = Number(Math.floor(this.movieData.results.length / 6) * -25)
-            this.move.transform = `translateX(${this.move.number}%)`
             this.move.selected = 0
           }
         } else if (direction === "right") {
           this.move.number -= 25
-          this.move.transform = `translateX(${this.move.number}%)`
           this.move.selected -= 6
           if (this.move.number < Number(Math.floor(this.movieData.results.length / 6) * -25)) {
             this.move.number = 0
-            this.move.transform = `translateX(${this.move.number}%)`
             this.move.selected = 18
           }
         }
-        console.log(this.move.selected)
       },
     },
   }

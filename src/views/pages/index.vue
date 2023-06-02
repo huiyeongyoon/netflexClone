@@ -1,7 +1,6 @@
 <style lang="scss" scoped>
   .main {
     height: 100%;
-    overflow: hidden;
     .imageArea {
       position: relative;
       height: 1700px;
@@ -73,12 +72,20 @@
         bottom: 33.9%;
         right: 0px;
         color: #fff;
-        .mdi {
-          margin: 0 30px 20px 0;
-          border: 1px solid #fff;
-          border-radius: 50%;
-          padding: 8px 8px 11px 8px;
+        a {
+          color: #fff;
+          margin-right: 25px;
+          vertical-align: top;
+          svg {
+            border: 1px solid #fff;
+            border-radius: 50%;
+            padding: 10px;
+            &:hover {
+              background-color: rgba(51, 51, 51, 0.6);
+            }
+          }
         }
+
         .videoOption {
           display: inline-block;
           background-color: rgba(51, 51, 51, 0.6);
@@ -118,7 +125,13 @@
         mdicon(name="AlertCircleOutline" size="36")
         span 상세정보
     .filmRating
-      mdicon(name="Replay" size="34")  
+      a(href="/")
+        inline-svg(
+          :src="require('@/assets/images/sound.svg')"
+          width="28" 
+          height="28"
+          fill="black"
+        ) 
       .videoOption
         inline-svg(
           :src="require('@/assets/images/age.svg')"
@@ -128,7 +141,7 @@
         ) 
   .listArea
     Carouscel(:title="'지금 뜨는 콘텐츠'" :size="'small'" :movieData="popular")
-    //- CarouscelTop(:title="'오늘 대한민국의 TOP 10 시리즈'" :size="'large'" :movieData="top")
+    CarouscelTop(:title="'오늘 대한민국의 TOP 10 시리즈'" :size="'large'" :movieData="top")
     Carouscel(:title="'해외 시리즈'" :size="'small'" :movieData="upcoming" )
   Detail(:visible="visible" :data="randomMovieInfo" :movieData="popular" @close="close")
 </template>
