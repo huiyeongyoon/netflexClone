@@ -1,7 +1,4 @@
 <style lang="scss" scoped>
-  .hovered {
-    z-index: 10001;
-  }
   .CarouscelContainer:first-child {
     margin-top: -380px;
   }
@@ -39,44 +36,42 @@
       padding: 0 60px;
       position: relative;
       z-index: 100;
+      .arrow {
+        position: absolute;
+        height: 0;
+        display: none;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        height: 100%;
+        color: #fff;
+        border: none;
+        width: 56px;
+        border-radius: 5px;
+        z-index: 100;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+        span {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          display: block;
+          line-height: 100%;
+        }
+      }
       &:hover {
         .arrow {
-          font-size: 5rem;
-          color: #fff;
-          border: none;
-          width: 56px;
-          height: 100%;
-          z-index: 100;
-          margin: 0;
-          padding: 0;
-          cursor: pointer;
-          transition: font-size 150ms ease-in-out;
-          &:hover {
-            font-size: 6rem;
-          }
+          display: block;
         }
       }
       .leftArrow {
-        position: absolute;
         left: 0;
-        top: 0;
-        height: 100%;
-        background-color: black;
-        opacity: 0.4;
-        z-index: 50;
       }
       .rightArrow {
-        position: absolute;
         right: 0;
-        top: 0;
-        height: 100%;
-        background-color: black;
-        opacity: 0.4;
-        z-index: 50;
       }
       .imgContainer {
-        //489.15px 개당
-        width: 4891.5px;
         overflow-x: visible;
         &:after {
           display: block;
@@ -84,11 +79,11 @@
           clear: both;
         }
         .detailBox {
-          width: 481.15px;
+          width: 477.8px;
           height: 352px;
           position: relative;
           float: left;
-          margin: 0.25rem;
+          margin: 0 0.35rem;
           .box {
             position: absolute;
             border-radius: 5px;
@@ -118,15 +113,21 @@
                 border-radius: 50%;
                 color: black;
                 padding: 0;
+                &:hover {
+                  background-color: 2px solid grey;
+                }
               }
               .bordering {
                 margin: 15px 8px 0 0;
                 vertical-align: top;
-                border: 1px solid #fff;
+                border: 1px solid grey;
                 color: #fff;
                 background-color: #222222;
                 border-radius: 50%;
                 padding: 8px;
+                &:hover {
+                  border: 1px solid #fff;
+                }
               }
               .arrowBottom {
                 float: right;
@@ -172,7 +173,6 @@
             z-index: 1;
             .box {
               border-radius: 5px;
-              // transition: 0.5s;
               top: 50%;
               left: 50%;
               width: 725px;
@@ -198,23 +198,23 @@
   }
 </style>
 <template lang="pug">
-.CarouscelContainer(:class="{ 'hovered': isHovered }")
+.CarouscelContainer
   h2.title {{ title }}
   .barContainer
     .bar(v-for="(item, index) in movieData" v-if="index % 6 === 0" :class="{active : index % 6 === 0 && index === move.selected }")
   .row(:class="{rowLarge: size === 'large', rowSmall: size === 'small'}")
-    .arrow.leftArrow(@click="moveRow('left')") &#8249;
-    .arrow.rightArrow(@click="moveRow('right')") &#8250;
-    .imgContainer(:style="move")
+    .arrow.leftArrow(@click="moveRow('left')") #[mdicon(name="chevron-left" size="50")]
+    .arrow.rightArrow(@click="moveRow('right')") #[mdicon(name="chevron-right" size="50")]
+    .imgContainer(:style="`width: ${itemWidth}px; transform: translateX(${move.number}%)`")
       .detailBox(v-for="(item, index) in movieData")
         .box
           inline-svg.topRateSvgImg(
             :src="require(`@/assets/images/${index + 1}.svg`)"
-            width="240.5" 
+            width="238" 
             height="352"
             fill="black"
           ) 
-          img(@mouseover="selectedHover"
+          img(
             src="@/assets/images/t.png"
             :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})`}"
           )
@@ -239,6 +239,7 @@
                 width="24" 
                 height="24"
                 fill="black"
+                @click="showDetail"
               )
             .row
               span.white.txt.green 95% 일치 
@@ -269,17 +270,21 @@
     },
     data() {
       return {
-        isHovered: false,
         move: {
           number: 0,
-          transform: "translateX(0%)",
           selected: 6,
         },
+        transform: 0,
       }
     },
+    computed: {
+      itemWidth() {
+        return this.movieData !== undefined ? this.movieData.length * 490.00000000000003 : 0
+      },
+    },
     methods: {
-      selectedHover() {
-        this.isHovered = true
+      showDetail() {
+        this.$emit("openDetail")
       },
       moveRow(direction) {
         if (direction === "left") {

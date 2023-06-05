@@ -59,7 +59,8 @@
             border-radius: 50%;
             padding: 8px;
             &:hover {
-              border: 2px solid #fff;
+              // border: 1px solid #fff;
+              border-color: #fff;
             }
           }
           .left {
@@ -266,7 +267,7 @@
           text-align: center;
           .arrowBottom {
             vertical-align: middle;
-            border: 2px solid #fff;
+            border: 1px solid #fff;
             color: #fff;
             border-radius: 50%;
             padding: 5px;
@@ -333,7 +334,7 @@
             .bordering {
               margin: 20px 15px 0 0;
               vertical-align: middle;
-              border: 2px solid #fff;
+              border: 1px solid #fff;
               color: #fff;
               background-color: #2f2f2f;
               border-radius: 50%;

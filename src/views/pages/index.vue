@@ -1,6 +1,7 @@
 <style lang="scss" scoped>
   .main {
     height: 100%;
+    overflow-x: hidden;
     .imageArea {
       position: relative;
       height: 1700px;
@@ -140,9 +141,9 @@
           fill="black"
         ) 
   .listArea
-    Carouscel(:title="'지금 뜨는 콘텐츠'" :size="'small'" :movieData="popular")
-    CarouscelTop(:title="'오늘 대한민국의 TOP 10 시리즈'" :size="'large'" :movieData="top")
-    Carouscel(:title="'해외 시리즈'" :size="'small'" :movieData="upcoming" )
+    Carouscel(:title="'지금 뜨는 콘텐츠'" :size="'small'" :movieData="popular" @openDetail="visible = true")
+    CarouscelTop(:title="'오늘 대한민국의 TOP 10 시리즈'" :size="'large'" :movieData="top"  @openDetail="visible = true")
+    Carouscel(:title="'해외 시리즈'" :size="'small'" :movieData="upcoming" @openDetail="visible = true")
   Detail(:visible="visible" :data="randomMovieInfo" :movieData="popular" @close="close")
 </template>
 

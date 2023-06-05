@@ -17,7 +17,7 @@
   }
   header {
     position: fixed;
-    z-index: 100000;
+    z-index: 100;
     height: 68px;
     width: calc(100% - 80px);
     padding: 15px 2.5rem;

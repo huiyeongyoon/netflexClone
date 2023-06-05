@@ -1,7 +1,4 @@
 <style lang="scss" scoped>
-  .hovered {
-    z-index: 1000;
-  }
   .CarouscelContainer:first-child {
     margin-top: -380px;
   }
@@ -19,8 +16,11 @@
     .barContainer {
       margin-right: 60px;
       height: 20px;
-      .bar {
+      > div {
         float: right;
+      }
+      .bar {
+        display: inline-block;
         background-color: #fff;
         opacity: 0.4;
         margin-right: 0.1rem;
@@ -42,47 +42,48 @@
       padding: 0 60px;
       position: relative;
       z-index: 100;
+      .arrow {
+        position: absolute;
+        height: 0;
+        display: none;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        height: 100%;
+        color: #fff;
+        border: none;
+        width: 56px;
+        border-radius: 5px;
+        z-index: 100;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+        span {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          display: block;
+          line-height: 100%;
+        }
+      }
       &:hover {
         .arrow {
-          height: 100%;
-          font-size: 5rem;
-          color: #fff;
-          border: none;
-          width: 56px;
-          border-radius: 5px;
-          height: 100%;
-          z-index: 100;
-          margin: 0;
-          padding: 0;
-          cursor: pointer;
-          transition: font-size 150ms ease-in-out;
-          line-height: 240px;
+          display: block;
         }
       }
       .leftArrow {
-        position: absolute;
         left: 0;
-        top: 0;
-        background-color: black;
-        opacity: 0.4;
-        z-index: 50;
       }
       .rightArrow {
-        position: absolute;
         right: 0;
-        top: 0;
-        background-color: black;
-        opacity: 0.4;
-        z-index: 50;
       }
       .imgContainer {
-        width: 9783px;
         overflow-x: visible;
         .detailBox {
           display: inline-block;
           position: relative;
-          margin: 0.25rem;
-          width: 481.15px;
+          margin: 0 0.35rem;
+          width: 477.8px;
           height: 272px;
           .box {
             position: absolute;
@@ -90,6 +91,7 @@
             border-radius: 5px;
             overflow: hidden;
             img {
+              display: block;
               width: 100%;
               position: relative;
               transform: translateX(calc(0 * -100%));
@@ -117,11 +119,14 @@
               .bordering {
                 margin: 15px 8px 0 0;
                 vertical-align: top;
-                border: 1px solid #fff;
+                border: 1px solid grey;
                 color: #fff;
                 background-color: #222222;
                 border-radius: 50%;
                 padding: 8px;
+                &:hover {
+                  border: 1px solid #fff;
+                }
               }
               .arrowBottom {
                 float: right;
@@ -187,17 +192,18 @@
   }
 </style>
 <template lang="pug">
-.CarouscelContainer(:class="{ 'hovered': isHovered }")
+.CarouscelContainer
   h2.title {{ title }}
   .barContainer
-    .bar(v-for="(item, index) in movieData.results" v-if="index % 6 === 0" :class="{ active : index % 6 === 0 && index === move.selected }")
+    .box
+      .bar(v-for="index in getMovieCount" :class="{ active : index === move.selected }")
   .row
-    .arrow.leftArrow(@click="moveRow('left')") &#8249;
-    .arrow.rightArrow(@click="moveRow('right')") &#8250;
-    .imgContainer(:style="`transform: translateX(${move.number}%)`")
+    .arrow.leftArrow(@click="moveRow('left')") #[mdicon(name="chevron-left" size="50")]
+    .arrow.rightArrow(@click="moveRow('right')") #[mdicon(name="chevron-right" size="50")]
+    .imgContainer(:style="`width: ${getItemWidth}px; transform: translateX(${move.translateXWidth}%)`")
       .detailBox(v-for="(item, index) in movieData.results")
         .box
-          img(@mouseover="selectedHover"
+          img(
             src="@/assets/images/t.png"
             :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})`}"
           )
@@ -222,9 +228,10 @@
                 width="24" 
                 height="24"
                 fill="black"
+                @click="showDetail"
               )
             .row
-              span.white.txt.green 95% 일치 
+              span.white.txt.green 95% 일치
               span.white.txt.age 19+
               span.white.txt(style="color: grey") 2023 에피소드 
               span.white.txt.hd HD
@@ -234,7 +241,6 @@
               span.white 흥미진진
               span.white.circle
               span.white 판타지 애니메이션
-
 </template>
 
 <script>
@@ -251,34 +257,59 @@
         default: () => {},
       },
     },
+    watch: {
+      movieData(newVal) {
+        if (newVal !== undefined) {
+          this.listWidth = this.movieData.results.length * 489.00000000000006
+        }
+      },
+    },
     data() {
       return {
-        isHovered: false,
         move: {
-          number: 0,
-          selected: 18,
+          translateXWidth: 0,
+          selected: 1,
         },
         transform: 0,
+        listWidth: 0,
       }
     },
+    computed: {
+      getItemWidth() {
+        return this.movieData.results !== undefined ? this.movieData.results.length * 489.00000000000006 : 0
+      },
+      getMovieCount() {
+        return this.movieData.results !== undefined ? Math.ceil(this.movieData.results.length / 6) : 0
+      },
+    },
     methods: {
-      selectedHover() {
-        this.isHovered = true
+      showDetail() {
+        this.$emit("openDetail")
       },
       moveRow(direction) {
+        let index = 0
+        let pageSize = Math.ceil(this.movieData.results.length / 6)
+        let translateXWidth = 100
+        while (pageSize) {
+          if (index * pageSize >= translateXWidth) {
+            break
+          } else {
+            index++
+          }
+        }
         if (direction === "left") {
-          this.move.number += 25
-          this.move.selected += 6
-          if (this.move.number > 0) {
-            this.move.number = Number(Math.floor(this.movieData.results.length / 6) * -25)
-            this.move.selected = 0
+          this.move.selected -= 1
+          this.move.translateXWidth += index
+          if (this.move.selected < 1) {
+            this.move.translateXWidth -= translateXWidth
+            this.move.selected = pageSize
           }
         } else if (direction === "right") {
-          this.move.number -= 25
-          this.move.selected -= 6
-          if (this.move.number < Number(Math.floor(this.movieData.results.length / 6) * -25)) {
-            this.move.number = 0
-            this.move.selected = 18
+          this.move.selected += 1
+          this.move.translateXWidth -= index
+          if (this.move.selected > pageSize) {
+            this.move.translateXWidth = 0
+            this.move.selected = 1
           }
         }
       },
