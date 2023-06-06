@@ -196,7 +196,7 @@
   h2.title {{ title }}
   .barContainer
     .box
-      .bar(v-for="index in getMovieCount" :class="{ active : index === move.selected }")
+      .bar(v-for="currentCarouscelNumber in getTotalCarouscelSize" :class="{ active : currentCarouscelNumber === move.currentCarouscel }")
   .row
     .arrow.leftArrow(@click="moveRow('left')") #[mdicon(name="chevron-left" size="50")]
     .arrow.rightArrow(@click="moveRow('right')") #[mdicon(name="chevron-right" size="50")]
@@ -268,7 +268,7 @@
       return {
         move: {
           translateXWidth: 0,
-          selected: 1,
+          currentCarouscel: 1,
         },
         transform: 0,
         listWidth: 0,
@@ -278,7 +278,7 @@
       getItemWidth() {
         return this.movieData.results !== undefined ? this.movieData.results.length * 489.00000000000006 : 0
       },
-      getMovieCount() {
+      getTotalCarouscelSize() {
         return this.movieData.results !== undefined ? Math.ceil(this.movieData.results.length / 6) : 0
       },
     },
@@ -288,28 +288,30 @@
       },
       moveRow(direction) {
         let index = 0
-        let pageSize = Math.ceil(this.movieData.results.length / 6)
-        let translateXWidth = 100
-        while (pageSize) {
-          if (index * pageSize >= translateXWidth) {
+        let totalCarouscelSize = this.getTotalCarouscelSize
+        let translateXWidth = -100
+        let eachCarouscelSize = translateXWidth / totalCarouscelSize
+        while (totalCarouscelSize) {
+          if (index * totalCarouscelSize >= translateXWidth) {
             break
           } else {
             index++
           }
         }
+
         if (direction === "left") {
-          this.move.selected -= 1
-          this.move.translateXWidth += index
-          if (this.move.selected < 1) {
+          this.move.currentCarouscel = this.move.currentCarouscel === 1 ? this.getTotalCarouscelSize : this.move.currentCarouscel - 1
+          this.move.translateXWidth += eachCarouscelSize
+          if (this.move.translateXWidth === translateXWidth) {
             this.move.translateXWidth -= translateXWidth
-            this.move.selected = pageSize
+            this.move.currentCarouscel = 1
           }
         } else if (direction === "right") {
-          this.move.selected += 1
-          this.move.translateXWidth -= index
-          if (this.move.selected > pageSize) {
+          this.move.currentCarouscel = ++this.move.currentCarouscel
+          this.move.translateXWidth += eachCarouscelSize
+          if (this.move.translateXWidth === +translateXWidth) {
             this.move.translateXWidth = 0
-            this.move.selected = 1
+            this.move.currentCarouscel = 1
           }
         }
       },

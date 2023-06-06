@@ -1,26 +1,25 @@
 <style lang="scss" scoped>
-  a {
-    font-weight: 500;
-    font-size: 14px;
-  }
-  a:link {
-    color: #fff;
-    text-decoration: none;
-  }
-  a:visited {
-    color: #fff;
-    text-decoration: none;
-  }
-  a:hover {
-    color: #ddd;
-    text-decoration: none;
-  }
   header {
     position: fixed;
     z-index: 100;
-    height: 68px;
     width: calc(100% - 80px);
     padding: 15px 2.5rem;
+    a {
+      font-weight: 500;
+      font-size: 14px;
+    }
+    a:link {
+      color: var(--white);
+      text-decoration: none;
+    }
+    a:visited {
+      color: var(--white);
+      text-decoration: none;
+    }
+    a:hover {
+      color: #ddd;
+      text-decoration: none;
+    }
     &:after {
       clear: both;
       content: "";
@@ -28,7 +27,6 @@
     }
     .mainArea {
       width: 100%;
-      height: 68px;
       color: #e5e5e5;
       &:after {
         clear: both;
@@ -45,9 +43,9 @@
         }
         h1 {
           float: left;
-        }
-        .logoImage {
-          width: 99.5px;
+          .logoImage {
+            width: 99.5px;
+          }
         }
         ul {
           float: left;
@@ -72,7 +70,7 @@
             display: inline-block;
             vertical-align: middle;
             list-style: none;
-            color: #fff;
+            color: var(--white);
             padding: 2px 10px 0 10px;
             &.hoverAlrat {
               .card {
@@ -87,7 +85,7 @@
                   right: 13px;
                 }
                 ul {
-                  border-top: 2px solid #fff;
+                  border-top: 2px solid var(--white);
                   width: 400px;
                   min-height: 100px;
                   background-color: rgba(0, 0, 0, 0.6);
@@ -150,12 +148,12 @@
                       .imgTxt {
                         position: relative;
                         bottom: 8px;
-                        color: #fff;
+                        color: var(--white);
                       }
                       .mdiTxt {
                         position: relative;
                         top: 3px;
-                        color: #fff;
+                        color: var(--white);
                       }
                     }
                   }
@@ -179,10 +177,13 @@
       }
     }
   }
+  .scrolled {
+    background-color: #141414;
+  }
 </style>
 
 <template lang="pug">
-  header
+  header(:class="{ scrolled : isScrolled }")
     .mainArea
       .gnbBox
         h1
@@ -251,7 +252,21 @@
 <script>
   export default {
     data() {
-      return {}
+      return {
+        isScrolled: false,
+      }
+    },
+    mounted() {
+      window.addEventListener("scroll", this.handleScroll)
+    },
+    methods: {
+      handleScroll() {
+        if (window.pageYOffset > 0) {
+          this.isScrolled = true
+        } else {
+          this.isScrolled = false
+        }
+      },
     },
   }
 </script>

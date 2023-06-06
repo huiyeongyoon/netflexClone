@@ -1,6 +1,7 @@
 import "@/assets/css/normalize.css"
 import "@/assets/css/style.scss"
 import "@/assets/css/element-variables.scss"
+import "@/assets/css/var.scss"
 
 import Vue from "vue"
 

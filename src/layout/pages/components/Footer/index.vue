@@ -5,7 +5,7 @@
     .iconArea {
       margin-bottom: 20px;
       .mdi {
-        color: #fff;
+        color: var(--white);
         margin: 0.6rem;
       }
     }
@@ -17,7 +17,7 @@
           width: 25%;
           font-size: 0.8rem;
           text-decoration: none;
-          color: grey;
+          color: var(--grey);
           margin-bottom: 1rem;
         }
         .txtLink:hover {
@@ -27,13 +27,10 @@
           margin: 50px 0;
           font-size: 0.8rem;
           text-decoration: none;
-          color: grey;
+          color: var(--grey);
           margin-bottom: 1.5rem;
-          border: 1px solid grey;
+          border: 1px solid var(--grey);
           padding: 0.4rem;
-        }
-        .border:hover {
-          text-decoration: none;
         }
       }
       .borderSize {
@@ -43,7 +40,7 @@
     .txt {
       line-height: 20px;
       font-size: 12px;
-      color: grey;
+      color: var(--grey);
     }
   }
 </style>

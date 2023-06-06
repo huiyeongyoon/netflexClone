@@ -4,27 +4,33 @@
   }
   .CarouscelContainer {
     position: relative;
+    margin: 92px 0;
     .title {
+      position: relative;
       color: #fff;
-      font-size: 2.5rem;
       padding-left: 60px;
-      margin-bottom: 10px;
-    }
-    .active {
-      background-color: #fff;
-      opacity: 1;
+      font-size: 1.4vw;
+      line-height: 1.25vw;
+      vertical-align: bottom;
     }
     .barContainer {
       margin-right: 60px;
       height: 20px;
-      .bar {
+      > div {
         float: right;
+      }
+      .bar {
+        display: inline-block;
         background-color: #fff;
         opacity: 0.4;
         margin-right: 0.1rem;
         width: 1rem;
         height: 0.2rem;
         margin-bottom: 10px;
+      }
+      .active {
+        background-color: #fff;
+        opacity: 1;
       }
     }
     &:after {
@@ -73,20 +79,18 @@
       }
       .imgContainer {
         overflow-x: visible;
-        &:after {
-          display: block;
-          content: "";
-          clear: both;
-        }
         .detailBox {
+          display: inline-block;
+          position: relative;
+          margin: 0 0.35rem;
           width: 477.8px;
           height: 352px;
           position: relative;
-          float: left;
-          margin: 0 0.35rem;
           .box {
             position: absolute;
+            background-color: #222222;
             border-radius: 5px;
+            overflow: hidden;
             img {
               position: relative;
               border-top-right-radius: 5px;
@@ -201,11 +205,12 @@
 .CarouscelContainer
   h2.title {{ title }}
   .barContainer
-    .bar(v-for="(item, index) in movieData" v-if="index % 6 === 0" :class="{active : index % 6 === 0 && index === move.selected }")
-  .row(:class="{rowLarge: size === 'large', rowSmall: size === 'small'}")
+    .box
+      .bar(v-for="currentCarouscelNumber in getTotalCarouscelSize" :class="{ active : currentCarouscelNumber === move.currentCarouscel }")
+  .row
     .arrow.leftArrow(@click="moveRow('left')") #[mdicon(name="chevron-left" size="50")]
     .arrow.rightArrow(@click="moveRow('right')") #[mdicon(name="chevron-right" size="50")]
-    .imgContainer(:style="`width: ${itemWidth}px; transform: translateX(${move.number}%)`")
+    .imgContainer(:style="`width: ${getItemWidth}px; transform: translateX(${move.translateXWidth}%)`")
       .detailBox(v-for="(item, index) in movieData")
         .box
           inline-svg.topRateSvgImg(
@@ -271,15 +276,19 @@
     data() {
       return {
         move: {
-          number: 0,
-          selected: 6,
+          translateXWidth: 0,
+          currentCarouscel: 1,
         },
         transform: 0,
+        listWidth: 0,
       }
     },
     computed: {
-      itemWidth() {
+      getItemWidth() {
         return this.movieData !== undefined ? this.movieData.length * 490.00000000000003 : 0
+      },
+      getTotalCarouscelSize() {
+        return this.movieData !== undefined ? Math.ceil(this.movieData.length / 6) : 0
       },
     },
     methods: {
@@ -287,25 +296,31 @@
         this.$emit("openDetail")
       },
       moveRow(direction) {
+        let index = 0
+        let totalCarouscelSize = this.getTotalCarouscelSize
+        let translateXWidth = -100
+        let eachCarouscelSize = translateXWidth / totalCarouscelSize
+        while (totalCarouscelSize) {
+          if (index * totalCarouscelSize >= translateXWidth) {
+            break
+          } else {
+            index++
+          }
+        }
+
         if (direction === "left") {
-          this.move.number += 50
-          this.move.transform = `translateX(${this.move.number}%)`
-          this.move.selected += 6
-          if (this.move.number > 0) {
-            this.move.number = Number(Math.floor(this.movieData.length / 6) * 50)
-            this.move.transform = `translateX(${this.move.number}%)`
-            this.move.selected = 0
+          this.move.currentCarouscel = this.move.currentCarouscel === 1 ? this.getTotalCarouscelSize : this.move.currentCarouscel - 1
+          this.move.translateXWidth += eachCarouscelSize
+          if (this.move.translateXWidth === translateXWidth) {
+            this.move.translateXWidth -= translateXWidth
+            this.move.currentCarouscel = 1
           }
         } else if (direction === "right") {
-          this.move.number -= 50
-          this.move.transform = `translateX(${this.move.number}%)`
-          console.log(this.move.transform)
-
-          this.move.selected -= 6
-          if (this.move.number < Number(Math.floor(this.movieData.length / 6) * 50)) {
-            this.move.number = 0
-            this.move.transform = `translateX(${this.move.number}%)`
-            this.move.selected = 18
+          this.move.currentCarouscel = ++this.move.currentCarouscel
+          this.move.translateXWidth += eachCarouscelSize
+          if (this.move.translateXWidth === +translateXWidth) {
+            this.move.translateXWidth = 0
+            this.move.currentCarouscel = 1
           }
         }
       },

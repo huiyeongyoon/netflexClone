@@ -380,6 +380,10 @@
           max-height: 1200px;
           overflow: hidden;
         }
+        .show {
+          max-height: none;
+          overflow: none;
+        }
         .bottomBox {
           padding: 0 60px;
           .row {
@@ -503,7 +507,7 @@ el-dialog(:visible='visible' @close="close")
               span.serise {{ item.title || item.name }}
               span.time 22분
             p.description {{ item.overview }}
-    .movieListBox.hide
+    .movieListBox(:class="showAndHideContent ? 'show' : 'hide'")
       h3 함께 시청된 콘텐츠
       .card(v-for="(item, index) in movieData.results")
         p.episode 에피소드 10개
@@ -531,6 +535,7 @@ el-dialog(:visible='visible' @close="close")
         width="25" 
         height="25"
         fill="black"
+        @click="showAndHideContents"
       )
     .movieListBox(style="border-bottom: none")
       h3 예고편 및 다른 영상
@@ -581,9 +586,15 @@ el-dialog(:visible='visible' @close="close")
       },
     },
     data() {
-      return {}
+      return {
+        showAndHideContent: false,
+      }
     },
     methods: {
+      showAndHideContents() {
+        console.log(this.showAndHideContent)
+        this.showAndHideContent = !this.showAndHideContent
+      },
       close() {
         this.$emit("close")
       },
