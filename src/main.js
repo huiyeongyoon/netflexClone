@@ -1,3 +1,4 @@
+import "@/assets/css/carouscel.scss"
 import "@/assets/css/normalize.css"
 import "@/assets/css/style.scss"
 import "@/assets/css/element-variables.scss"

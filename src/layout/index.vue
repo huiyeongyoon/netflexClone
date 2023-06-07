@@ -1,3 +1,8 @@
+<style scoped lang="scss">
+  .container {
+    overflow: hidden;
+  }
+</style>
 <template lang="pug">
 .container 
   Gnb

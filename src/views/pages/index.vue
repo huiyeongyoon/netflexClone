@@ -1,12 +1,11 @@
 <style lang="scss" scoped>
   .main {
     height: 100%;
-    overflow-x: hidden;
     .imageArea {
       position: relative;
       height: 1700px;
       .backgroundImage {
-        width: 99.9%;
+        width: 100%;
         height: 100%;
         background-size: cover;
         background-repeat: no-repeat;
@@ -15,29 +14,28 @@
         position: absolute;
         bottom: 30%;
         left: 60px;
-        color: #fff;
+        color: var(--white);
         &after {
           display: block;
           content: "";
           clear: both;
         }
         .title {
-          font-size: 6rem;
-          margin-bottom: 0.3rem;
+          font-size: 96px;
           max-width: 40%;
           min-height: 330px;
           line-height: 100px;
         }
         .description {
-          margin-top: 2rem;
-          font-size: 2rem;
+          margin-top: 32px;
+          margin-bottom: 72px;
+          font-size: 32px;
           max-width: 40%;
-          margin-bottom: 4.5rem;
           line-height: 45px;
         }
         .playButton {
           height: 56px;
-          font-size: 1.5rem;
+          font-size: 24px;
           color: black;
           border: none;
           float: left;
@@ -53,11 +51,11 @@
         }
         .detailButton {
           height: 56px;
-          padding-left: 2rem;
-          padding-right: 2.4rem;
-          font-size: 1.5rem;
+          padding-left: 32px;
+          padding-right: 38.4px;
+          font-size: 24px;
           background-color: rgba(109, 109, 110, 0.4);
-          color: #fff;
+          color: var(--white);
           border: none;
           &:hover {
             background-color: rgba(66, 66, 66, 0.4);
@@ -72,13 +70,13 @@
         position: absolute;
         bottom: 33.9%;
         right: 0px;
-        color: #fff;
+        color: var(--white);
         a {
-          color: #fff;
+          color: var(--white);
           margin-right: 25px;
           vertical-align: top;
           svg {
-            border: 1px solid #fff;
+            border: 1px solid var(--white);
             border-radius: 50%;
             padding: 10px;
             &:hover {
@@ -86,18 +84,13 @@
             }
           }
         }
-
         .videoOption {
           display: inline-block;
           background-color: rgba(51, 51, 51, 0.6);
           border: 3px #dcdcdc;
           border-left-style: solid;
           box-sizing: border-box;
-          font-size: 1.1vw;
-          padding: 0.1vw 3.5vw 0.1vw 0.8vw;
-          .txt {
-            font-size: 1.1vw;
-          }
+          padding: 3px 107px 3px 24px;
           svg {
             vertical-align: top;
           }

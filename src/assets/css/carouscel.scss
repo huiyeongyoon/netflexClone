@@ -1,0 +1,187 @@
+.CarouscelContainer:first-child {
+  margin-top: -280px;
+}
+.CarouscelContainer {
+  position: relative;
+  margin: 92px 0;
+  .title {
+    position: relative;
+    color: #fff;
+    padding-left: 60px;
+    font-size: 43.008px;
+    line-height: 38.4px;
+    vertical-align: bottom;
+  }
+  .barArea {
+    margin-right: 60px;
+    height: 20px;
+    > div {
+      float: right;
+    }
+    .bar {
+      display: inline-block;
+      background-color: #fff;
+      opacity: 0.4;
+      margin-right: 0.1rem;
+      width: 1rem;
+      height: 0.2rem;
+      margin-bottom: 10px;
+    }
+    .active {
+      background-color: #fff;
+      opacity: 1;
+    }
+  }
+  &:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+  > .row {
+    padding: 0 60px;
+    position: relative;
+    z-index: 100;
+    .arrow {
+      position: absolute;
+      height: 0;
+      display: none;
+      top: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      height: 100%;
+      color: #fff;
+      border: none;
+      width: 56px;
+      border-radius: 5px;
+      z-index: 100;
+      margin: 0;
+      padding: 0;
+      cursor: pointer;
+      span {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: block;
+        line-height: 100%;
+      }
+    }
+    &:hover {
+      .arrow {
+        display: block;
+      }
+    }
+    .leftArrow {
+      left: 0;
+    }
+    .rightArrow {
+      right: 0;
+    }
+    .imgArea {
+      .detailBox {
+        display: inline-block;
+        position: relative;
+        margin: 0 0.35rem;
+        width: 477.8px;
+        position: relative;
+        .imgBox {
+          position: absolute;
+          border-radius: 5px;
+          overflow: hidden;
+        }
+        .detail {
+          width: 100%;
+          display: none;
+          .row {
+            padding: 0 10px;
+            margin-bottom: 25px;
+            &:after {
+              content: "";
+              display: block;
+              clear: both;
+            }
+            .playButton {
+              margin: 15px 8px 0 10px;
+              border-radius: 50%;
+              color: black;
+              padding: 0;
+            }
+            .bordering {
+              margin: 15px 8px 0 0;
+              vertical-align: top;
+              border: 1px solid grey;
+              color: #fff;
+              background-color: #222222;
+              border-radius: 50%;
+              padding: 8px;
+              &:hover {
+                border: 1px solid #fff;
+              }
+            }
+            .arrowBottom {
+              float: right;
+              margin-right: 8px;
+            }
+            .white {
+              display: inline-block;
+              font-size: 1rem;
+              margin-right: 15px;
+              color: #fff;
+            }
+            .circle {
+              content: "";
+              padding: 5px;
+              background-color: hsla(0, 0%, 100%, 0.4);
+              border-radius: 50%;
+            }
+            .age {
+              border: 1px solid hsla(0, 0%, 100%, 0.4);
+              border-radius: 3px;
+              color: hsla(0, 0%, 100%, 0.9);
+              font-size: 0.8em;
+              white-space: nowrap;
+              padding: 0 0.2rem;
+            }
+            .hd {
+              border: 1px solid hsla(0, 0%, 100%, 0.4);
+              border-radius: 3px;
+              color: hsla(0, 0%, 100%, 0.9);
+              font-size: 0.4em;
+              white-space: nowrap;
+              padding: 0 0.2rem;
+            }
+            .txt {
+              color: grey;
+            }
+            .green {
+              color: #46d369;
+            }
+          }
+        }
+        &:hover {
+          z-index: 1;
+          .imgBox {
+            border-radius: 5px;
+            top: 50%;
+            left: 50%;
+            width: 725px;
+            height: 628px;
+            overflow: hidden;
+            transform: translate(-50%, -58%);
+            background-color: #222222;
+            img {
+              height: 470px;
+            }
+            .detail {
+              display: inline-block;
+            }
+          }
+        }
+      }
+    }
+  }
+  &:hover {
+    .imgArea {
+      overflow: unset;
+    }
+  }
+}

@@ -1,3 +1,5 @@
+<style scoped></style>
+
 <template lang="pug">
 section.app-main
   router-view(:key="key")
