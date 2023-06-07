@@ -26,7 +26,7 @@
     .el-dialog {
       border-radius: 5px !important;
       .dialog {
-        .imageBox {
+        .imageArea {
           position: relative;
           &after {
             content: "";
@@ -45,60 +45,62 @@
               padding: 8px;
             }
           }
-          .mainImage {
-            width: 100%;
-            min-height: 850px !important;
-            background-size: cover;
-          }
-          .bordering {
-            margin-right: 10px;
-            vertical-align: middle;
-            border: 2px solid hsla(0, 0%, 100%, 0.5);
-            color: var(--white);
-            background-color: #2f2f2f;
-            border-radius: 50%;
-            padding: 8px;
-            &:hover {
-              border-color: var(--white);
+          .mainImageBox {
+            .mainImage {
+              width: 100%;
+              min-height: 850px !important;
+              background-size: cover;
             }
-          }
-          .left {
-            position: absolute;
-            bottom: 6%;
-            left: 50px;
-            h2 {
-              width: 500px;
-              line-height: 70px;
-              font-size: 56px;
-              color: var(--white);
-              margin-bottom: 75px;
-            }
-            .playButton {
-              vertical-align: middle;
-              font-size: 22.4px;
-              max-height: 42px;
-              min-height: 32px;
-              padding-left: 25.6px;
-              padding-right: 32px;
-              color: black;
-              border: none;
-              margin-right: 10px;
-              &:hover {
-                background-color: #dcdcdc;
-                transition: all 0.2s;
+            .left {
+              position: absolute;
+              bottom: 6%;
+              left: 50px;
+              h2 {
+                width: 500px;
+                line-height: 70px;
+                font-size: 56px;
+                color: var(--white);
+                margin-bottom: 75px;
               }
-              span {
+              .playButton {
                 vertical-align: middle;
-                position: relative;
-                top: -15px;
+                font-size: 22.4px;
+                max-height: 42px;
+                min-height: 32px;
+                padding-left: 25.6px;
+                padding-right: 32px;
+                color: black;
+                border: none;
+                margin-right: 10px;
+                &:hover {
+                  background-color: #dcdcdc;
+                  transition: all 0.2s;
+                }
+                span {
+                  vertical-align: middle;
+                  position: relative;
+                  top: -15px;
+                }
               }
             }
-          }
-          .right {
-            position: absolute;
-            bottom: 8%;
-            right: 50px;
-            float: right;
+            .right {
+              position: absolute;
+              bottom: 8%;
+              right: 50px;
+              float: right;
+            }
+            .bordering {
+              margin-right: 10px;
+              vertical-align: middle;
+              border: 2px solid hsla(0, 0%, 100%, 0.5);
+              color: var(--white);
+              background-color: #2f2f2f;
+              border-radius: 50%;
+              padding: 8px;
+              &:hover {
+                border-color: var(--white);
+              }
+            }
           }
         }
         .movieInfoBox {
@@ -247,7 +249,6 @@
                   float: right;
                 }
               }
-
               .time {
                 text-align: right;
                 font-size: 16px;
@@ -264,6 +265,8 @@
           }
         }
         .extendAreaBox {
+          position: relative;
+          top: 60px;
           text-align: center;
           .arrowBottom {
             vertical-align: middle;
@@ -274,26 +277,24 @@
             opacity: 0.7;
           }
         }
-        .movieListBox {
-          // float: left;
-          padding: 16px 48px;
+        .watchedTogetherMovieListBox {
+          padding: 40px;
           color: #d2d2d2;
-          // margin-bottom: -20px;
           border-bottom: 2px solid rgb(83, 83, 83);
-
           &.hide {
             .list {
               max-height: 1200px;
               overflow: hidden;
             }
           }
-
-          &:after {
-            content: "";
-            display: block;
-            clear: both;
+          .list {
+            &:after {
+              content: "";
+              display: block;
+              clear: both;
+            }
           }
-          .smallCard {
+          .card {
             width: 470px;
             height: 465px;
             background-color: #2f2f2f;
@@ -375,7 +376,30 @@
               font-size: 14px;
             }
           }
-          .bigCard {
+        }
+        .trailerMovieListBox {
+          padding: 40px;
+          color: #d2d2d2;
+          border-bottom: 2px solid rgb(83, 83, 83);
+          // &.hide {
+          //   .list {
+          //     max-height: 1200px;
+          //     overflow: hidden;
+          //   }
+          // }
+          // .list {
+          //   &:after {
+          //     content: "";
+          //     display: block;
+          //     clear: both;
+          //   }
+          // }
+          &:after {
+            content: "";
+            display: block;
+            clear: both;
+          }
+          .card {
             width: 470px;
             height: 326px;
             background-color: #2f2f2f;
@@ -385,6 +409,9 @@
             .sumnail {
               position: relative;
               img {
+                width: 100%;
+                border-radius: 5px;
+                background-size: cover;
                 height: 228px;
               }
               .playButton {
@@ -403,54 +430,10 @@
                 }
               }
             }
-            .episode {
-              position: relative;
-              top: 3%;
-              right: 5%;
-              height: 0;
-              text-align: right;
-              color: var(--white);
-              font-size: 16px;
-            }
             &:after {
               content: "";
               display: block;
               clear: both;
-            }
-            img {
-              border-radius: 5px;
-              background-size: cover;
-              width: 100%;
-              height: 270px;
-            }
-            .bordering {
-              margin: 20px 15px 0 0;
-              vertical-align: middle;
-              border: 1px solid var(--white);
-              color: var(--white);
-              background-color: #2f2f2f;
-              border-radius: 50%;
-              padding: 8px;
-              float: right;
-            }
-            .box {
-              padding: 0 15px;
-              margin-top: 40px;
-              span {
-                position: relative;
-                top: -12px;
-                left: 7px;
-              }
-              p {
-                margin-top: 20px;
-                text-overflow: ellipsis;
-                overflow: hidden;
-                word-break: break-word;
-                line-height: 21px;
-                display: -webkit-box;
-                -webkit-line-clamp: 4;
-                -webkit-box-orient: vertical;
-              }
             }
             .txt {
               color: #d2d2d2;
@@ -489,7 +472,7 @@
 <template lang="pug">
 el-dialog(:visible='visible' @close="close")
   .dialog
-    .imageBox
+    .imageArea
       .closeIcon(@click='close')
         inline-svg(
             :src="require('@/assets/images/x.svg')"
@@ -497,31 +480,32 @@ el-dialog(:visible='visible' @close="close")
             height="20"
             fill="black"
           ) 
-      img.mainImage(src="@/assets/images/t.png"  :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${data.backdrop_path})` }") 
-      .left
-        h2 {{ data.title || data.name}}
-        el-button.playButton
-          mdicon(name="play" size="52") 
-          span 재생
-        inline-svg.bordering(
-          :src="require('@/assets/images/plus.svg')"
-          width="20" 
-          height="20"
-          fill="black"
-        ) 
-        inline-svg.bordering(
-          :src="require('@/assets/images/like.svg')"
-          width="20" 
-          height="20"
-          fill="black"
-        ) 
-      .right
-        inline-svg.bordering(
-          :src="require('@/assets/images/speaker.svg')"
-          width="20" 
-          height="20"
-          fill="black"
-        ) 
+      .mainImageBox
+        img.mainImage(src="@/assets/images/t.png"  :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${data.backdrop_path})` }") 
+        .left
+          h2 {{ data.title || data.name}}
+          el-button.playButton
+            mdicon(name="play" size="52") 
+            span 재생
+          inline-svg.bordering(
+            :src="require('@/assets/images/plus.svg')"
+            width="20" 
+            height="20"
+            fill="black"
+          ) 
+          inline-svg.bordering(
+            :src="require('@/assets/images/like.svg')"
+            width="20" 
+            height="20"
+            fill="black"
+          ) 
+        .right
+          inline-svg.bordering(
+            :src="require('@/assets/images/speaker.svg')"
+            width="20" 
+            height="20"
+            fill="black"
+          ) 
     .movieInfoBox
       .row
         .left
@@ -589,10 +573,10 @@ el-dialog(:visible='visible' @close="close")
               span.serise {{ item.title || item.name }}
               span.time 22분
             p.description {{ item.overview }}
-    .movieListBox(:class="showAndHideContent ? '' : 'hide'")
+    .watchedTogetherMovieListBox(:class="showAndHideContent ? '' : 'hide'")
       h3 함께 시청된 콘텐츠
       .list
-        .smallCard(v-for="(item, index) in movieData.results")
+        .card(v-for="(item, index) in movieData.results")
           p.episode 에피소드 10개
           .sumnail
             img(src="@/assets/images/t.png"  :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${item.backdrop_path})` }") 
@@ -620,12 +604,13 @@ el-dialog(:visible='visible' @close="close")
           fill="black"
           @click="showAndHideContents"
         )
-    .movieListBox(style="border-bottom: none")
+    .trailerMovieListBox(style="border-bottom: none")
       h3 예고편 및 다른 영상
-      .bigCard.otherOption(v-for="(item, index) in movieData.results")
-       .sumnail
+      .card.otherOption(v-for="(item, index) in movieData.results")
+        .sumnail
           img(src="@/assets/images/t.png"  :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${item.backdrop_path})` }") 
           a.playButton #[mdicon(name="play" size="42") ]
+        .box
           p 시즌1 예고편 최후통첩: 쿼어러브
     .bottomBox
       .row
