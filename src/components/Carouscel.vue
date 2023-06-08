@@ -10,12 +10,11 @@
       height: 272px;
     }
   }
-
   .CarouscelContainer > .row .imgArea .detailBox:hover .imgBox.firstImage {
-    transform: translate(-30%, -58%);
+    transform: translate(-33%, -58%);
   }
-
-  .lastImage {
+  .CarouscelContainer > .row .imgArea .detailBox:hover .imgBox.lastImage {
+    transform: translate(-67%, -58%);
   }
 </style>
 <template lang="pug">
@@ -23,23 +22,20 @@
   h2.title {{ title }}
   .barArea
     .box
-      .bar(v-for="index in getMovieCount" :class="{ active : index === move.selected }")
+      .bar(v-for="currentCarouscelNumber in pageSize" :class="{ active : currentCarouscelNumber === page }")
   .row
-    .arrow.leftArrow(@click="moveRow('left')") #[mdicon(name="chevron-left" size="50")]
-    .arrow.rightArrow(@click="moveRow('right')") #[mdicon(name="chevron-right" size="50")]
-    .imgArea(:style="`width: ${getItemWidth}px; transform: translateX(${move.translateXWidth}%)`")
-      //- .detailBox(v-for="(item, index) in movieData.results" @mouseout="detailActive = null" @mouseover="showDetail(index)")
-      //-   .imgBox(:class="{ firstImage: detailActive === 2, lastImage: detailActive === 3 }")
+    .arrow.leftArrow(@click="prev") #[mdicon(name="chevron-left" size="50")]
+    .arrow.rightArrow(@click="next") #[mdicon(name="chevron-right" size="50")]
+    .imgArea(:style="`width: ${listWidth}px; transform: translateX(${translateXWidth}px)`")
       .detailBox(v-for="(item, index) in movieData.results")
-        .imgBox(:class="{ firstImage: index === 0 || (index !== 0 && index % 6 === 0), lastImage: index % 5 === 0 }")
+        p(style="color:red") {{ (index + 6 - (6 - lastPageItemCount)) % 6 === 0 }}
+        p(style="color:red") {{ (index + 6 - (6 - lastPageItemCount)) % 6 === 5 }}
+        //- .imgBox(:class="{ firstImage:index % 6 === 0, lastImage: index % 6 === 5}")
+        .imgBox(:class="{ firstImage:(index + 6 - (6 - lastPageItemCount)) % 6 === 0, lastImage: (index + 6 - (6 - lastPageItemCount)) % 6 === 5}")
           img(
             src="@/assets/images/t.png"
             :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})`}"
           )
-          //- span(style="color:#fff").
-          //-   {{ (index % 6 === 0) ? 'left' : '' }}
-          //-   {{ (index % 5 === 0) ? 'right' : '' }}
-          //-   {{ index }}, {{ index % 5 }}, {{ index % 6 }}
           .detail
             .row(style="margin-bottom:10px")
               el-button.playButton
@@ -91,59 +87,52 @@
       },
     },
     watch: {
-      movieData(newVal) {
-        if (newVal !== undefined) {
-          this.listWidth = this.movieData.results.length * 489.00000000000006
-        }
+      movieData: {
+        immediate: true,
+        handler(newVal) {
+          if (newVal.results !== undefined) {
+            this.listWidth = newVal.results.length * 489
+            this.pageSize = Math.ceil(newVal.results.length / 6)
+            this.lastPageItemCount = this.movieData.results.length % 6
+          }
+        },
       },
     },
     data() {
       return {
         move: {
           translateXWidth: 0,
-          selected: 1,
         },
-        transform: 0,
+        page: 1,
         listWidth: 0,
+        pageSize: 0,
+        lastPageItemCount: 0,
+        itemSize: 489,
       }
     },
     computed: {
-      getItemWidth() {
-        return this.movieData.results !== undefined ? this.movieData.results.length * 489.00000000000006 : 0
-      },
-      getMovieCount() {
-        return this.movieData.results !== undefined ? Math.ceil(this.movieData.results.length / 6) : 0
+      translateXWidth() {
+        if (this.page === this.pageSize) {
+          return this.itemSize * (this.page - 2) * 6 * -1 - this.itemSize * (6 - (6 - this.lastPageItemCount))
+        } else {
+          return this.itemSize * (this.page - 1) * 6 * -1
+        }
       },
     },
     methods: {
       showModal() {
         this.$emit("openDetail")
       },
-      moveRow(direction) {
-        let index = 0
-        let pageSize = Math.ceil(this.movieData.results.length / 6)
-        let translateXWidth = 100
-        while (pageSize) {
-          if (index * pageSize >= translateXWidth) {
-            break
-          } else {
-            index++
-          }
+      prev() {
+        this.page--
+        if (this.page < 1) {
+          this.page = this.pageSize
         }
-        if (direction === "left") {
-          this.move.selected -= 1
-          this.move.translateXWidth += index
-          if (this.move.selected < 1) {
-            this.move.translateXWidth -= translateXWidth
-            this.move.selected = pageSize
-          }
-        } else if (direction === "right") {
-          this.move.selected += 1
-          this.move.translateXWidth -= index
-          if (this.move.selected > pageSize) {
-            this.move.translateXWidth = 0
-            this.move.selected = 1
-          }
+      },
+      next() {
+        this.page++
+        if (this.page > this.pageSize) {
+          this.page = 1
         }
       },
     },

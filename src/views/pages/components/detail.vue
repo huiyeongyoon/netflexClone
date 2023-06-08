@@ -22,449 +22,432 @@
     margin-bottom: 20px;
   }
   .el-dialog__wrapper {
-    z-index: 10000 !important;
+    // z-index: 10000 !important;
     .el-dialog {
       border-radius: 5px !important;
-      .dialog {
-        .imageArea {
-          position: relative;
-          &after {
-            content: "";
-            display: block;
-            clear: both;
-          }
-          .closeIcon {
-            z-index: 10000;
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            svg {
-              color: var(--white);
-              background-color: #181818;
-              border-radius: 50%;
-              padding: 8px;
-            }
-          }
-          .mainImageBox {
-            .mainImage {
-              width: 100%;
-              min-height: 850px !important;
-              background-size: cover;
-            }
-            .left {
-              position: absolute;
-              bottom: 6%;
-              left: 50px;
-              h2 {
-                width: 500px;
-                line-height: 70px;
-                font-size: 56px;
-                color: var(--white);
-                margin-bottom: 75px;
-              }
-              .playButton {
-                vertical-align: middle;
-                font-size: 22.4px;
-                max-height: 42px;
-                min-height: 32px;
-                padding-left: 25.6px;
-                padding-right: 32px;
-                color: black;
-                border: none;
-                margin-right: 10px;
-                &:hover {
-                  background-color: #dcdcdc;
-                  transition: all 0.2s;
-                }
-                span {
-                  vertical-align: middle;
-                  position: relative;
-                  top: -15px;
-                }
-              }
-            }
-            .right {
-              position: absolute;
-              bottom: 8%;
-              right: 50px;
-              float: right;
-            }
-            .bordering {
-              margin-right: 10px;
-              vertical-align: middle;
-              border: 2px solid hsla(0, 0%, 100%, 0.5);
-              color: var(--white);
-              background-color: #2f2f2f;
-              border-radius: 50%;
-              padding: 8px;
-              &:hover {
-                border-color: var(--white);
-              }
-            }
-          }
+    }
+  }
+  .hoverPlayButton {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: var(--white);
+    border: 1px solid var(--white);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .imageArea {
+    position: relative;
+    &after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+    .closeIcon {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      svg {
+        color: var(--white);
+        background-color: #181818;
+        border-radius: 50%;
+        padding: 8px;
+      }
+    }
+    .mainImageBox {
+      .mainImage {
+        width: 100%;
+        min-height: 850px !important;
+        background-size: cover;
+      }
+      .left {
+        position: absolute;
+        bottom: 6%;
+        left: 50px;
+        h2 {
+          width: 500px;
+          line-height: 70px;
+          font-size: 56px;
+          color: var(--white);
+          margin-bottom: 75px;
         }
-        .movieInfoBox {
-          font-size: 17.6px;
-          padding: 60px 48px;
-          .row {
-            &:after {
-              display: block;
-              content: "";
-              clear: both;
-            }
-            .txt {
-              color: var(--white);
-              padding: 0 10px;
-            }
-            .left {
-              float: left;
-              .green {
-                color: #46d369;
-                font-weight: 500;
-                padding-left: 5px;
-              }
-              span {
-                vertical-align: top;
-                padding: 0 3px;
-              }
-              .hd {
-                border: 1px solid hsla(0, 0%, 100%, 0.4);
-                border-radius: 3px;
-                color: hsla(0, 0%, 100%, 0.9);
-                font-size: 14.08px;
-                white-space: nowrap;
-                padding: 0 0.2rem;
-              }
-
-              .box {
-                .svgIcon {
-                  margin-left: 5px;
-                }
-              }
-            }
-            .right {
-              width: 30%;
-              float: right;
-              font-size: 14.4px;
-              span {
-                line-height: 30px;
-                vertical-align: top;
-              }
-            }
+        .playButton {
+          vertical-align: middle;
+          font-size: 22.4px;
+          max-height: 42px;
+          min-height: 32px;
+          padding-left: 25.6px;
+          padding-right: 32px;
+          color: black;
+          border: none;
+          margin-right: 10px;
+          &:hover {
+            background-color: #dcdcdc;
+            transition: all 0.2s;
           }
-          .box {
-            margin-top: 5px;
-            &:after {
-              display: block;
-              content: "";
-              clear: both;
-            }
-            .left {
-              float: left;
-              svg {
-                margin-left: 5px;
-              }
-            }
-          }
-        }
-        .descriptionBox {
-          margin-top: 20px;
-          .txt {
-            display: inline-block;
-            color: var(--white);
-            font-size: 17.6px;
-            line-height: 25px;
-          }
-        }
-        .sereisInfoBox {
-          padding: 40px;
-          .box {
-            display: table;
-            .row {
-              display: table-inline;
-              border-bottom: 1px solid #404040;
-              &.selected {
-                border-radius: 5px;
-                background-color: #2f2f2f;
-                border-bottom: none;
-              }
-              &:last-child {
-                border-bottom: 2px solid #404040;
-              }
-              > * {
-                height: 180px;
-                vertical-align: middle;
-              }
-            }
-            h4 {
-              display: table-cell;
-              font-size: 1.6rem;
-              color: var(--white);
-              min-width: 60px;
-              text-align: right;
-              padding: 0 20px;
-              min-height: 140px;
-            }
-            .seriseImage {
-              position: relative;
-              display: table-cell;
-              box-sizing: border-box;
-              padding: 16px;
-              .thumb {
-                display: block;
-                width: 266px;
-                height: 156px;
-                background-size: cover;
-                border-radius: 5px;
-              }
-              .playButton {
-                display: none;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                color: var(--white);
-                border: 1px solid var(--white);
-                border-radius: 50%;
-                transform: translate(-50%, -50%);
-              }
-              &:hover {
-                .playButton {
-                  display: block;
-                }
-              }
-            }
-            .seriseInfo {
-              display: table-cell;
-              vertical-align: middle;
-              padding-right: 100px;
-              width: 100%;
-              .info {
-                overflow: hidden;
-                margin-bottom: 10px;
-                color: var(--white);
-                .serise {
-                  float: left;
-                }
-                .time {
-                  float: right;
-                }
-              }
-              .time {
-                text-align: right;
-                font-size: 16px;
-              }
-              .serise {
-                font-size: 1rem;
-              }
-              .description {
-                line-height: 1.4;
-                font-size: 14px;
-                color: grey;
-              }
-            }
-          }
-        }
-        .extendAreaBox {
-          position: relative;
-          top: 60px;
-          text-align: center;
-          .arrowBottom {
+          span {
             vertical-align: middle;
-            border: 1px solid var(--white);
-            color: var(--white);
-            border-radius: 50%;
-            padding: 5px;
-            opacity: 0.7;
+            position: relative;
+            top: -15px;
           }
         }
-        .watchedTogetherMovieListBox {
-          padding: 40px;
-          color: #d2d2d2;
-          border-bottom: 2px solid rgb(83, 83, 83);
-          &.hide {
-            .list {
-              max-height: 1200px;
-              overflow: hidden;
-            }
-          }
-          .list {
-            &:after {
-              content: "";
-              display: block;
-              clear: both;
-            }
-          }
-          .card {
-            width: 470px;
-            height: 465px;
-            background-color: #2f2f2f;
-            float: left;
-            margin: 10px;
-            border-radius: 5px;
-            .sumnail {
-              position: relative;
-              img {
-                height: 268px;
-              }
-              .playButton {
-                display: none;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                color: var(--white);
-                border: 1px solid var(--white);
-                border-radius: 50%;
-                transform: translate(-50%, -50%);
-              }
-              &:hover {
-                .playButton {
-                  display: block;
-                }
-              }
-            }
-            .episode {
-              position: relative;
-              top: 3%;
-              right: 5%;
-              height: 0;
-              text-align: right;
-              color: var(--white);
-              font-size: 16px;
-            }
-            &:after {
-              content: "";
-              display: block;
-              clear: both;
-            }
-            img {
-              border-radius: 5px;
-              background-size: cover;
-              width: 100%;
-              height: 270px;
-            }
-            .bordering {
-              margin: 20px 15px 0 0;
-              vertical-align: middle;
-              border: 1px solid var(--white);
-              color: var(--white);
-              background-color: #2f2f2f;
-              border-radius: 50%;
-              padding: 8px;
-              float: right;
-            }
-            .box {
-              padding: 0 15px;
-              margin-top: 40px;
-              span {
-                position: relative;
-                top: -12px;
-                left: 7px;
-              }
-              p {
-                margin-top: 20px;
-                text-overflow: ellipsis;
-                overflow: hidden;
-                word-break: break-word;
-                line-height: 21px;
-                display: -webkit-box;
-                -webkit-line-clamp: 4;
-                -webkit-box-orient: vertical;
-              }
-            }
-            .txt {
-              color: #d2d2d2;
-              font-size: 14px;
-            }
+      }
+      .right {
+        position: absolute;
+        bottom: 8%;
+        right: 50px;
+        float: right;
+      }
+      .bordering {
+        margin-right: 10px;
+        vertical-align: middle;
+        border: 2px solid hsla(0, 0%, 100%, 0.5);
+        color: var(--white);
+        background-color: #2f2f2f;
+        border-radius: 50%;
+        padding: 8px;
+        &:hover {
+          border-color: var(--white);
+        }
+      }
+    }
+  }
+  .movieInfoBox {
+    font-size: 17.6px;
+    padding: 60px 48px;
+    .row {
+      &:after {
+        display: block;
+        content: "";
+        clear: both;
+      }
+      .txt {
+        color: var(--white);
+        padding: 0 10px;
+      }
+      .left {
+        float: left;
+        .green {
+          color: #46d369;
+          font-weight: 500;
+          padding-left: 5px;
+        }
+        span {
+          vertical-align: top;
+          padding: 0 3px;
+        }
+        .hd {
+          border: 1px solid hsla(0, 0%, 100%, 0.4);
+          border-radius: 3px;
+          color: hsla(0, 0%, 100%, 0.9);
+          font-size: 14.08px;
+          white-space: nowrap;
+          padding: 0 0.2rem;
+        }
+        .box {
+          .svgIcon {
+            margin-left: 5px;
           }
         }
-        .trailerMovieListBox {
-          padding: 40px;
-          color: #d2d2d2;
-          border-bottom: 2px solid rgb(83, 83, 83);
-          // &.hide {
-          //   .list {
-          //     max-height: 1200px;
-          //     overflow: hidden;
-          //   }
-          // }
-          // .list {
-          //   &:after {
-          //     content: "";
-          //     display: block;
-          //     clear: both;
-          //   }
-          // }
-          &:after {
-            content: "";
+      }
+      .right {
+        width: 30%;
+        float: right;
+        font-size: 14.4px;
+        span {
+          line-height: 30px;
+          vertical-align: top;
+        }
+      }
+    }
+    .box {
+      margin-top: 5px;
+      &:after {
+        display: block;
+        content: "";
+        clear: both;
+      }
+      .left {
+        float: left;
+        svg {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+  .descriptionBox {
+    margin-top: 20px;
+    .txt {
+      display: inline-block;
+      color: var(--white);
+      font-size: 17.6px;
+      line-height: 25px;
+    }
+  }
+  .sereisInfoBox {
+    padding: 40px;
+    .box {
+      display: table;
+      .row {
+        display: table-inline;
+        border-bottom: 1px solid #404040;
+        &.selected {
+          border-radius: 5px;
+          background-color: #2f2f2f;
+          border-bottom: none;
+        }
+        &:last-child {
+          border-bottom: 2px solid #404040;
+        }
+        > * {
+          height: 180px;
+          vertical-align: middle;
+        }
+        &:hover {
+          .hoverPlayButton {
             display: block;
-            clear: both;
           }
-          .card {
-            width: 470px;
-            height: 326px;
-            background-color: #2f2f2f;
+        }
+      }
+      h4 {
+        display: table-cell;
+        font-size: 1.6rem;
+        color: var(--white);
+        min-width: 60px;
+        text-align: right;
+        padding: 0 20px;
+        min-height: 140px;
+      }
+      .seriseImage {
+        position: relative;
+        display: table-cell;
+        box-sizing: border-box;
+        padding: 16px;
+        .thumb {
+          display: block;
+          width: 266px;
+          height: 156px;
+          background-size: cover;
+          border-radius: 5px;
+        }
+        .playButton {
+          display: none;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          color: var(--white);
+          border: 1px solid var(--white);
+          border-radius: 50%;
+          transform: translate(-50%, -50%);
+        }
+        &:hover {
+          .playButton {
+            display: block;
+          }
+        }
+      }
+      .seriseInfo {
+        display: table-cell;
+        vertical-align: middle;
+        padding-right: 100px;
+        width: 100%;
+        .info {
+          overflow: hidden;
+          margin-bottom: 10px;
+          color: var(--white);
+          .serise {
             float: left;
-            margin: 10px;
-            border-radius: 5px;
-            .sumnail {
-              position: relative;
-              img {
-                width: 100%;
-                border-radius: 5px;
-                background-size: cover;
-                height: 228px;
-              }
-              .playButton {
-                display: none;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                color: var(--white);
-                border: 1px solid var(--white);
-                border-radius: 50%;
-                transform: translate(-50%, -50%);
-              }
-              &:hover {
-                .playButton {
-                  display: block;
-                }
-              }
-            }
-            &:after {
-              content: "";
-              display: block;
-              clear: both;
-            }
-            .txt {
-              color: #d2d2d2;
-              font-size: 14px;
-            }
           }
-          .otherOption {
-            background: none;
-            p {
-              padding: 16px;
-              color: var(--white);
-              font-size: 16px;
-              font-weight: 500;
-            }
+          .time {
+            float: right;
           }
         }
-        .bottomBox {
-          padding: 0 60px;
-          .row {
-            margin: 10px 0;
-            svg {
-              position: relative;
-              top: 10px;
-              padding-left: 10px;
-            }
-            .txt {
-              color: var(--white);
-              padding: 10px;
-            }
-          }
+        .time {
+          text-align: right;
+          font-size: 16px;
         }
+        .serise {
+          font-size: 1rem;
+        }
+        .description {
+          line-height: 1.4;
+          font-size: 14px;
+          color: grey;
+        }
+      }
+    }
+  }
+  .extendAreaBox {
+    position: relative;
+    bottom: 15px;
+    text-align: center;
+    height: 0;
+    .arrowBottom {
+      vertical-align: middle;
+      border: 1px solid var(--white);
+      color: var(--white);
+      border-radius: 50%;
+      padding: 5px;
+      opacity: 0.7;
+    }
+  }
+  .watchedTogetherMovieListBox {
+    color: #d2d2d2;
+    border-bottom: 2px solid rgb(83, 83, 83);
+    padding: 40px 40px 0 40px;
+    &.hide {
+      .list {
+        max-height: 1200px;
+        overflow: hidden;
+      }
+    }
+    .list {
+      padding-bottom: 40px;
+      &:after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+    }
+    .card {
+      position: relative;
+      width: 470px;
+      height: 465px;
+      background-color: #2f2f2f;
+      float: left;
+      margin: 10px;
+      border-radius: 5px;
+      &:after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+      .sumnail {
+        position: relative;
+        img {
+          height: 268px;
+        }
+      }
+      .edgeborder {
+        display: inline-block;
+        position: absolute;
+        right: 3%;
+        height: 50px;
+        color: var(--white);
+        font-size: 16px;
+        z-index: 1;
+        background-color: black;
+        line-height: 51px;
+      }
+      img {
+        border-radius: 5px;
+        background-size: cover;
+        width: 100%;
+        height: 270px;
+      }
+      .bordering {
+        margin: 20px 15px 0 0;
+        vertical-align: middle;
+        border: 1px solid var(--white);
+        color: var(--white);
+        background-color: #2f2f2f;
+        border-radius: 50%;
+        padding: 8px;
+        float: right;
+      }
+      .box {
+        padding: 0 15px;
+        margin-top: 40px;
+        span {
+          position: relative;
+          top: -12px;
+          left: 7px;
+        }
+        p {
+          margin-top: 20px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          word-break: break-word;
+          line-height: 21px;
+          display: -webkit-box;
+          -webkit-line-clamp: 4;
+          -webkit-box-orient: vertical;
+        }
+      }
+      &:hover {
+        .hoverPlayButton {
+          display: block;
+        }
+      }
+      .txt {
+        color: #d2d2d2;
+        font-size: 14px;
+      }
+    }
+  }
+  .trailerMovieListBox {
+    padding: 40px;
+    color: #d2d2d2;
+    border-bottom: 2px solid rgb(83, 83, 83);
+    &:after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+    .card {
+      width: 470px;
+      height: 326px;
+      background-color: #2f2f2f;
+      float: left;
+      margin: 10px;
+      border-radius: 5px;
+      .sumnail {
+        position: relative;
+        img {
+          width: 100%;
+          border-radius: 5px;
+          background-size: cover;
+          height: 228px;
+        }
+      }
+      &:after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+      &:hover {
+        .hoverPlayButton {
+          display: block;
+        }
+      }
+      .txt {
+        color: #d2d2d2;
+        font-size: 14px;
+      }
+    }
+    .otherOption {
+      background: none;
+      p {
+        padding: 16px;
+        color: var(--white);
+        font-size: 16px;
+        font-weight: 500;
+      }
+    }
+  }
+  .bottomBox {
+    padding: 0 60px;
+    .row {
+      margin: 10px 0;
+      svg {
+        position: relative;
+        top: 10px;
+        padding-left: 10px;
+      }
+      .txt {
+        color: var(--white);
+        padding: 10px;
       }
     }
   }
@@ -567,7 +550,7 @@ el-dialog(:visible='visible' @close="close")
           h4 {{ index+1}} 
           .seriseImage
             span(class="thumb" :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${item.backdrop_path})`}") 
-            a.playButton #[mdicon(name="play" size="42") ]
+            a.hoverPlayButton #[mdicon(name="play" size="42") ]
           .seriseInfo
             p.info
               span.serise {{ item.title || item.name }}
@@ -577,10 +560,10 @@ el-dialog(:visible='visible' @close="close")
       h3 함께 시청된 콘텐츠
       .list
         .card(v-for="(item, index) in movieData.results")
-          p.episode 에피소드 10개
+          span.edgeborder 에피소드 10개
           .sumnail
             img(src="@/assets/images/t.png"  :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${item.backdrop_path})` }") 
-            a.playButton #[mdicon(name="play" size="42") ]
+            a.hoverPlayButton #[mdicon(name="play" size="42") ]
           inline-svg.bordering(
               :src="require('@/assets/images/plus.svg')"
               width="24" 
@@ -609,7 +592,7 @@ el-dialog(:visible='visible' @close="close")
       .card.otherOption(v-for="(item, index) in movieData.results")
         .sumnail
           img(src="@/assets/images/t.png"  :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${item.backdrop_path})` }") 
-          a.playButton #[mdicon(name="play" size="42") ]
+          a.hoverPlayButton #[mdicon(name="play" size="42") ]
         .box
           p 시즌1 예고편 최후통첩: 쿼어러브
     .bottomBox
@@ -662,7 +645,6 @@ el-dialog(:visible='visible' @close="close")
     },
     methods: {
       showAndHideContents() {
-        console.log(this.showAndHideContent)
         this.showAndHideContent = !this.showAndHideContent
       },
       close() {

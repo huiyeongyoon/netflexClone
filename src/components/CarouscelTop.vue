@@ -19,19 +19,25 @@
       }
     }
   }
+  .CarouscelContainer > .row .imgArea .detailBox:hover .imgBox.firstImage {
+    transform: translate(-33%, -58%);
+  }
+  .CarouscelContainer > .row .imgArea .detailBox:hover .imgBox.lastImage {
+    transform: translate(-67%, -58%);
+  }
 </style>
 <template lang="pug">
 .CarouscelContainer
   h2.title {{ title }}
   .barArea
     .box
-      .bar(v-for="index in getMovieCount" :class="{ active : index === move.selected }")
+      .bar(v-for="currentCarouscelNumber in pageSize" :class="{ active : currentCarouscelNumber === page }")
   .row
-    .arrow.leftArrow(@click="moveRow('left')") #[mdicon(name="chevron-left" size="50")]
-    .arrow.rightArrow(@click="moveRow('right')") #[mdicon(name="chevron-right" size="50")]
-    .imgArea(:style="`width: ${getItemWidth}px; transform: translateX(${move.translateXWidth}%)`")
+    .arrow.leftArrow(@click="prev") #[mdicon(name="chevron-left" size="50")]
+    .arrow.rightArrow(@click="next") #[mdicon(name="chevron-right" size="50")]
+    .imgArea(:style="`width: ${listWidth}px; transform: translateX(${translateXWidth}px)`")
       .detailBox(v-for="(item, index) in movieData")
-        .imgBox
+        .imgBox(:class="{ firstImage:index % 6 === 0, lastImage: index % 6 === 5}")
           inline-svg.numberImage(
             :src="require(`@/assets/images/${index + 1}.svg`)"
             width="238" 
@@ -63,7 +69,7 @@
                 width="24" 
                 height="24"
                 fill="black"
-                @click="showDetail"
+                @click="showModal"
               )
             .row
               span.white.txt.green 95% 일치 
@@ -92,55 +98,53 @@
         default: () => [],
       },
     },
+    watch: {
+      movieData: {
+        immediate: true,
+        handler(newVal) {
+          if (newVal !== undefined) {
+            this.listWidth = newVal.length * 489
+            this.pageSize = Math.ceil(newVal.length / 6)
+            this.lastPageItemCount = this.movieData.length % 6
+          }
+        },
+      },
+    },
     data() {
       return {
         move: {
           translateXWidth: 0,
-          selected: 1,
         },
-        transform: 0,
+        page: 1,
         listWidth: 0,
+        pageSize: 0,
+        lastPageItemCount: 0,
+        itemSize: 489,
       }
     },
     computed: {
-      getItemWidth() {
-        return this.movieData !== undefined ? this.movieData.length * 490.00000000000003 : 0
-      },
-      getMovieCount() {
-        return this.movieData !== undefined ? Math.ceil(this.movieData.length / 6) : 0
+      translateXWidth() {
+        if (this.page === this.pageSize) {
+          return this.itemSize * (this.page - 2) * 6 * -1 - this.itemSize * (6 - (6 - this.lastPageItemCount))
+        } else {
+          return this.itemSize * (this.page - 1) * 6 * -1
+        }
       },
     },
     methods: {
-      showDetail() {
+      showModal() {
         this.$emit("openDetail")
       },
-      moveRow(direction) {
-        let index = 0
-        let pageSize = Math.ceil(this.movieData.length / 6)
-        let translateXWidth = 100
-        while (pageSize) {
-          if (index * pageSize >= translateXWidth) {
-            break
-          } else {
-            index++
-          }
+      prev() {
+        this.page--
+        if (this.page < 1) {
+          this.page = this.pageSize
         }
-        if (direction === "left") {
-          console.log("left")
-          this.move.selected -= 1
-          this.move.translateXWidth += index
-          if (this.move.selected < 1) {
-            this.move.translateXWidth -= translateXWidth
-            this.move.selected = pageSize
-          }
-        } else if (direction === "right") {
-          console.log("right")
-          this.move.selected += 1
-          this.move.translateXWidth -= index
-          if (this.move.selected > pageSize) {
-            this.move.translateXWidth = 0
-            this.move.selected = 1
-          }
+      },
+      next() {
+        this.page++
+        if (this.page > this.pageSize) {
+          this.page = 1
         }
       },
     },
