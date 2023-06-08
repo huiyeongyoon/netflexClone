@@ -37,7 +37,18 @@
     .arrow.rightArrow(@click="next") #[mdicon(name="chevron-right" size="50")]
     .imgArea(:style="`width: ${listWidth}px; transform: translateX(${translateXWidth}px)`")
       .detailBox(v-for="(item, index) in movieData")
-        .imgBox(:class="{ firstImage:index % 6 === 0, lastImage: index % 6 === 5}")
+        .imgBox(v-if="page === pageSize" :class="{ firstImage:(index + 6 - (6 - pageSize)) % 6 === 0, lastImage: (index + 6 - (6 - pageSize)) % 6 === 5}")
+          inline-svg.numberImage(
+            :src="require(`@/assets/images/${index + 1}.svg`)"
+            width="238" 
+            height="352"
+            fill="black"
+          ) 
+          img(
+            src="@/assets/images/t.png"
+            :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})`}"
+          )
+        .imgBox(v-else :class="{ firstImage:index % 6 === 0, lastImage: index % 6 === 5}")
           inline-svg.numberImage(
             :src="require(`@/assets/images/${index + 1}.svg`)"
             width="238" 
@@ -125,6 +136,7 @@
     computed: {
       translateXWidth() {
         if (this.page === this.pageSize) {
+          console.log(this.itemSize * (this.page - 2) * 6 * -1 - this.itemSize * (6 - (6 - this.lastPageItemCount)))
           return this.itemSize * (this.page - 2) * 6 * -1 - this.itemSize * (6 - (6 - this.lastPageItemCount))
         } else {
           return this.itemSize * (this.page - 1) * 6 * -1

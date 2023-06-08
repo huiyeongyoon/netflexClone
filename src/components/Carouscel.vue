@@ -28,10 +28,12 @@
     .arrow.rightArrow(@click="next") #[mdicon(name="chevron-right" size="50")]
     .imgArea(:style="`width: ${listWidth}px; transform: translateX(${translateXWidth}px)`")
       .detailBox(v-for="(item, index) in movieData.results")
-        p(style="color:red") {{ (index + 6 - (6 - lastPageItemCount)) % 6 === 0 }}
-        p(style="color:red") {{ (index + 6 - (6 - lastPageItemCount)) % 6 === 5 }}
-        //- .imgBox(:class="{ firstImage:index % 6 === 0, lastImage: index % 6 === 5}")
-        .imgBox(:class="{ firstImage:(index + 6 - (6 - lastPageItemCount)) % 6 === 0, lastImage: (index + 6 - (6 - lastPageItemCount)) % 6 === 5}")
+        .imgBox(v-if="page === pageSize" :class="{ firstImage:(index + 6 - (6 - pageSize)) % 6 === 0, lastImage: (index + 6 - (6 - pageSize)) % 6 === 5}")
+          img(
+              src="@/assets/images/t.png"
+              :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})`}"
+            )
+        .imgBox(v-else :class="{ firstImage:index % 6 === 0, lastImage: index % 6 === 5}")
           img(
             src="@/assets/images/t.png"
             :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})`}"
