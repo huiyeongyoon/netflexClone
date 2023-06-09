@@ -33,6 +33,40 @@
               src="@/assets/images/t.png"
               :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})`}"
             )
+          .detail
+            .row(style="margin-bottom:10px")
+              el-button.playButton
+                mdicon(name="play" size="38") 
+              inline-svg.bordering(
+                :src="require('@/assets/images/plus.svg')"
+                width="24" 
+                height="24"
+                fill="black"
+              ) 
+              inline-svg.bordering(
+                :src="require('@/assets/images/like.svg')"
+                width="24" 
+                height="24"
+                fill="black"
+              )
+              inline-svg.bordering.arrowBottom(
+                :src="require('@/assets/images/arrowbottom.svg')"
+                width="24" 
+                height="24"
+                fill="black"
+                @click="showModal"
+              )
+            .row
+              span.white.txt.green 95% 일치
+              span.white.txt.age 19+
+              span.white.txt(style="color: grey") 2023 에피소드 
+              span.white.txt.hd HD
+            .row
+              span.white 폭력적인
+              span.white.circle 
+              span.white 흥미진진
+              span.white.circle
+              span.white 판타지 애니메이션
         .imgBox(v-else :class="{ firstImage:index % 6 === 0, lastImage: index % 6 === 5}")
           img(
             src="@/assets/images/t.png"
