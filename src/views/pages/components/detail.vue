@@ -57,9 +57,21 @@
     }
     .mainImageBox {
       .mainImage {
-        width: 100%;
-        min-height: 850px !important;
-        background-size: cover;
+        position: relative;
+        img {
+          width: 100%;
+          min-height: 850px !important;
+          background-size: cover;
+        }
+        .gradient {
+          position: absolute;
+          z-index: 1;
+          left: 0;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(to top, red, hsla(0, 0%, 9%, 0.5) 70%);
+        }
       }
       .left {
         position: absolute;
@@ -329,16 +341,23 @@
           height: 268px;
         }
       }
+      :after {
+        background-image: linear-gradient(198deg, rgba(0, 0, 0, 0.9), hsla(0, 0%, 9%, 0.5) 20%, transparent 28%);
+        bottom: 0;
+        content: "";
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
       .edgeborder {
         display: inline-block;
         position: absolute;
-        right: 3%;
-        height: 50px;
+        padding: 20px;
+        right: 0;
         color: var(--white);
         font-size: 16px;
         z-index: 1;
-        background-color: black;
-        line-height: 51px;
       }
       img {
         border-radius: 5px;
@@ -463,31 +482,35 @@ el-dialog(:visible='visible' @close="close")
             height="20"
             fill="black"
           ) 
+                  //- background-image: linear-gradient(198deg, rgba(0, 0, 0, 0.9), hsla(0, 0%, 9%, 0.5) 20%, transparent 28%);
       .mainImageBox
-        img.mainImage(src="@/assets/images/t.png"  :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${data.backdrop_path})` }") 
-        .left
-          h2 {{ data.title || data.name}}
-          el-button.playButton
-            mdicon(name="play" size="52") 
-            span 재생
-          inline-svg.bordering(
-            :src="require('@/assets/images/plus.svg')"
-            width="20" 
-            height="20"
-            fill="black"
-          ) 
-          inline-svg.bordering(
-            :src="require('@/assets/images/like.svg')"
-            width="20" 
-            height="20"
-            fill="black"
-          ) 
-        .right
-          inline-svg.bordering(
-            :src="require('@/assets/images/speaker.svg')"
-            width="20" 
-            height="20"
-            fill="black"
+        .mainImage
+          img(src="@/assets/images/t.png"  :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${data.backdrop_path})` }") 
+          .gradient
+        .content
+          .left
+            h2 {{ data.title || data.name}}
+            el-button.playButton
+              mdicon(name="play" size="52") 
+              span 재생
+            inline-svg.bordering(
+              :src="require('@/assets/images/plus.svg')"
+              width="20" 
+              height="20"
+              fill="black"
+            ) 
+            inline-svg.bordering(
+              :src="require('@/assets/images/like.svg')"
+              width="20" 
+              height="20"
+              fill="black"
+            ) 
+          .right
+            inline-svg.bordering(
+              :src="require('@/assets/images/speaker.svg')"
+              width="20" 
+              height="20"
+              fill="black"
           ) 
     .movieInfoBox
       .row

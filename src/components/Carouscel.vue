@@ -11,10 +11,10 @@
     }
   }
   .CarouscelContainer > .row .imgArea .detailBox:hover .imgBox.firstImage {
-    transform: translate(-33%, -58%);
+    transform: translate(-33.5%, -50%);
   }
   .CarouscelContainer > .row .imgArea .detailBox:hover .imgBox.lastImage {
-    transform: translate(-67%, -58%);
+    transform: translate(-66.3%, -50%);
   }
 </style>
 <template lang="pug">
@@ -28,50 +28,12 @@
     .arrow.rightArrow(@click="next") #[mdicon(name="chevron-right" size="50")]
     .imgArea(:style="`width: ${listWidth}px; transform: translateX(${translateXWidth}px)`")
       .detailBox(v-for="(item, index) in movieData.results")
-        .imgBox(v-if="page === pageSize" :class="{ firstImage:(index + 6 - (6 - pageSize)) % 6 === 0, lastImage: (index + 6 - (6 - pageSize)) % 6 === 5}")
-          img(
-              src="@/assets/images/t.png"
-              :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})`}"
-            )
-          .detail
-            .row(style="margin-bottom:10px")
-              el-button.playButton
-                mdicon(name="play" size="38") 
-              inline-svg.bordering(
-                :src="require('@/assets/images/plus.svg')"
-                width="24" 
-                height="24"
-                fill="black"
-              ) 
-              inline-svg.bordering(
-                :src="require('@/assets/images/like.svg')"
-                width="24" 
-                height="24"
-                fill="black"
-              )
-              inline-svg.bordering.arrowBottom(
-                :src="require('@/assets/images/arrowbottom.svg')"
-                width="24" 
-                height="24"
-                fill="black"
-                @click="showModal"
-              )
-            .row
-              span.white.txt.green 95% 일치
-              span.white.txt.age 19+
-              span.white.txt(style="color: grey") 2023 에피소드 
-              span.white.txt.hd HD
-            .row
-              span.white 폭력적인
-              span.white.circle 
-              span.white 흥미진진
-              span.white.circle
-              span.white 판타지 애니메이션
-        .imgBox(v-else :class="{ firstImage:index % 6 === 0, lastImage: index % 6 === 5}")
+        .imgBox(:class="getImgBoxClass(index)")
           img(
             src="@/assets/images/t.png"
             :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})`}"
           )
+          span(style="color: #fff") {{ index }}
           .detail
             .row(style="margin-bottom:10px")
               el-button.playButton
@@ -127,9 +89,10 @@
         immediate: true,
         handler(newVal) {
           if (newVal.results !== undefined) {
-            this.listWidth = newVal.results.length * 489
-            this.pageSize = Math.ceil(newVal.results.length / 6)
-            this.lastPageItemCount = this.movieData.results.length % 6
+            this.totalSize = newVal.results.length
+            this.listWidth = this.totalSize * 489
+            this.pageSize = Math.ceil(this.totalSize / 6)
+            this.lastPageItemCount = this.totalSize % 6
           }
         },
       },
@@ -139,23 +102,33 @@
         move: {
           translateXWidth: 0,
         },
-        page: 1,
         listWidth: 0,
+        itemWidth: 489,
+        totalSize: 0,
+        page: 1,
         pageSize: 0,
         lastPageItemCount: 0,
-        itemSize: 489,
       }
     },
     computed: {
       translateXWidth() {
         if (this.page === this.pageSize) {
-          return this.itemSize * (this.page - 2) * 6 * -1 - this.itemSize * (6 - (6 - this.lastPageItemCount))
+          return this.itemWidth * (this.page - 2) * 6 * -1 - this.itemWidth * (6 - (6 - this.lastPageItemCount))
         } else {
-          return this.itemSize * (this.page - 1) * 6 * -1
+          return this.itemWidth * (this.page - 1) * 6 * -1
         }
       },
     },
     methods: {
+      getImgBoxClass(index) {
+        let result = ""
+        if ((this.page !== this.pageSize && index % 6 === 0) || (this.page === this.pageSize && (index + 6 - (6 - this.pageSize)) % 6 === 0)) {
+          result = "firstImage"
+        } else if ((this.page !== this.pageSize && index % 6 === 5) || (this.page === this.pageSize && (index + 6 - (6 - this.pageSize)) % 6 === 5)) {
+          result = "lastImage"
+        }
+        return result
+      },
       showModal() {
         this.$emit("openDetail")
       },
@@ -170,6 +143,8 @@
         if (this.page > this.pageSize) {
           this.page = 1
         }
+        console.log(this.totalSize, this.pageSize, this.totalSize % 6, this.pageSize - this.page)
+        console.log((this.page - 1) * 6)
       },
     },
   }
