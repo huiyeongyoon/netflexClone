@@ -22,7 +22,6 @@
     margin-bottom: 20px;
   }
   .el-dialog__wrapper {
-    // z-index: 10000 !important;
     .el-dialog {
       border-radius: 5px !important;
     }
@@ -70,12 +69,12 @@
           top: 0;
           right: 0;
           bottom: 0;
-          background: linear-gradient(to top, red, hsla(0, 0%, 9%, 0.5) 70%);
+          background: linear-gradient(0deg, #181818, transparent 10%);
         }
       }
       .left {
         position: absolute;
-        bottom: 6%;
+        bottom: 10%;
         left: 50px;
         h2 {
           width: 500px;
@@ -107,7 +106,7 @@
       }
       .right {
         position: absolute;
-        bottom: 8%;
+        bottom: 12%;
         right: 50px;
         float: right;
       }
@@ -482,12 +481,10 @@ el-dialog(:visible='visible' @close="close")
             height="20"
             fill="black"
           ) 
-                  //- background-image: linear-gradient(198deg, rgba(0, 0, 0, 0.9), hsla(0, 0%, 9%, 0.5) 20%, transparent 28%);
       .mainImageBox
         .mainImage
           img(src="@/assets/images/t.png"  :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${data.backdrop_path})` }") 
           .gradient
-        .content
           .left
             h2 {{ data.title || data.name}}
             el-button.playButton

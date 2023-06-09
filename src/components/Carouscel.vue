@@ -33,7 +33,6 @@
             src="@/assets/images/t.png"
             :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})`}"
           )
-          span(style="color: #fff") {{ index }}
           .detail
             .row(style="margin-bottom:10px")
               el-button.playButton
@@ -99,22 +98,23 @@
     },
     data() {
       return {
-        move: {
-          translateXWidth: 0,
-        },
         listWidth: 0,
         itemWidth: 489,
         totalSize: 0,
         page: 1,
         pageSize: 0,
         lastPageItemCount: 0,
+        checkLastPage: false,
+        // translateXWidth: 0,
       }
     },
     computed: {
       translateXWidth() {
         if (this.page === this.pageSize) {
+          this.setCheckLastPage(true)
           return this.itemWidth * (this.page - 2) * 6 * -1 - this.itemWidth * (6 - (6 - this.lastPageItemCount))
         } else {
+          this.setCheckLastPage(false)
           return this.itemWidth * (this.page - 1) * 6 * -1
         }
       },
@@ -122,29 +122,63 @@
     methods: {
       getImgBoxClass(index) {
         let result = ""
-        if ((this.page !== this.pageSize && index % 6 === 0) || (this.page === this.pageSize && (index + 6 - (6 - this.pageSize)) % 6 === 0)) {
-          result = "firstImage"
-        } else if ((this.page !== this.pageSize && index % 6 === 5) || (this.page === this.pageSize && (index + 6 - (6 - this.pageSize)) % 6 === 5)) {
-          result = "lastImage"
+        if (!this.checkLastPage) {
+          if (index % 6 === 0) {
+            result = "firstImage"
+          } else if (index % 6 === 5) {
+            result = "lastImage"
+          }
+        } else if (this.checkLastPage) {
+          if ((index - this.lastPageItemCount) % 6 === 0) {
+            result = "firstImage"
+          } else if ((index - this.lastPageItemCount) % 6 === 5) {
+            result = "lastImage"
+          }
         }
+        // if ((!this.checkLastPage && index % 6 === 0) || ((index - this.lastPageItemCount) % 6 === 0)) {
+        //   result = "firstImage"
+        // } else if ((!this.checkLastPage && index % 6 === 5) || (index - this.lastPageItemCount) % 6 === 5) {
+        //   result = "lastImage"
+        // }
+
+        // if ((!this.checkLastPage && index % 6 === 0) || (this.checkLastPage && (index + 6 - (6 - this.pageSize)) % 6 === 0)) {
+        //   result = "firstImage"
+        // } else if ((!this.checkLastPage && index % 6 === 5) || (this.checkLastPage && (index + 6 - (6 - this.pageSize)) % 6 === 5)) {
+        //   result = "lastImage"
+        // }
         return result
       },
       showModal() {
         this.$emit("openDetail")
       },
+      setCheckLastPage(val) {
+        this.checkLastPage = val
+      },
+      // getTransLateWidthLength() {
+      //   let currentPageTranslateWidth = this.itemWidth * (this.page - 1) * 6 * -1
+      //   let lastPageTranslateWidth = this.itemWidth * (this.page - 2) * 6 * -1 - this.itemWidth * (6 - (6 - this.lastPageItemCount))
+
+      //   if (this.page === this.pageSize) {
+      //     this.translateXWidth = lastPageTranslateWidth
+      //     this.checkLastPage = true
+      //   } else {
+      //     this.translateXWidth = currentPageTranslateWidth
+      //     this.checkLastPage = false
+      //   }
+      // },
       prev() {
         this.page--
         if (this.page < 1) {
           this.page = this.pageSize
         }
+        // this.getTransLateWidthLength()
       },
       next() {
         this.page++
         if (this.page > this.pageSize) {
           this.page = 1
         }
-        console.log(this.totalSize, this.pageSize, this.totalSize % 6, this.pageSize - this.page)
-        console.log((this.page - 1) * 6)
+        // this.getTransLateWidthLength()
       },
     },
   }
