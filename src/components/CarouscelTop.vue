@@ -19,22 +19,22 @@
       }
     }
   }
-  .CarouscelContainer > .row .imgArea .detailBox:hover .imgBox.firstImage {
+  .carouselContainer > .row .imgArea .detailBox:hover .imgBox.firstImage {
     transform: translate(-33.5%, -50%);
   }
-  .CarouscelContainer > .row .imgArea .detailBox:hover .imgBox.lastImage {
+  .carouselContainer > .row .imgArea .detailBox:hover .imgBox.lastImage {
     transform: translate(-66.2%, -50%);
   }
 </style>
 <template lang="pug">
-.CarouscelContainer
+.carouselContainer
   h2.title {{ title }}
   .barArea
     .box
       .bar(v-for="currentCarouscelNumber in pageSize" :class="{ active : currentCarouscelNumber === page }")
   .row
-    .arrow.leftArrow(@click="prev") #[mdicon(name="chevron-left" size="50")]
-    .arrow.rightArrow(@click="next") #[mdicon(name="chevron-right" size="50")]
+    .arrow.leftArrow(@click="prev" :class="{ 'disabled': checkArrowCondition }") #[mdicon(name="chevron-left" size="50")]
+    .arrow.rightArrow(@click="next" :class="{ 'disabled': checkArrowCondition }") #[mdicon(name="chevron-right" size="50")]
     .imgArea(:style="`width: ${listWidth}px; transform: translateX(${translateXWidth}px)`")
       .detailBox(v-for="(item, index) in movieData")
         .imgBox(v-if="page === pageSize" :class="{ firstImage:(index + 6 - (6 - pageSize)) % 6 === 0, lastImage: (index + 6 - (6 - pageSize)) % 6 === 5}")
@@ -165,6 +165,7 @@
         pageSize: 0,
         lastPageItemCount: 0,
         itemSize: 489,
+        checkArrowCondition: false,
       }
     },
     computed: {
@@ -178,16 +179,26 @@
       },
     },
     methods: {
+      stopCarouscel() {
+        if (!this.checkArrowCondition) {
+          this.checkArrowCondition = true
+          setTimeout(() => {
+            this.checkArrowCondition = false
+          }, 1000)
+        }
+      },
       showModal() {
         this.$emit("openDetail")
       },
       prev() {
+        this.stopCarouscel()
         this.page--
         if (this.page < 1) {
           this.page = this.pageSize
         }
       },
       next() {
+        this.stopCarouscel()
         this.page++
         if (this.page > this.pageSize) {
           this.page = 1
