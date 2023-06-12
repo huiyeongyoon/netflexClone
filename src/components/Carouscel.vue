@@ -24,10 +24,10 @@
     .box
       .bar(v-for="currentCarouscelNumber in pageSize" :class="{ active : currentCarouscelNumber === page }")
   .row
-    .arrow.leftArrow(@click="prev" :class="{ 'disabled': checkArrowCondition }") #[mdicon(name="chevron-left" size="50")]
-    .arrow.rightArrow(@click="next" :class="{ 'disabled': checkArrowCondition }") #[mdicon(name="chevron-right" size="50")]
+    .arrow.leftArrow(@click="prev") #[mdicon(name="chevron-left" size="50")]
+    .arrow.rightArrow(@click="next") #[mdicon(name="chevron-right" size="50")]
     .imgArea(:style="`width: ${listWidth}px; transform: translateX(${translateXWidth}px)`")
-      .detailBox(v-for="(item, index) in movieData.results")
+      .detailBox(v-for="(item, index) in movieData.results" :class="{ 'disabled': checkArrowCondition }")
         .imgBox(:class="getImgBoxClass(index)")
           img(
             src="@/assets/images/t.png"
@@ -87,6 +87,7 @@
       movieData: {
         immediate: true,
         handler(newVal) {
+          console.log(newVal)
           if (newVal.results !== undefined) {
             this.totalSize = newVal.results.length
             this.listWidth = this.totalSize * 489
@@ -118,12 +119,10 @@
     },
     methods: {
       stopCarouscel() {
-        if (!this.checkArrowCondition) {
-          this.checkArrowCondition = true
-          setTimeout(() => {
-            this.checkArrowCondition = false
-          }, 1000)
-        }
+        this.checkArrowCondition = true
+        setTimeout(() => {
+          this.checkArrowCondition = false
+        }, 1000)
       },
       getImgBoxClass(index) {
         let result = ""
@@ -139,17 +138,21 @@
         this.$emit("openDetail")
       },
       prev() {
-        this.stopCarouscel()
-        this.page--
-        if (this.page < 1) {
-          this.page = this.pageSize
+        if (!this.checkArrowCondition) {
+          this.page--
+          if (this.page < 1) {
+            this.page = this.pageSize
+          }
+          this.stopCarouscel()
         }
       },
       next() {
-        this.stopCarouscel()
-        this.page++
-        if (this.page > this.pageSize) {
-          this.page = 1
+        if (!this.checkArrowCondition) {
+          this.page++
+          if (this.page > this.pageSize) {
+            this.page = 1
+          }
+          this.stopCarouscel()
         }
       },
     },

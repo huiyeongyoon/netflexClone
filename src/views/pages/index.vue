@@ -180,21 +180,43 @@
           const { data } = res
           this.randomMovieInfo = data.results[Math.floor(Math.random() * data.results.length)]
         })
-
+        // 아래 함수 3개 호출
         MovieTopRated(this.form).then(res => {
           const { data } = res
-          this.top = data.results.slice(10)
+
+          console.log(
+            JSON.stringify(
+              data.results.slice(10).map((item, i) => {
+                item.rank = i + 1
+                return item
+              }),
+              0,
+              2
+            )
+          )
+
+          this.top = this.setMovieData(data.results.slice(10))
         })
 
-        MoviePopular(this.form).then(res => {
-          const { data } = res
-          this.popular = data
-        })
+        // MoviePopular(this.form).then(res => {
+        //   const { data } = res
+        //   this.popular = this.setMovieData(data)
+        // })
 
-        movieUpcoming(this.form).then(res => {
-          const { data } = res
-          this.upcoming = data
-        })
+        // movieUpcoming(this.form).then(res => {
+        //   const { data } = res
+        //   this.upcoming = this.setMovieData(data)
+        // })
+      },
+      setMovieData(data) {
+        let movieData = data
+        let addDataFront = data.slice(-6)
+        let addDataBack = data.slice(0, 6)
+
+        Array.isArray(movieData) ? movieData.unshift(...addDataFront) : []
+        Array.isArray(movieData) ? movieData.push(...addDataBack) : []
+
+        return movieData
       },
       showDetail() {
         this.visible = true
