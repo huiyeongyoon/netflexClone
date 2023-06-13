@@ -35,7 +35,7 @@
   .row
     .arrow.leftArrow(@click="prev") #[mdicon(name="chevron-left" size="50")]
     .arrow.rightArrow(@click="next") #[mdicon(name="chevron-right" size="50")]
-    .imgArea(:style="`width: ${listWidth}px; transform: translateX(${translateXWidth}px)`")
+    .imgArea(:class="{ 'replace': transitionCondition }" :style="`width: ${listWidth}px; transform: translateX(${translateXWidth}px)`")
       .detailBox(v-for="(item, index) in movieList" :class="{ 'disabled': checkArrowCondition }")
         p(style="color: red") {{ index + 1}}
         .imgBox(:class="getImgBoxClass(index)")
@@ -124,25 +124,6 @@
           }
         },
       },
-      // page: {
-      // handler(newVal) {
-      //   if (newVal === 0) {
-      //     console.log("새로 만든 앞 데이터event")
-      //     this.movieList.unshift(...this.addDataFront)
-      //     this.totalSize = this.movieList.length
-      //     this.listWidth = this.totalSize * 489
-      //     this.lastPageItemCount = this.totalSize % 6
-      //   } else if (newVal === this.pageSize) {
-      //     console.log("새로 만든 뒷 데이터event")
-      //     this.movieList.push(...this.addDataBack)
-      //     this.totalSize = this.movieList.length
-      //     this.listWidth = this.totalSize * 489
-      //     this.lastPageItemCount = this.totalSize % 6
-      //   } else {
-      //     console.log("기본 데이터event")
-      //   }
-      // },
-      // },
     },
     data() {
       return {
@@ -157,7 +138,7 @@
         pageSize: 0,
         lastPageItemCount: 0,
         checkArrowCondition: false,
-        transitionCondition: false,
+        transitionCondition: true,
       }
     },
     computed: {
@@ -192,15 +173,13 @@
       showModal() {
         this.$emit("openDetail")
       },
-      // 페이지가 1일떄 1 2 3 4 5 6
-      // 페이지가 2일떄 5 6 7 8 9 10
-      // 페이지가 3일떄 1 2 3 4 5 6
-      // 페이지가 4일대 5 6 7 8 9 10
       prev() {
         if (!this.checkArrowCondition) {
           this.page--
+          this.transitionCondition = true
           if (this.page === 0) {
             setTimeout(() => {
+              this.transitionCondition = false
               this.page = this.pageSize - 2
             }, 1000)
           }
@@ -210,9 +189,12 @@
       next() {
         if (!this.checkArrowCondition) {
           this.page++
+          this.transitionCondition = true
           if (this.page > this.pageSize - 2) {
             setTimeout(() => {
+              console.log(1111)
               this.page = 1
+              this.transitionCondition = false
             }, 1000)
           }
           this.stopCarouscel()

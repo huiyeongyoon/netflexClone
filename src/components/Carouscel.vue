@@ -68,7 +68,6 @@
               span.white.circle
               span.white 판타지 애니메이션
 </template>
-
 <script>
   export default {
     props: {

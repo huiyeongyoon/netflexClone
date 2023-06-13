@@ -1,6 +1,9 @@
 .disabled {
   pointer-events: none;
 }
+.replace {
+  transition: transform 1s;
+}
 .carouselContainer:first-child {
   z-index: 1000;
   margin-top: -280px;
@@ -81,7 +84,6 @@
       right: 0;
     }
     .imgArea {
-      transition: transform 1s;
       .detailBox {
         display: inline-block;
         position: relative;
