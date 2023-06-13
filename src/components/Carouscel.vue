@@ -87,7 +87,6 @@
       movieData: {
         immediate: true,
         handler(newVal) {
-          console.log(newVal)
           if (newVal.results !== undefined) {
             this.totalSize = newVal.results.length
             this.listWidth = this.totalSize * 489

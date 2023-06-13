@@ -166,7 +166,7 @@
         },
       }
     },
-    mounted() {
+    created() {
       // async trendingAllWeek({ api_key: "78a4d0373f1d5e9db6addc349a02b5ba", language: this.language })
       // await this.randomMovieInfo = data.results[Math.floor(Math.random() * data.results.length)]
 
@@ -175,27 +175,19 @@
       this.fetchList()
     },
     methods: {
-      fetchList() {
+      async fetchList() {
         trendingAllWeek(this.form).then(res => {
           const { data } = res
           this.randomMovieInfo = data.results[Math.floor(Math.random() * data.results.length)]
         })
         // 아래 함수 3개 호출
-        MovieTopRated(this.form).then(res => {
+        await MovieTopRated(this.form).then(res => {
           const { data } = res
-
-          console.log(
-            JSON.stringify(
-              data.results.slice(10).map((item, i) => {
-                item.rank = i + 1
-                return item
-              }),
-              0,
-              2
-            )
-          )
-
-          this.top = this.setMovieData(data.results.slice(10))
+          this.top = data.results
+          // data.results.slice(10).map((item, i) => {
+          //   item.rank = i + 1
+          //   this.top.push(item)
+          // })
         })
 
         // MoviePopular(this.form).then(res => {
@@ -208,16 +200,7 @@
         //   this.upcoming = this.setMovieData(data)
         // })
       },
-      setMovieData(data) {
-        let movieData = data
-        let addDataFront = data.slice(-6)
-        let addDataBack = data.slice(0, 6)
 
-        Array.isArray(movieData) ? movieData.unshift(...addDataFront) : []
-        Array.isArray(movieData) ? movieData.push(...addDataBack) : []
-
-        return movieData
-      },
       showDetail() {
         this.visible = true
       },

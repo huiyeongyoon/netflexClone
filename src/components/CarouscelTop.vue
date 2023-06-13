@@ -31,16 +31,16 @@
   h2.title {{ title }}
   .barArea
     .box
-      .bar(v-for="currentCarouscelNumber in pageSize"  v-if="currentCarouscelNumber > 1" :class="{ active : currentCarouscelNumber === page }")
+      .bar(v-for="currentCarouscelNumber in barSize" :class="{ active : currentCarouscelNumber === page }")
   .row
     .arrow.leftArrow(@click="prev") #[mdicon(name="chevron-left" size="50")]
     .arrow.rightArrow(@click="next") #[mdicon(name="chevron-right" size="50")]
     .imgArea(:style="`width: ${listWidth}px; transform: translateX(${translateXWidth}px)`")
-      .detailBox(v-for="(item, index) in movieData" :class="{ 'disabled': checkArrowCondition }")
+      .detailBox(v-for="(item, index) in movieList" :class="{ 'disabled': checkArrowCondition }")
         p(style="color: red") {{ index + 1}}
         .imgBox(:class="getImgBoxClass(index)")
           inline-svg.numberImage(
-            :src="require(`@/assets/images/1.svg`)"
+            :src="require(`@/assets/images/${item.rank}.svg`)"
             width="238" 
             height="352"
             fill="black"
@@ -49,7 +49,6 @@
             src="@/assets/images/t.png"
             :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})`}"
           )
-          p {{ index, item }}
           .detail
             .row(style="margin-bottom:10px")
               el-button.playButton
@@ -101,35 +100,75 @@
       },
     },
     watch: {
+      // 한번만 실행되고 실행되면 안되
       movieData: {
         immediate: true,
         handler(newVal) {
           if (newVal.length !== 0) {
-            this.totalSize = newVal.length
+            newVal.slice(10).map((item, i) => {
+              item.rank = i + 1
+              this.movieList.push(item)
+            })
+
+            this.addDataFront = this.movieList.slice(-6)
+            this.addDataBack = this.movieList.slice(0, 6)
+            this.barSize = Math.ceil(this.movieList.length / 6)
+
+            this.movieList.unshift(...this.addDataFront)
+            this.movieList.push(...this.addDataBack)
+
+            this.totalSize = this.movieList.length
             this.listWidth = this.totalSize * 489
-            this.pageSize = Math.floor(this.totalSize / 6)
+            this.pageSize = Math.ceil(this.totalSize / 6)
             this.lastPageItemCount = this.totalSize % 6
           }
         },
       },
+      // page: {
+      // handler(newVal) {
+      //   if (newVal === 0) {
+      //     console.log("새로 만든 앞 데이터event")
+      //     this.movieList.unshift(...this.addDataFront)
+      //     this.totalSize = this.movieList.length
+      //     this.listWidth = this.totalSize * 489
+      //     this.lastPageItemCount = this.totalSize % 6
+      //   } else if (newVal === this.pageSize) {
+      //     console.log("새로 만든 뒷 데이터event")
+      //     this.movieList.push(...this.addDataBack)
+      //     this.totalSize = this.movieList.length
+      //     this.listWidth = this.totalSize * 489
+      //     this.lastPageItemCount = this.totalSize % 6
+      //   } else {
+      //     console.log("기본 데이터event")
+      //   }
+      // },
+      // },
     },
     data() {
       return {
+        addDataFront: [],
+        addDataBack: [],
+        movieList: [],
         listWidth: 0,
         itemWidth: 489,
         totalSize: 0,
         page: 1,
+        barSize: 0,
         pageSize: 0,
         lastPageItemCount: 0,
         checkArrowCondition: false,
+        transitionCondition: false,
       }
     },
     computed: {
       translateXWidth() {
-        if (this.page === this.pageSize) {
-          return this.itemWidth * (this.page - 1) * 6 * -1 - this.itemWidth * (6 - (6 - this.lastPageItemCount))
+        let itemWidth = 0
+        if (this.page >= this.pageSize - 2) {
+          itemWidth = this.itemWidth * (this.page - 1) * 6 * -1 - this.itemWidth * (6 - (6 - this.lastPageItemCount))
+          return itemWidth
         } else {
-          return this.itemWidth * (this.page - 1) * 6 * -1
+          itemWidth = this.itemWidth * this.page * 6 * -1
+          return itemWidth
         }
       },
     },
@@ -153,13 +192,17 @@
       showModal() {
         this.$emit("openDetail")
       },
+      // 페이지가 1일떄 1 2 3 4 5 6
+      // 페이지가 2일떄 5 6 7 8 9 10
+      // 페이지가 3일떄 1 2 3 4 5 6
+      // 페이지가 4일대 5 6 7 8 9 10
       prev() {
         if (!this.checkArrowCondition) {
           this.page--
-          // page가 1 되면
-
-          if (this.page < 1) {
-            this.page = this.pageSize
+          if (this.page === 0) {
+            setTimeout(() => {
+              this.page = this.pageSize - 2
+            }, 1000)
           }
           this.stopCarouscel()
         }
@@ -167,10 +210,10 @@
       next() {
         if (!this.checkArrowCondition) {
           this.page++
-          // page 가 3 되면
-
-          if (this.page > this.pageSize) {
-            this.page = 1
+          if (this.page > this.pageSize - 2) {
+            setTimeout(() => {
+              this.page = 1
+            }, 1000)
           }
           this.stopCarouscel()
         }
