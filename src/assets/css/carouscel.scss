@@ -90,80 +90,6 @@
         margin: 0 0.35rem;
         width: 477.8px;
         position: relative;
-        .imgBox {
-          position: absolute;
-          border-radius: 5px;
-          overflow: hidden;
-        }
-        .detail {
-          width: 100%;
-          display: none;
-          .row {
-            padding: 0 10px;
-            margin-bottom: 25px;
-            &:after {
-              content: "";
-              display: block;
-              clear: both;
-            }
-            .playButton {
-              margin: 15px 8px 0 10px;
-              border-radius: 50%;
-              color: black;
-              padding: 0;
-            }
-            .bordering {
-              margin: 15px 8px 0 0;
-              vertical-align: top;
-              border: 1px solid grey;
-              color: #fff;
-              background-color: #222222;
-              border-radius: 50%;
-              padding: 8px;
-              &:hover {
-                border: 1px solid #fff;
-              }
-            }
-            .arrowBottom {
-              float: right;
-              margin-right: 8px;
-            }
-            .white {
-              display: inline-block;
-              font-size: 1rem;
-              margin-right: 15px;
-              color: #fff;
-            }
-            .circle {
-              content: "";
-              padding: 5px;
-              background-color: hsla(0, 0%, 100%, 0.4);
-              border-radius: 50%;
-            }
-            .age {
-              border: 1px solid hsla(0, 0%, 100%, 0.4);
-              border-radius: 3px;
-              color: hsla(0, 0%, 100%, 0.9);
-              font-size: 0.8em;
-              white-space: nowrap;
-              padding: 0 0.2rem;
-            }
-            .hd {
-              border: 1px solid hsla(0, 0%, 100%, 0.4);
-              border-radius: 3px;
-              color: hsla(0, 0%, 100%, 0.9);
-              font-size: 0.4em;
-              white-space: nowrap;
-              padding: 0 0.2rem;
-            }
-            .txt {
-              color: grey;
-            }
-            .green {
-              color: #46d369;
-            }
-          }
-        }
         &:hover {
           z-index: 1;
           .imgBox {
@@ -178,11 +104,82 @@
             img {
               height: 470px;
             }
-            svg {
-              display: none;
-            }
             .detail {
-              display: inline-block;
+              display: block;
+            }
+          }
+        }
+        .imgBox {
+          position: absolute;
+          border-radius: 5px;
+          overflow: hidden;
+          .detail {
+            width: 100%;
+            display: none;
+            .row {
+              padding: 0 10px;
+              margin-bottom: 25px;
+              &:after {
+                content: "";
+                display: block;
+                clear: both;
+              }
+              .playButton {
+                margin: 15px 8px 0 10px;
+                border-radius: 50%;
+                color: black;
+                padding: 0;
+              }
+              .bordering {
+                margin: 15px 8px 0 0;
+                vertical-align: top;
+                border: 1px solid grey;
+                color: #fff;
+                background-color: #222222;
+                border-radius: 50%;
+                padding: 8px;
+                &:hover {
+                  border: 1px solid #fff;
+                }
+              }
+              .arrowBottom {
+                float: right;
+                margin-right: 8px;
+              }
+              .white {
+                display: inline-block;
+                font-size: 1rem;
+                margin-right: 15px;
+                color: #fff;
+              }
+              .circle {
+                content: "";
+                padding: 5px;
+                background-color: hsla(0, 0%, 100%, 0.4);
+                border-radius: 50%;
+              }
+              .age {
+                border: 1px solid hsla(0, 0%, 100%, 0.4);
+                border-radius: 3px;
+                color: hsla(0, 0%, 100%, 0.9);
+                font-size: 0.8em;
+                white-space: nowrap;
+                padding: 0 0.2rem;
+              }
+              .hd {
+                border: 1px solid hsla(0, 0%, 100%, 0.4);
+                border-radius: 3px;
+                color: hsla(0, 0%, 100%, 0.9);
+                font-size: 0.4em;
+                white-space: nowrap;
+                padding: 0 0.2rem;
+              }
+              .txt {
+                color: grey;
+              }
+              .green {
+                color: #46d369;
+              }
             }
           }
         }

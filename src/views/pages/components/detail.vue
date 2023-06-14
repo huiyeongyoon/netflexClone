@@ -47,6 +47,7 @@
       position: absolute;
       top: 15px;
       right: 15px;
+      z-index: 1;
       svg {
         color: var(--white);
         background-color: #181818;
@@ -202,13 +203,18 @@
       display: table;
       .row {
         display: table-inline;
+        border-radius: 5px;
         border-bottom: 1px solid #404040;
         &.selected {
           border-radius: 5px;
           background-color: #2f2f2f;
-          border-bottom: none;
+        }
+        &:first-child {
+          border-radius: 5px;
+          border-top: 1px solid #404040;
         }
         &:last-child {
+          border-radius: 0;
           border-bottom: 2px solid #404040;
         }
         > * {
@@ -340,15 +346,6 @@
           height: 268px;
         }
       }
-      :after {
-        background-image: linear-gradient(198deg, rgba(0, 0, 0, 0.9), hsla(0, 0%, 9%, 0.5) 20%, transparent 28%);
-        bottom: 0;
-        content: "";
-        left: 0;
-        position: absolute;
-        right: 0;
-        top: 0;
-      }
       .edgeborder {
         display: inline-block;
         position: absolute;
@@ -357,9 +354,18 @@
         color: var(--white);
         font-size: 16px;
         z-index: 1;
+        background-image: linear-gradient(198deg, rgba(0, 0, 0, 0.9), hsla(0, 0%, 9%, 0.5) 20%, transparent 28%);
+        bottom: 0;
+        content: "";
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        border-top-right-radius: 5px;
       }
       img {
-        border-radius: 5px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
         background-size: cover;
         width: 100%;
         height: 270px;
@@ -419,12 +425,12 @@
       background-color: #2f2f2f;
       float: left;
       margin: 10px;
-      border-radius: 5px;
       .sumnail {
         position: relative;
         img {
           width: 100%;
-          border-radius: 5px;
+          border-top-left-radius: 5px;
+          border-top-right-radius: 5px;
           background-size: cover;
           height: 228px;
         }
@@ -566,7 +572,7 @@ el-dialog(:visible='visible' @close="close")
     .sereisInfoBox
       h3 회차
       .box
-        .row(v-for="(item, index) in movieData.results" :class="{ selected: index === 0 }")
+        .row(v-for="(item, index) in movieData.results" :class="{ selected: index === 1 }")
           h4 {{ index+1}} 
           .seriseImage
             span(class="thumb" :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${item.backdrop_path})`}") 

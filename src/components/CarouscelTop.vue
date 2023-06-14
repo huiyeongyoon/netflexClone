@@ -31,13 +31,13 @@
   h2.title {{ title }}
   .barArea
     .box
-      .bar(v-for="currentCarouscelNumber in barSize" :class="{ active : currentCarouscelNumber === page }")
+      .bar(v-for="currentCarouscelNumber in barSize"
+          :class="{ active : currentCarouscelNumber === page || page === barSize + 1 && currentCarouscelNumber === 1 || page === 0 && currentCarouscelNumber === barSize }")
   .row
     .arrow.leftArrow(@click="prev") #[mdicon(name="chevron-left" size="50")]
     .arrow.rightArrow(@click="next") #[mdicon(name="chevron-right" size="50")]
     .imgArea(:class="{ 'replace': transitionCondition }" :style="`width: ${listWidth}px; transform: translateX(${translateXWidth}px)`")
       .detailBox(v-for="(item, index) in movieList" :class="{ 'disabled': checkArrowCondition }")
-        p(style="color: red") {{ index + 1}}
         .imgBox(:class="getImgBoxClass(index)")
           inline-svg.numberImage(
             :src="require(`@/assets/images/${item.rank}.svg`)"
@@ -84,7 +84,6 @@
               span.white.circle
               span.white 판타지 애니메이션
 </template>
-
 <script>
   export default {
     props: {
@@ -100,7 +99,6 @@
       },
     },
     watch: {
-      // 한번만 실행되고 실행되면 안되
       movieData: {
         immediate: true,
         handler(newVal) {
@@ -112,7 +110,6 @@
 
             this.addDataFront = this.movieList.slice(-6)
             this.addDataBack = this.movieList.slice(0, 6)
-            this.barSize = Math.ceil(this.movieList.length / 6)
 
             this.movieList.unshift(...this.addDataFront)
             this.movieList.push(...this.addDataBack)
@@ -120,6 +117,7 @@
             this.totalSize = this.movieList.length
             this.listWidth = this.totalSize * 489
             this.pageSize = Math.ceil(this.totalSize / 6)
+            this.barSize = this.pageSize - 2
             this.lastPageItemCount = this.totalSize % 6
           }
         },
@@ -139,30 +137,33 @@
         lastPageItemCount: 0,
         checkArrowCondition: false,
         transitionCondition: true,
+        direction: "next",
       }
     },
     computed: {
       translateXWidth() {
-        let itemWidth = 0
+        const itemCount = 6
+        const pregentTranslateXPlace = this.itemWidth * (this.page - 1) * itemCount * -1 // index가 0 부터 시작 하기때문에 -1해줌
+        const remainingItemstranslateXSize = this.itemWidth * (itemCount - (itemCount - this.lastPageItemCount))
+        let transLateCoordination = this.itemWidth * this.page * itemCount * -1
+
         if (this.page >= this.pageSize - 2) {
-          itemWidth = this.itemWidth * (this.page - 1) * 6 * -1 - this.itemWidth * (6 - (6 - this.lastPageItemCount))
-          return itemWidth
-        } else {
-          itemWidth = this.itemWidth * this.page * 6 * -1
-          return itemWidth
+          transLateCoordination = pregentTranslateXPlace - remainingItemstranslateXSize
         }
+        return transLateCoordination
       },
     },
     methods: {
-      stopCarouscel() {
-        this.checkArrowCondition = true
-        setTimeout(() => {
-          this.checkArrowCondition = false
-        }, 1000)
-      },
       getImgBoxClass(index) {
         let result = ""
-        let newItemIndex = this.page === this.pageSize ? index - this.lastPageItemCount : index
+        let newItemIndex = null
+
+        if (this.direction === "next") {
+          newItemIndex = this.page === this.pageSize - 2 ? index - this.lastPageItemCount : index
+        } else if (this.direction === "prev") {
+          newItemIndex = this.page === 0 ? index : index - this.lastPageItemCount
+        }
+
         if (newItemIndex % 6 === 0) {
           result = "firstImage"
         } else if (newItemIndex % 6 === 5) {
@@ -170,35 +171,53 @@
         }
         return result
       },
-      showModal() {
-        this.$emit("openDetail")
-      },
+
       prev() {
         if (!this.checkArrowCondition) {
+          this.direction = "prev"
           this.page--
           this.transitionCondition = true
+
           if (this.page === 0) {
-            setTimeout(() => {
-              this.transitionCondition = false
-              this.page = this.pageSize - 2
-            }, 1000)
+            this.setTransitionTime(this.direction)
           }
           this.stopCarouscel()
         }
       },
+
       next() {
         if (!this.checkArrowCondition) {
+          this.direction = "next"
           this.page++
           this.transitionCondition = true
+
           if (this.page > this.pageSize - 2) {
-            setTimeout(() => {
-              console.log(1111)
-              this.page = 1
-              this.transitionCondition = false
-            }, 1000)
+            this.setTransitionTime(this.direction)
           }
           this.stopCarouscel()
         }
+      },
+
+      stopCarouscel() {
+        this.checkArrowCondition = true
+        setTimeout(() => {
+          this.checkArrowCondition = false
+        }, 1000)
+      },
+
+      setTransitionTime(direction) {
+        setTimeout(() => {
+          this.transitionCondition = false
+          if (direction === "prev") {
+            this.page = this.pageSize - 2
+          } else if (direction === "next") {
+            this.page = 1
+          }
+        }, 1000)
+      },
+
+      showModal() {
+        this.$emit("openDetail")
       },
     },
   }

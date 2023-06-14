@@ -175,30 +175,26 @@
       this.fetchList()
     },
     methods: {
-      async fetchList() {
+      fetchList() {
         trendingAllWeek(this.form).then(res => {
           const { data } = res
           this.randomMovieInfo = data.results[Math.floor(Math.random() * data.results.length)]
         })
         // 아래 함수 3개 호출
-        await MovieTopRated(this.form).then(res => {
+        MovieTopRated(this.form).then(res => {
           const { data } = res
           this.top = data.results
-          // data.results.slice(10).map((item, i) => {
-          //   item.rank = i + 1
-          //   this.top.push(item)
-          // })
         })
 
-        // MoviePopular(this.form).then(res => {
-        //   const { data } = res
-        //   this.popular = this.setMovieData(data)
-        // })
+        MoviePopular(this.form).then(res => {
+          const { data } = res
+          this.popular = data
+        })
 
-        // movieUpcoming(this.form).then(res => {
-        //   const { data } = res
-        //   this.upcoming = this.setMovieData(data)
-        // })
+        movieUpcoming(this.form).then(res => {
+          const { data } = res
+          this.upcoming = data
+        })
       },
 
       showDetail() {
