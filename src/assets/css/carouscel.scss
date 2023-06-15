@@ -2,7 +2,7 @@
   pointer-events: none;
 }
 .replace {
-  transition: transform 1s;
+  transition: 1s;
 }
 .carouselContainer:first-child {
   z-index: 1000;
@@ -11,13 +11,47 @@
 .carouselContainer {
   position: relative;
   margin: 92px 0;
-  .title {
-    position: relative;
-    color: #fff;
-    padding-left: 60px;
-    font-size: 43.008px;
-    line-height: 38.4px;
-    vertical-align: bottom;
+  .titleBox {
+    display: inline-block;
+    &:hover {
+      .txt {
+        transition: width 0.5s, opacity 0.8s, transform 0.54s cubic-bezier(0.5, 0, 0.1, 1) 0s;
+        width: 150px;
+        opacity: 1;
+        text-align: right;
+      }
+      .arrow {
+        transition: margin-left 0.75s, width 0.4s, transform 0.54s cubic-bezier(0.5, 0, 0.1, 1) 0s;
+        opacity: 1;
+        margin-left: -10px;
+      }
+    }
+    .title {
+      display: inline-block;
+      position: relative;
+      cursor: pointer;
+      color: #fff;
+      padding-left: 60px;
+      font-size: 43px;
+      vertical-align: bottom;
+    }
+    .txt {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      cursor: pointer;
+      font-size: 30px;
+      color: #54b9c5;
+      width: 0;
+      opacity: 0;
+    }
+    .arrow {
+      overflow: hidden;
+      cursor: pointer;
+      position: absolute;
+      color: #54b9c5;
+      opacity: 0;
+    }
   }
   .barArea {
     margin-right: 60px;
@@ -186,6 +220,7 @@
       }
     }
   }
+
   &:hover {
     .imgArea {
       overflow: unset;

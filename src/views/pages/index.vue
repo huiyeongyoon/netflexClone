@@ -102,6 +102,9 @@
       z-index: 1;
     }
   }
+  .abc:hover {
+    color: red;
+  }
 </style>
 
 <template lang="pug">
@@ -200,6 +203,7 @@
       showDetail() {
         this.visible = true
       },
+
       close() {
         this.visible = false
       },

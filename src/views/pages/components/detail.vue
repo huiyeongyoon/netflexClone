@@ -348,20 +348,22 @@
       }
       .edgeborder {
         display: inline-block;
+        content: "";
         position: absolute;
+        background-image: linear-gradient(198deg, rgba(0, 0, 0, 0.9), hsla(0, 0%, 9%, 0.5) 20%, transparent 28%);
         padding: 20px;
         right: 0;
-        color: var(--white);
-        font-size: 16px;
-        z-index: 1;
-        background-image: linear-gradient(198deg, rgba(0, 0, 0, 0.9), hsla(0, 0%, 9%, 0.5) 20%, transparent 28%);
-        bottom: 0;
-        content: "";
         left: 0;
-        position: absolute;
-        right: 0;
         top: 0;
-        border-top-right-radius: 5px;
+        bottom: 0;
+        z-index: 1;
+        span {
+          display: block;
+          text-align: right;
+          border-top-right-radius: 5px;
+          color: var(--white);
+          font-size: 16px;
+        }
       }
       img {
         border-top-left-radius: 5px;
@@ -586,7 +588,8 @@ el-dialog(:visible='visible' @close="close")
       h3 함께 시청된 콘텐츠
       .list
         .card(v-for="(item, index) in movieData.results")
-          span.edgeborder 에피소드 10개
+          .edgeborder
+            span 에피소드 10개
           .sumnail
             img(src="@/assets/images/t.png"  :style="{ backgroundImage: `url( https://image.tmdb.org/t/p/original${item.backdrop_path})` }") 
             a.hoverPlayButton #[mdicon(name="play" size="42") ]

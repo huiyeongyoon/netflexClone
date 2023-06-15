@@ -19,7 +19,10 @@
 </style>
 <template lang="pug">
 .carouselContainer
-  h2.title {{ title }}
+  h2.titleBox
+    .title {{ title }}
+    span.txt 모두보기
+    span.arrow.rightArrow #[mdicon(name="chevron-right" size="50")]
   .barArea
     .box
       .bar(v-for="currentCarouscelNumber in barSize"
@@ -105,6 +108,7 @@
     },
     data() {
       return {
+        checkTitleHoverCodition: false,
         addDataFront: [],
         addDataBack: [],
         movieList: [],
